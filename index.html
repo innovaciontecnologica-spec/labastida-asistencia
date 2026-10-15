@@ -13,7 +13,7 @@ main{max-width:1200px;margin:28px auto 60px;padding:0 20px}.card{background:#fff
 footer{max-width:1200px;margin:0 auto 20px;color:#7B879A;padding:12px 20px;font-size:12px}.status{border-left:3px solid var(--oro);background:#F9FAFC;padding:11px 13px;border-radius:5px;color:#5C677A;font-size:12px;margin-top:12px}
 @media(max-width:740px){.header{gap:10px;padding:12px 16px;min-height:94px}.escudo{width:60px;height:60px}.brand h1{font-size:23px}.tag{display:none}.grid{grid-template-columns:repeat(2,1fr)}.formgrid{grid-template-columns:1fr}.card{padding:17px}.navinner{padding:5px 10px}.account{width:100%}}
 </style></head><body>
-<header class="header"><img class="escudo" src="assets/escudo.png" alt="Escudo del Colegio Labastida"><div class="brand"><div class="eyebrow">Colegio Labastida · Francisco de Paula</div><h1>Labastida Asistencia</h1><small>Administración académica · Ciclo 2026–2027</small></div><span class="tag">ETAPA 1.1 · DOCENTES</span></header>
+<header class="header"><img class="escudo" src="assets/escudo.png" alt="Escudo del Colegio Labastida"><div class="brand"><div class="eyebrow">Colegio Labastida · Francisco de Paula</div><h1>Labastida Asistencia</h1><small>Administración académica · Ciclo 2026–2027</small></div><span class="tag">ETAPA 1.2 · CLASES CONJUNTAS</span></header>
 <nav id="nav" class="hide"><div class="navinner"><button data-tab="resumen" class="active">Resumen</button><button data-tab="docentes">Docentes</button><button data-tab="asignaciones">Asignaciones</button><span class="grow"></span><span id="username" class="account"></span><button id="logout">Salir</button></div></nav>
 <main>
 <section id="login-screen" class="card" style="max-width:510px;margin:34px auto"><h2>Acceso de direcciones</h2><p>Inicia sesión con tu cuenta institucional. Los maestros se registrarán desde este panel; sus accesos se habilitarán en la siguiente etapa.</p><form id="form-login"><div class="field"><label for="login-user">Usuario</label><input id="login-user" autocomplete="username" required placeholder="dir_primaria"></div><div class="field" style="margin-top:12px"><label for="login-pass">Contraseña</label><input id="login-pass" autocomplete="current-password" type="password" required placeholder="Contraseña personal"></div><div class="buttonrow"><button class="btn" id="btn-login" type="submit">Entrar al sistema</button><span id="login-status" class="quiet"></span></div></form><div class="status">Esta primera etapa permite administrar docentes y asignaciones. El pase de lista todavía no está habilitado.</div><details style="margin-top:20px"><summary style="cursor:pointer;color:#6F7D91;font-size:12px">Configuración técnica</summary><div class="field" style="margin-top:12px"><label for="api-url">Dirección del Worker (terminada en /api)</label><input id="api-url" type="url" autocomplete="off" placeholder="https://labastida-asistencia-api....workers.dev/api"></div><button id="save-url" class="btn sec" style="margin-top:10px" type="button">Guardar dirección</button><div class="quiet" style="margin-top:7px">La dirección se conserva en este navegador. No introduzcas contraseñas ni secretos de Cloudflare aquí.</div></details></section>
@@ -21,7 +21,7 @@ footer{max-width:1200px;margin:0 auto 20px;color:#7B879A;padding:12px 20px;font-
 <div id="app" class="hide">
 <section id="view-resumen" class="view"><div class="subhead"><div><h2>Panel de administración</h2><p id="scope-text">Resumen de matrícula y asignaciones.</p></div><button class="btn sec" id="refresh">↻ Actualizar</button></div><div class="grid"><div class="kpi"><strong id="k-alumnos">—</strong><span>Alumnos en grupos</span></div><div class="kpi"><strong id="k-grupos">—</strong><span>Grupos</span></div><div class="kpi"><strong id="k-docentes">—</strong><span>Docentes activos</span></div><div class="kpi"><strong id="k-asignaciones">—</strong><span>Asignaciones activas</span></div></div><div class="card" style="margin-top:20px"><h3>Grupos y carga académica</h3><p>En Preescolar y Primaria se asigna un titular por grupo; en Secundaria se asigna por materia y grupo según el horario aprobado.</p><div class="datawrap"><table class="data"><thead><tr><th>Grupo</th><th>Nivel</th><th>Alumnos</th><th>Modalidad</th><th>Docentes asignados</th></tr></thead><tbody id="groups-body"></tbody></table></div></div></section>
 <section id="view-docentes" class="view hide"><div class="subhead"><div><h2>Administración de docentes</h2><p>Las direcciones solo pueden dar de alta docentes de su nivel. No se generan accesos docentes en esta primera etapa.</p></div></div><div class="card"><h3>Registrar un docente</h3><form id="form-teacher"><div class="formgrid"><div class="field"><label for="teacher-name">Nombre completo</label><input id="teacher-name" maxlength="110" required placeholder="Nombre y apellidos"></div><div class="field"><label for="teacher-level">Nivel</label><select id="teacher-level" required></select></div><div class="field"><label for="teacher-email">Correo institucional (opcional)</label><input type="email" id="teacher-email" placeholder="docente@colegio.edu.mx"></div></div><div class="buttonrow"><button class="btn" id="btn-teacher" type="submit">Guardar docente</button><span class="quiet">Se protege el registro frente a clics repetidos.</span></div></form></div><div class="card"><h3>Docentes registrados</h3><div class="datawrap"><table class="data"><thead><tr><th>Nombre</th><th>Nivel</th><th>Correo</th><th>Estado</th></tr></thead><tbody id="teachers-body"></tbody></table></div></div></section>
-<section id="view-asignaciones" class="view hide"><div class="subhead"><div><h2>Asignaciones académicas</h2><p>Relaciona docentes con grupos o materias. Si un docente deja de atender un grupo, conserva el historial mediante desasignación.</p></div></div><div class="card"><h3>Nueva asignación</h3><form id="form-assign"><div class="formgrid"><div class="field"><label for="assign-group">Grupo</label><select id="assign-group" required></select></div><div class="field"><label for="assign-teacher">Docente</label><select id="assign-teacher" required></select></div><div class="field" id="matter-field"><label for="assign-matter">Materia (solo Secundaria)</label><select id="assign-matter"></select></div></div><div class="buttonrow"><button class="btn" type="submit" id="btn-assign">Guardar asignación</button></div></form></div><div class="card"><h3>Asignaciones registradas</h3><div class="datawrap"><table class="data"><thead><tr><th>Grupo</th><th>Materia</th><th>Docente</th><th>Estado</th><th>Acción</th></tr></thead><tbody id="assign-body"></tbody></table></div></div><div class="card" id="apoyo-card"><h3>Docente de apoyo · Preescolar</h3><p>Asocia una docente de apoyo a un grupo que ya tenga titular. Esta asignación administrativa no habilita acceso al pase de lista ni duplica asistencias.</p><form id="form-apoyo"><div class="formgrid"><div class="field"><label for="apoyo-group">Grupo de Preescolar</label><select id="apoyo-group" required></select></div><div class="field"><label for="apoyo-teacher">Docente de apoyo</label><select id="apoyo-teacher" required></select></div></div><div class="buttonrow"><button class="btn" type="submit" id="btn-apoyo">Guardar apoyo</button></div></form><div class="datawrap" style="margin-top:18px"><table class="data"><thead><tr><th>Grupo</th><th>Docente de apoyo</th><th>Estado</th><th>Acción</th></tr></thead><tbody id="apoyos-body"></tbody></table></div></div></section>
+<section id="view-asignaciones" class="view hide"><div class="subhead"><div><h2>Asignaciones académicas</h2><p>Relaciona docentes con grupos o materias. Si un docente deja de atender un grupo, conserva el historial mediante desasignación.</p></div></div><div class="card"><h3>Nueva asignación</h3><form id="form-assign"><div class="formgrid"><div class="field"><label for="assign-group">Grupo</label><select id="assign-group" required></select></div><div class="field"><label for="assign-teacher">Docente</label><select id="assign-teacher" required></select></div><div class="field" id="matter-field"><label for="assign-matter">Materia (solo Secundaria)</label><select id="assign-matter"></select></div></div><div class="buttonrow"><button class="btn" type="submit" id="btn-assign">Guardar asignación</button></div></form></div><div class="card"><h3>Asignaciones registradas</h3><div class="datawrap"><table class="data"><thead><tr><th>Grupo</th><th>Materia</th><th>Docente</th><th>Estado</th><th>Acción</th></tr></thead><tbody id="assign-body"></tbody></table></div></div><div class="card" id="conjuntas-card"><h3>Autorizaciones de clases conjuntas · Secundaria</h3><p>Solo pueden autorizarse coincidencias exactas de materia, día y horario entre las secciones A y B del mismo grado. Autorizar no asigna maestros ni genera asistencias.</p><div class="status">Primero autoriza la coincidencia y después asigna al mismo docente a cada grupo desde «Nueva asignación». Si necesitas desactivar una autorización en uso, retira antes una de las dos asignaciones docentes.</div><div class="datawrap" style="margin-top:16px"><table class="data"><thead><tr><th>Grupos</th><th>Materia</th><th>Bloques semanales</th><th>Autorización</th><th>Acción</th></tr></thead><tbody id="conjuntas-body"></tbody></table></div></div><div class="card" id="apoyo-card"><h3>Docente de apoyo · Preescolar</h3><p>Asocia una docente de apoyo a un grupo que ya tenga titular. Esta asignación administrativa no habilita acceso al pase de lista ni duplica asistencias.</p><form id="form-apoyo"><div class="formgrid"><div class="field"><label for="apoyo-group">Grupo de Preescolar</label><select id="apoyo-group" required></select></div><div class="field"><label for="apoyo-teacher">Docente de apoyo</label><select id="apoyo-teacher" required></select></div></div><div class="buttonrow"><button class="btn" type="submit" id="btn-apoyo">Guardar apoyo</button></div></form><div class="datawrap" style="margin-top:18px"><table class="data"><thead><tr><th>Grupo</th><th>Docente de apoyo</th><th>Estado</th><th>Acción</th></tr></thead><tbody id="apoyos-body"></tbody></table></div></div></section>
 </div>
 </main><footer>Colegio Labastida · Plataforma académica separada de SmartCoop · Acceso restringido por nivel.</footer><div id="toast" class="toast hide" role="status"></div>
 <script>
@@ -64,6 +64,7 @@ function render(){const d=state.data;if(!d)return;
   if(selectedGroup&&d.grupos.some(g=>g.id===selectedGroup))$('assign-group').value=selectedGroup;
   updateAssignChoices();
   updateApoyoChoices();
+  renderConjuntas();
   const doc=Object.fromEntries(d.docentes.map(x=>[x.id,x])),groups=Object.fromEntries(d.grupos.map(x=>[x.id,x])),matter=Object.fromEntries(d.materias.map(x=>[x.id,x]));
   const aa=d.asignaciones.map(a=>{
     const tr=row([groups[a.grupoId]?groupName(groups[a.grupoId]):a.grupoId,matter[a.materiaId]?.nombre||'Pase diario',doc[a.docenteId]?.nombre||a.docenteId,a.estado]);
@@ -84,6 +85,48 @@ function render(){const d=state.data;if(!d)return;
     $('apoyos-body').replaceChildren(...(apoyos.length?apoyos:[row(['Sin apoyos registrados','','',''])]));
   }
 
+}
+function renderConjuntas(){
+  const d=state.data;
+  if(!d)return;
+  const allowed=state.user.rol==='general'||state.user.nivel==='Secundaria';
+  $('conjuntas-card').classList.toggle('hide',!allowed);
+  if(!allowed)return;
+  const groups=Object.fromEntries(d.grupos.map(g=>[g.id,g]));
+  const matters=Object.fromEntries(d.materias.map(m=>[m.id,m]));
+  const rows=(d.candidatasConjuntas||[]).map(c=>{
+    const auth=(d.clasesConjuntas||[]).find(a=>a.grupoA===c.grupoA&&a.grupoB===c.grupoB&&a.materiaId===c.materiaId&&a.estado==='Activa');
+    const nombre=[c.grupoA,c.grupoB].map(id=>groups[id]?groupName(groups[id]):id).join(' + ');
+    const tr=row([nombre,matters[c.materiaId]?.nombre||c.materiaId,String(c.bloques),auth?'Autorizada':'Pendiente']);
+    const cell=document.createElement('td'),button=document.createElement('button');
+    button.className=auth?'btn danger small':'btn small';
+    button.textContent=auth?'Desautorizar':'Autorizar';
+    button.addEventListener('click',()=>auth?revocarConjunta(auth):autorizarConjunta(c,nombre));
+    cell.appendChild(button);tr.appendChild(cell);return tr;
+  });
+  $('conjuntas-body').replaceChildren(...(rows.length?rows:[row(['Sin coincidencias exactas','','','',''])]));
+}
+async function autorizarConjunta(c,nombre){
+  if(state.pending)return;
+  const materia=state.data.materias.find(m=>m.id===c.materiaId)?.nombre||c.materiaId;
+  if(!confirm('¿Autorizar clase conjunta de '+nombre+' para '+materia+' ('+c.bloques+' bloque(s) semanal(es))?'))return;
+  state.pending=true;
+  try{
+    const r=await api('autorizarClaseConjunta',{grupoA:c.grupoA,grupoB:c.grupoB,materiaId:c.materiaId,requestId:idRequest()});
+    toast(r.mensaje);await refresh();
+  }catch(e){toast(e.message,true);}finally{state.pending=false;}
+}
+async function revocarConjunta(a){
+  if(state.pending)return;
+  const motivo=prompt('Motivo para desautorizar la clase conjunta (mínimo 8 caracteres):');
+  if(motivo===null)return;
+  if(motivo.trim().length<8){toast('Explica el motivo con al menos 8 caracteres.',true);return;}
+  if(!confirm('¿Desautorizar esta clase conjunta y conservar el historial?'))return;
+  state.pending=true;
+  try{
+    const r=await api('desactivarClaseConjunta',{conjuntaId:a.id,motivo,requestId:idRequest()});
+    toast(r.mensaje);await refresh();
+  }catch(e){toast(e.message,true);}finally{state.pending=false;}
 }
 function updateAssignChoices(){
   if(!state.data)return;
