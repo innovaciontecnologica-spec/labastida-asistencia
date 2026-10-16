@@ -12,17 +12,102 @@ main{max-width:1200px;margin:28px auto 60px;padding:0 20px}.card{background:#fff
 .toast{position:fixed;bottom:20px;right:20px;max-width:420px;padding:16px;background:#0C304C;color:white;border-radius:14px;box-shadow:0 12px 34px #13294544;z-index:30}.toast.error{background:#8F2338}.cover{position:fixed;inset:0;display:grid;place-items:center;padding:20px;background:#0F2C50A6;z-index:20}.dialog{width:min(470px,100%);background:white;padding:28px;border-radius:18px}.spinner{display:inline-block;width:17px;height:17px;border:2px solid #D8E1EA;border-top-color:#1B5478;border-radius:100%;animation:spin .7s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
 footer{max-width:1200px;margin:0 auto 20px;color:#7B879A;padding:12px 20px;font-size:12px}.status{border-left:3px solid var(--oro);background:#F9FAFC;padding:11px 13px;border-radius:5px;color:#5C677A;font-size:12px;margin-top:12px}
 @media(max-width:740px){.header{gap:10px;padding:12px 16px;min-height:94px}.escudo{width:60px;height:60px}.brand h1{font-size:23px}.tag{display:none}.grid{grid-template-columns:repeat(2,1fr)}.formgrid{grid-template-columns:1fr}.card{padding:17px}.navinner{padding:5px 10px}.account{width:100%}}
+
+/* Pase de lista 1.4: aislado de las pantallas de administración. */
+.la14-banner{background:#fef8e8;border:1px solid #eddaa5;color:#71500f;border-radius:12px;padding:13px 16px;font-size:13px;line-height:1.5;margin-bottom:17px}
+.la14-layout{display:grid;grid-template-columns:320px minmax(0,1fr);gap:16px;align-items:start}
+.la14-sidebar,.la14-content{min-width:0}
+.la14-side-scroll{max-height:66vh;overflow:auto;padding-right:4px}
+.la14-classes{display:grid;gap:8px}
+.la14-class{width:100%;display:block;background:#fff;color:#1a3047;border:1px solid #d8e3ee;padding:12px;text-align:left;border-radius:12px;min-height:67px;line-height:1.4}
+.la14-class strong{display:block;font-size:14px}.la14-class small{display:block;color:#586e83;font-size:12px;margin-top:3px}
+.la14-class[aria-pressed="true"]{background:#edf5ff;border:2px solid #1b5caa;padding:11px}.la14-class:disabled{opacity:.5}
+.la14-legend{font-size:13px;color:#5d6d81;margin:4px 0 14px}
+.la14-meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:7px 0 14px}
+.la14-chip{background:#eaf2f9;color:#204669;border-radius:99px;font-size:12px;font-weight:700;padding:6px 11px}
+.la14-chip.warning{background:#fff1d1;color:#805109}
+.la14-progress{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:14px 0}
+.la14-progress>div{border-radius:10px;padding:10px;background:#f3f7fc;border:1px solid #e2eaf3;text-align:center}
+.la14-progress strong{font-size:22px;display:block;color:#12395e}.la14-progress span{font-size:11px;color:#64748b}
+.la14-tools{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin:15px 0}
+.la14-filter{display:flex;gap:5px;flex-wrap:wrap}
+.la14-filter button{border:1px solid #dae3ee;background:white;border-radius:30px;padding:8px 12px;font-size:12px;color:#244361;min-height:40px}
+.la14-filter button[aria-pressed="true"]{background:var(--azul);color:white;border-color:var(--azul)}
+.la14-students{display:grid;gap:9px;margin-bottom:20px}
+.la14-student{border:1px solid #e0e8f1;background:#fff;border-radius:13px;padding:13px 14px;display:grid;grid-template-columns:minmax(150px,1fr) minmax(280px,1.6fr);gap:10px;align-items:center}
+.la14-student-info{min-width:0}.la14-student-info strong{display:block;font-size:14px;color:#183553;overflow-wrap:anywhere}
+.la14-student-info small{display:block;font-size:12px;color:#62758a;margin-top:4px}
+.la14-student-info small.la14-arrival-late{color:#8a5607;font-weight:700}
+.la14-choice{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.la14-choice button{font:700 12px/1.2 system-ui,-apple-system,'Segoe UI',sans-serif;border:1px solid #cbd8e6;background:#f8fafc;color:#26415d;padding:12px 4px;min-height:50px;border-radius:10px;touch-action:manipulation}
+.la14-choice button.selected[data-status="P"]{background:#e3f5ec;border:2px solid #177248;color:#155638;padding:11px 3px}
+.la14-choice button.selected[data-status="A"]{background:#ffebed;border:2px solid #ab3149;color:#8e243a;padding:11px 3px}
+.la14-choice button.selected[data-status="R"]{background:#fff0cc;border:2px solid #ab7011;color:#805108;padding:11px 3px}
+.la14-choice button:disabled{opacity:.38;cursor:not-allowed}
+.la14-choice button:focus-visible{outline:3px solid #2b83e3;outline-offset:2px}
+.la14-motive{grid-column:1/-1;margin:0;padding:8px 0 0;border-top:1px solid #e4eaf1}
+.la14-motive label{display:block;margin-bottom:6px}.la14-motive textarea{min-height:60px;resize:vertical}
+.la14-bottom{position:static;margin-top:14px;background:#ffffffed;backdrop-filter:blur(8px);border:1px solid #dce5ee;border-radius:13px;padding:13px;display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 -8px 20px #142d4a16;z-index:4}
+.la14-bottom .btn{min-height:48px;white-space:normal}
+.la14-bottom p{font-size:12px;margin:0;color:#546679}
+.la14-placeholder{padding:25px 15px;text-align:center;color:#63748a;background:#f7f9fc;border:1px dashed #cbd9e6;border-radius:12px}
+.la14-warning{background:#fff4dc;color:#815005;padding:10px 13px;border-radius:10px;font-size:13px;margin-bottom:12px}
+.la14-success{background:#e9f7f0;color:#176343;padding:12px 14px;border-radius:10px;margin:12px 0;font-size:14px}
+.la14-hidden{display:none!important}
+@media(max-width:920px){.la14-layout{grid-template-columns:1fr}.la14-side-scroll{max-height:250px}.la14-classes{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.la14-progress{grid-template-columns:repeat(2,minmax(0,1fr))}.la14-classes{grid-template-columns:1fr}.la14-side-scroll{max-height:245px}.la14-student{grid-template-columns:1fr;padding:12px}.la14-choice button{min-height:52px;font-size:13px}.la14-bottom{align-items:stretch;flex-direction:column}.la14-bottom button{width:100%}.la14-tools button{min-height:44px}}
 </style></head><body>
-<header class="header"><img class="escudo" src="assets/escudo.png" alt="Escudo del Colegio Labastida"><div class="brand"><div class="eyebrow">Colegio Labastida · Francisco de Paula</div><h1>Labastida Asistencia</h1><small>Administración académica · Ciclo 2026–2027</small></div><span class="tag">ETAPA 1.3.1 · SINCRONIZACIÓN</span></header>
-<nav id="nav" class="hide"><div class="navinner"><button data-tab="resumen" class="active">Resumen</button><button data-tab="docentes">Docentes</button><button data-tab="asignaciones">Asignaciones</button><span class="grow"></span><span id="username" class="account"></span><button id="logout">Salir</button></div></nav>
+<header class="header"><img class="escudo" src="assets/escudo.png" alt="Escudo del Colegio Labastida"><div class="brand"><div class="eyebrow">Colegio Labastida · Francisco de Paula</div><h1>Labastida Asistencia</h1><small>Administración académica · Ciclo 2026–2027</small></div><span class="tag">ETAPA 1.4 · CONSULTA SEGURA</span></header>
+<nav id="nav" class="hide"><div class="navinner"><button data-tab="resumen" class="active">Resumen</button><button data-tab="docentes">Docentes</button><button data-tab="asignaciones">Asignaciones</button><button id="tab-asistencia" data-tab="asistencia" class="hide">Pase de lista · Prueba</button><span class="grow"></span><span id="username" class="account"></span><button id="logout">Salir</button></div></nav>
 <main>
-<section id="login-screen" class="card" style="max-width:510px;margin:34px auto"><h2>Acceso de direcciones</h2><p>Inicia sesión con tu cuenta institucional. Los maestros se registrarán desde este panel; sus accesos se habilitarán en la siguiente etapa.</p><form id="form-login"><div class="field"><label for="login-user">Usuario</label><input id="login-user" autocomplete="username" required placeholder="dir_primaria"></div><div class="field" style="margin-top:12px"><label for="login-pass">Contraseña</label><input id="login-pass" autocomplete="current-password" type="password" required placeholder="Contraseña personal"></div><div class="buttonrow"><button class="btn" id="btn-login" type="submit">Entrar al sistema</button><span id="login-status" class="quiet"></span></div></form><div class="status">Esta primera etapa permite administrar docentes y asignaciones. El pase de lista todavía no está habilitado.</div><details style="margin-top:20px"><summary style="cursor:pointer;color:#6F7D91;font-size:12px">Configuración técnica</summary><div class="field" style="margin-top:12px"><label for="api-url">Dirección del Worker (terminada en /api)</label><input id="api-url" type="url" autocomplete="off" placeholder="https://labastida-asistencia-api....workers.dev/api"></div><button id="save-url" class="btn sec" style="margin-top:10px" type="button">Guardar dirección</button><div class="quiet" style="margin-top:7px">La dirección se conserva en este navegador. No introduzcas contraseñas ni secretos de Cloudflare aquí.</div></details></section>
+<section id="login-screen" class="card" style="max-width:510px;margin:34px auto"><h2>Acceso de direcciones</h2><p>Inicia sesión con tu cuenta institucional. Los maestros se registrarán desde este panel; sus accesos se habilitarán en la siguiente etapa.</p><form id="form-login"><div class="field"><label for="login-user">Usuario</label><input id="login-user" autocomplete="username" required placeholder="dir_primaria"></div><div class="field" style="margin-top:12px"><label for="login-pass">Contraseña</label><input id="login-pass" autocomplete="current-password" type="password" required placeholder="Contraseña personal"></div><div class="buttonrow"><button class="btn" id="btn-login" type="submit">Entrar al sistema</button><span id="login-status" class="quiet"></span></div></form><div class="status">Este panel permite administrar docentes y asignaciones. La consulta de pases 1.4 está disponible para Dirección General y Dirección Secundaria en modo de prueba, sin guardar asistencias.</div><details style="margin-top:20px"><summary style="cursor:pointer;color:#6F7D91;font-size:12px">Configuración técnica</summary><div class="field" style="margin-top:12px"><label for="api-url">Dirección del Worker (terminada en /api)</label><input id="api-url" type="url" autocomplete="off" placeholder="https://labastida-asistencia-api....workers.dev/api"></div><button id="save-url" class="btn sec" style="margin-top:10px" type="button">Guardar dirección</button><div class="quiet" style="margin-top:7px">La dirección se conserva en este navegador. No introduzcas contraseñas ni secretos de Cloudflare aquí.</div></details></section>
 <section id="change-screen" class="card hide" style="max-width:510px;margin:34px auto"><h2>Establecer contraseña personal</h2><p>Por seguridad, cambia la clave temporal antes de comenzar a usar el panel.</p><form id="form-change"><div class="field"><label for="old-pass">Contraseña temporal actual</label><input id="old-pass" type="password" required></div><div class="field" style="margin-top:12px"><label for="new-pass">Nueva contraseña (15 caracteres mínimo)</label><input id="new-pass" type="password" minlength="15" maxlength="128" required></div><div class="field" style="margin-top:12px"><label for="confirm-pass">Confirma la nueva contraseña</label><input id="confirm-pass" type="password" minlength="15" maxlength="128" required></div><div class="buttonrow"><button class="btn" id="btn-change" type="submit">Guardar y volver a entrar</button></div></form></section>
 <div id="app" class="hide">
 <section id="view-resumen" class="view"><div class="subhead"><div><h2>Panel de administración</h2><p id="scope-text">Resumen de matrícula y asignaciones.</p></div><button class="btn sec" id="refresh">↻ Actualizar</button></div><div class="grid"><div class="kpi"><strong id="k-alumnos">—</strong><span>Alumnos en grupos</span></div><div class="kpi"><strong id="k-grupos">—</strong><span>Grupos</span></div><div class="kpi"><strong id="k-docentes">—</strong><span>Docentes activos</span></div><div class="kpi"><strong id="k-asignaciones">—</strong><span>Asignaciones activas</span></div></div><div class="card" style="margin-top:20px"><h3>Grupos y carga académica</h3><p>En Preescolar y Primaria se asigna un titular por grupo; en Secundaria se asigna por materia y grupo según el horario aprobado.</p><div class="datawrap"><table class="data"><thead><tr><th>Grupo</th><th>Nivel</th><th>Alumnos</th><th>Modalidad</th><th>Docentes asignados</th></tr></thead><tbody id="groups-body"></tbody></table></div></div></section>
 <section id="view-docentes" class="view hide"><div class="subhead"><div><h2>Administración de docentes</h2><p>Cada dirección registra personal de su nivel. Dirección General puede autorizar a un docente existente para otro nivel sin duplicar su ficha. Aún no se generan accesos docentes.</p></div></div><div class="card"><h3>Registrar un docente</h3><form id="form-teacher"><div class="formgrid"><div class="field"><label for="teacher-name">Nombre completo</label><input id="teacher-name" maxlength="110" required placeholder="Nombre y apellidos"></div><div class="field"><label for="teacher-level">Nivel</label><select id="teacher-level" required></select></div><div class="field"><label for="teacher-email">Correo institucional (opcional)</label><input type="email" id="teacher-email" placeholder="docente@colegio.edu.mx"></div></div><div class="buttonrow"><button class="btn" id="btn-teacher" type="submit">Guardar docente</button><span class="quiet">Se protege el registro frente a clics repetidos.</span></div></form></div><div class="card"><h3>Docentes registrados</h3><div class="datawrap"><table class="data"><thead><tr><th>Nombre</th><th>Nivel</th><th>Correo</th><th>Estado</th></tr></thead><tbody id="teachers-body"></tbody></table></div></div>
 <div class="card hide" id="multinivel-card"><h3>Autorizar docente para otro nivel · Dirección General</h3><p>Utiliza el registro existente del docente para darle un nivel adicional. Solo Dirección General puede autorizarlo. No crea otra ficha ni cambia el nivel principal o sus apoyos.</p><form id="form-multinivel"><div class="formgrid"><div class="field"><label for="multi-teacher">Docente existente</label><select id="multi-teacher" required></select></div><div class="field"><label for="multi-level">Nivel adicional</label><select id="multi-level" required></select></div></div><div class="buttonrow"><button class="btn" id="btn-multinivel" type="submit">Autorizar nivel adicional</button></div></form><div class="datawrap" style="margin-top:18px"><table class="data"><thead><tr><th>Docente</th><th>Nivel adicional</th><th>Estado</th><th>Acción</th></tr></thead><tbody id="vinculos-body"></tbody></table></div></div></section>
 <section id="view-asignaciones" class="view hide"><div class="subhead"><div><h2>Asignaciones académicas</h2><p>Relaciona docentes con grupos o materias. Si un docente deja de atender un grupo, conserva el historial mediante desasignación.</p></div></div><div class="card"><h3>Nueva asignación</h3><form id="form-assign"><div class="formgrid"><div class="field"><label for="assign-group">Grupo</label><select id="assign-group" required></select></div><div class="field"><label for="assign-teacher">Docente</label><select id="assign-teacher" required></select></div><div class="field" id="matter-field"><label for="assign-matter">Materia (solo Secundaria)</label><select id="assign-matter"></select></div></div><div class="buttonrow"><button class="btn" type="submit" id="btn-assign">Guardar asignación</button></div></form></div><div class="card"><h3>Asignaciones registradas</h3><div class="datawrap"><table class="data"><thead><tr><th>Grupo</th><th>Materia</th><th>Docente</th><th>Estado</th><th>Acción</th></tr></thead><tbody id="assign-body"></tbody></table></div></div><div class="card" id="conjuntas-card"><h3>Autorizaciones de clases conjuntas · Secundaria</h3><p>Solo pueden autorizarse coincidencias exactas de materia, día y horario entre las secciones A y B del mismo grado. Autorizar no asigna maestros ni genera asistencias.</p><div class="status">Primero autoriza la coincidencia y después asigna al mismo docente a cada grupo desde «Nueva asignación». Si necesitas desactivar una autorización en uso, retira antes una de las dos asignaciones docentes.</div><div class="datawrap" style="margin-top:16px"><table class="data"><thead><tr><th>Grupos</th><th>Materia</th><th>Bloques semanales</th><th>Autorización</th><th>Acción</th></tr></thead><tbody id="conjuntas-body"></tbody></table></div></div><div class="card" id="apoyo-card"><h3>Docente de apoyo · Preescolar</h3><p>Asocia una docente de apoyo a un grupo que ya tenga titular. Esta asignación administrativa no habilita acceso al pase de lista ni duplica asistencias.</p><form id="form-apoyo"><div class="formgrid"><div class="field"><label for="apoyo-group">Grupo de Preescolar</label><select id="apoyo-group" required></select></div><div class="field"><label for="apoyo-teacher">Docente de apoyo</label><select id="apoyo-teacher" required></select></div></div><div class="buttonrow"><button class="btn" type="submit" id="btn-apoyo">Guardar apoyo</button></div></form><div class="datawrap" style="margin-top:18px"><table class="data"><thead><tr><th>Grupo</th><th>Docente de apoyo</th><th>Estado</th><th>Acción</th></tr></thead><tbody id="apoyos-body"></tbody></table></div></div></section>
+
+<section id="view-asistencia" class="view hide" aria-labelledby="la14-title">
+  <div class="subhead"><div><h2 id="la14-title">Pase de lista · Secundaria</h2><p>Consulta de clases y validación de asistencia desde la cuenta de Dirección.</p></div><span class="pill pending">MODO PRUEBA · SIN GUARDADO</span></div>
+  <div class="la14-banner"><strong>Prueba segura 1.4.</strong> Los alumnos se consultan desde la base privada por una ruta autenticada. <strong>Validar no guarda pases ni entradas.</strong> El acceso docente y el registro definitivo se habilitarán después de aprobar esta prueba.</div>
+  <div class="card">
+    <div class="formgrid">
+      <div class="field"><label for="la14-date">Fecha de clase</label><input type="date" id="la14-date" required autocomplete="off"></div>
+      <div class="field"><label for="la14-group">Grupo de Secundaria</label><select id="la14-group"><option value="">Consultar fecha primero</option></select></div>
+    </div>
+    <div class="buttonrow"><button type="button" class="btn sec" id="la14-refresh">↻ Consultar horario</button><span id="la14-day" class="quiet" role="status" aria-live="polite"></span></div>
+  </div>
+  <div class="la14-layout">
+    <div class="card la14-sidebar"><h3>Clases programadas</h3><p class="la14-legend">Elige un bloque; cada clase tiene su propio pase.</p><div id="la14-class-list" class="la14-side-scroll la14-classes"><p class="la14-placeholder">Consulta una fecha para ver sus clases.</p></div></div>
+    <div class="card la14-content">
+      <div id="la14-empty" class="la14-placeholder">Selecciona una clase para consultar la lista de alumnos.</div>
+      <div id="la14-pass" class="hide">
+        <h3 id="la14-class-title">Pase de lista</h3>
+        <div id="la14-class-meta" class="la14-meta"></div>
+        <p id="la14-rule" class="la14-legend"></p>
+        <div id="la14-warning" class="la14-warning hide" role="status"></div>
+        <div class="la14-progress" role="group" aria-label="Conteos del pase">
+          <div><strong id="la14-total">0</strong><span>Alumnos</span></div>
+          <div><strong id="la14-present">0</strong><span>Asisten</span></div>
+          <div><strong id="la14-absent">0</strong><span>Ausentes</span></div>
+          <div><strong id="la14-pending">0</strong><span>Sin marcar</span></div>
+        </div>
+        <div class="la14-tools">
+          <button type="button" class="btn sec" id="la14-all-present">✓ Todos presentes</button>
+          <div class="la14-filter" role="group" aria-label="Filtrar alumnos">
+            <button type="button" data-la14-filter="todos" aria-pressed="true">Todos</button>
+            <button type="button" data-la14-filter="pendientes" aria-pressed="false">Sin marcar</button>
+            <button type="button" data-la14-filter="retardos" aria-pressed="false">Retardos</button>
+          </div>
+        </div>
+        <div id="la14-students" class="la14-students" aria-live="polite"></div>
+        <div id="la14-validation" class="hide" role="status" aria-live="polite"></div>
+        <div class="la14-bottom"><p id="la14-status">Todas las marcas son temporales; no se guardan en Sheets.</p><button type="button" class="btn" id="la14-validate">Validar pase (sin guardar)</button></div>
+      </div>
+    </div>
+  </div>
+</section>
 </div>
 </main><footer>Colegio Labastida · Plataforma académica separada de SmartCoop · Acceso restringido por nivel.</footer><div id="toast" class="toast hide" role="status"></div>
 <script>
@@ -34,7 +119,7 @@ const levels=['Preescolar','Primaria','Secundaria'];
 const idRequest=()=>('LA-'+Date.now()+'-'+(crypto.randomUUID?crypto.randomUUID():Math.random().toString(36).slice(2)));
 function toast(msg,bad=false){const t=$('toast');t.textContent=msg;t.className='toast'+(bad?' error':'');clearTimeout(toast._timeout);toast._timeout=setTimeout(()=>t.classList.add('hide'),5500);}
 function show(id){['login-screen','change-screen','app','nav'].forEach(v=>$(v).classList.add('hide'));$(id).classList.remove('hide');if(id==='app')$('nav').classList.remove('hide');}
-function tab(name){state.tab=name;document.querySelectorAll('.view').forEach(x=>x.classList.add('hide'));$('view-'+name).classList.remove('hide');document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x.dataset.tab===name));}
+function tab(name){if(name==='asistencia'&&!la14PuedeConsultar()){toast('Esta vista solo corresponde a Dirección General o Secundaria.',true);return;}state.tab=name;document.querySelectorAll('.view').forEach(x=>x.classList.add('hide'));$('view-'+name).classList.remove('hide');document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x.dataset.tab===name));if(name==='asistencia')void la14CargarClases();}
 function opt(value,label){const o=document.createElement('option');o.value=value;o.textContent=label;return o;}
 function setOptions(el,items,placeholder){el.replaceChildren(opt('',placeholder),...items.map(x=>opt(x.value,x.label)));}
 function td(value){const x=document.createElement('td');x.textContent=String(value??'');return x;}
@@ -236,7 +321,7 @@ async function sendForm(e,action,button,payload,onDone){
   }finally{pending(false,button);}
 }
 async function deactivate(a){if(state.pending)return;const motivo=prompt('Motivo de desasignación (mínimo 8 caracteres):');if(motivo===null)return;if(motivo.trim().length<8){toast('Explica el motivo con al menos 8 caracteres.',true);return;}if(!confirm('¿Desactivar esta asignación conservando el historial?'))return;state.pending=true;try{const r=await api('desactivarAsignacion',{asignacionId:a.id,motivo,requestId:idRequest()});toast(r.mensaje);await refresh();}catch(e){toast(e.message,true);}finally{state.pending=false;}}
-$('form-login').addEventListener('submit',async e=>{e.preventDefault();if(state.pending)return;const button=$('btn-login');pending(true,button,'Conectando…');$('login-status').textContent='Verificando acceso…';try{const r=await api('login',{usuario:$('login-user').value.trim(),clave:$('login-pass').value});state.token=r.token;state.user={usuario:r.usuario,rol:r.rol,nivel:r.nivel,nombre:r.nombre};$('login-pass').value='';if(r.debeCambiar)show('change-screen');else{show('app');tab('resumen');await refresh();}}catch(err){toast(err.message,true);}finally{$('login-status').textContent='';pending(false,button);}});
+$('form-login').addEventListener('submit',async e=>{e.preventDefault();if(state.pending)return;const button=$('btn-login');pending(true,button,'Conectando…');$('login-status').textContent='Verificando acceso…';try{const r=await api('login',{usuario:$('login-user').value.trim(),clave:$('login-pass').value});state.token=r.token;state.user={usuario:r.usuario,rol:r.rol,nivel:r.nivel,nombre:r.nombre};la14ActualizarAcceso();$('login-pass').value='';if(r.debeCambiar)show('change-screen');else{show('app');tab('resumen');await refresh();}}catch(err){toast(err.message,true);}finally{$('login-status').textContent='';pending(false,button);}});
 $('form-change').addEventListener('submit',async e=>{e.preventDefault();if(state.pending)return;if($('new-pass').value!==$('confirm-pass').value){toast('Las contraseñas nuevas no coinciden.',true);return;}const b=$('btn-change');pending(true,b,'Guardando…');try{const r=await api('cambiarClave',{actual:$('old-pass').value,nueva:$('new-pass').value});toast(r.mensaje);state.token=null;['old-pass','new-pass','confirm-pass'].forEach(x=>$(x).value='');show('login-screen');}catch(err){toast(err.message,true);}finally{pending(false,b);}});
 $('form-multinivel').addEventListener('submit',e=>sendForm(e,'vincularDocenteNivel',$('btn-multinivel'),{docenteId:$('multi-teacher').value,nivel:$('multi-level').value},null));
 $('multi-teacher').addEventListener('change',()=>updateMultinivelChoices());
@@ -247,8 +332,212 @@ $('apoyo-group').addEventListener('change',updateApoyoChoices);
 $('assign-group').addEventListener('change',updateAssignChoices);
 $('refresh').addEventListener('click',refresh);
 document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>tab(b.dataset.tab)));
-$('logout').addEventListener('click',async()=>{const token=state.token;state.token=null;state.data=null;state.user=null;show('login-screen');if(token){try{await api('logout',{token});}catch(_){}}});
+$('logout').addEventListener('click',async()=>{la14Limpiar();const token=state.token;state.token=null;state.data=null;state.user=null;show('login-screen');if(token){try{await api('logout',{token});}catch(_){}}});
 $('api-url').value=state.api;
 $('save-url').addEventListener('click',()=>{const url=$('api-url').value.trim().replace(/\/$/,'');if(!/^https:\/\/[a-z0-9.-]+\/api$/i.test(url)){toast('Escribe la dirección HTTPS del Worker terminada en /api.',true);return;}state.api=url;localStorage.setItem('labastida_asistencia_api',url);toast('Dirección del servidor guardada.');});
 ['btn-login','btn-change','btn-teacher','btn-assign','btn-apoyo','btn-multinivel'].forEach(id=>$(id).dataset.label=$(id).textContent);
+
+// === LABASTIDA 1.4 - UI TÁCTIL: SOLO CONSULTA Y VALIDACIÓN, SIN ESCRITURAS ===
+const la14UI={clases:[],grupos:[],vista:null,seleccion:null,marcas:new Map(),filtro:'todos',fechaCargada:'',solicitud:0,validando:false};
+function la14PuedeConsultar(){return Boolean(state.user&&(state.user.rol==='general'||(state.user.rol==='direccion'&&state.user.nivel==='Secundaria')));}
+function la14ActualizarAcceso(){
+  $('tab-asistencia').classList.toggle('hide',!la14PuedeConsultar());
+}
+function la14FechaLocal(){
+  const ahora=new Date();const local=new Date(ahora.getTime()-ahora.getTimezoneOffset()*60000);
+  return local.toISOString().slice(0,10);
+}
+function la14Limpiar(){
+  la14UI.solicitud++;
+  la14UI.clases=[];la14UI.grupos=[];la14UI.vista=null;la14UI.seleccion=null;
+  la14UI.marcas.clear();la14UI.fechaCargada='';la14UI.filtro='todos';la14UI.validando=false;
+  $('la14-class-list').replaceChildren();$('la14-students').replaceChildren();
+  $('la14-empty').classList.remove('hide');$('la14-pass').classList.add('hide');
+  $('tab-asistencia').classList.add('hide');$('la14-day').textContent='';
+}
+function la14Elem(tag,clase,texto){const n=document.createElement(tag);if(clase)n.className=clase;if(texto!==undefined)n.textContent=String(texto);return n;}
+function la14Message(mensaje){const n=la14Elem('p','la14-placeholder',mensaje);$('la14-class-list').replaceChildren(n);}
+function la14VistaVacia(mensaje){
+  $('la14-empty').textContent=mensaje;$('la14-empty').classList.remove('hide');
+  $('la14-pass').classList.add('hide');
+}
+function la14Error(e){toast('Pase de lista: '+(e?.message||'Error no identificado.'),true);}
+async function la14CargarClases(){
+  if(!la14PuedeConsultar())return;
+  const fecha=$('la14-date').value;
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(fecha)){toast('Elige una fecha válida.',true);return;}
+  const seq=++la14UI.solicitud;
+  la14UI.vista=null;la14UI.seleccion=null;la14UI.marcas.clear();la14UI.filtro='todos';
+  la14VistaVacia('Consultando las clases autorizadas…');la14Message('Cargando horario…');
+  $('la14-refresh').disabled=true;
+  try{
+    const d=await api('la14Clases',{fecha});
+    if(seq!==la14UI.solicitud||!la14PuedeConsultar())return;
+    if(!d.soloLectura||!Array.isArray(d.clases)||!Array.isArray(d.grupos))throw Error('El servidor no confirmó la modalidad de solo lectura.');
+    la14UI.clases=d.clases;la14UI.grupos=d.grupos;la14UI.fechaCargada=fecha;
+    $('la14-day').textContent=d.dia+' · '+d.clases.length+' bloques programados';
+    const elegido=$('la14-group').value;
+    const gruposConClases=new Set(d.clases.map(c=>String(c.grupoId)));
+    const opciones=d.grupos.filter(g=>gruposConClases.has(String(g.id)));
+    $('la14-group').replaceChildren(...opciones.map(g=>{
+      const op=la14Elem('option','',String(g.grado)+'º '+String(g.seccion));op.value=g.id;return op;
+    }));
+    if(elegido&&opciones.some(g=>g.id===elegido))$('la14-group').value=elegido;
+    la14DibujarClases();
+    la14VistaVacia(d.clases.length?'Selecciona una clase para consultar el pase.':'No hay clases programadas para esta fecha.');
+  }catch(e){if(seq===la14UI.solicitud){la14Message('No se pudieron cargar las clases.');la14VistaVacia('No se logró consultar el horario. Revisa tu sesión y la implementación de Apps Script.');la14Error(e);}}
+  finally{if(seq===la14UI.solicitud)$('la14-refresh').disabled=false;}
+}
+function la14DibujarClases(){
+  const filtro=$('la14-group').value,clases=la14UI.clases.filter(c=>c.grupoId===filtro);
+  if(!clases.length){la14Message('Sin clases para el grupo y fecha seleccionados.');return;}
+  const frag=document.createDocumentFragment();
+  clases.forEach(c=>{
+    const b=la14Elem('button','la14-class');b.type='button';
+    b.dataset.horarioId=c.horarioId;b.setAttribute('aria-pressed',String(la14UI.seleccion===c.horarioId));
+    b.append(la14Elem('strong','',c.inicio+'–'+c.fin+' · '+c.materia));
+    b.append(la14Elem('small','',c.docente+' · '+(c.primeraHora?'Primera hora':'Clase posterior')));
+    b.addEventListener('click',()=>void la14AbrirClase(c));frag.append(b);
+  });
+  $('la14-class-list').replaceChildren(frag);
+}
+async function la14AbrirClase(c){
+  if(!la14PuedeConsultar())return;
+  const seq=++la14UI.solicitud;
+  la14UI.seleccion=c.horarioId;la14UI.vista=null;la14UI.marcas.clear();la14UI.filtro='todos';
+  la14DibujarClases();la14VistaVacia('Consultando alumnos y control de entrada…');
+  try{
+    const d=await api('la14VistaPase',{fecha:la14UI.fechaCargada,horarioId:c.horarioId});
+    if(seq!==la14UI.solicitud||!la14PuedeConsultar())return;
+    if(!d.soloLectura||!d.condiciones||d.condiciones.guardarHabilitado!==false||!Array.isArray(d.alumnos))
+      throw Error('El servidor no confirmó la vista de prueba sin guardado.');
+    if(d.clase.horarioId!==c.horarioId||d.fecha!==la14UI.fechaCargada)throw Error('La clase de respuesta no coincide con la seleccionada.');
+    la14UI.vista=d;
+    la14UI.marcas=new Map(d.alumnos.map(a=>[a.alumnoId,{estado:'',motivoRetardo:''}]));
+    la14DibujarPase();
+  }catch(e){if(seq===la14UI.solicitud){la14VistaVacia('No se pudo cargar la lista.');la14Error(e);}}
+}
+function la14PonerChip(texto,warning=false){return la14Elem('span','la14-chip'+(warning?' warning':''),texto);}
+function la14DibujarPase(){
+  const d=la14UI.vista;if(!d)return;
+  $('la14-empty').classList.add('hide');$('la14-pass').classList.remove('hide');
+  const c=d.clase;
+  $('la14-class-title').textContent='Secundaria '+c.grupo+' · '+c.materia;
+  $('la14-class-meta').replaceChildren(la14PonerChip(c.inicio+'–'+c.fin),la14PonerChip(c.docente),la14PonerChip(c.primeraHora?'Primera hora':'Cambio de clase',c.primeraHora));
+  $('la14-rule').textContent=c.primeraHora
+    ?'Primera hora: únicamente marca Presente o Ausente. Los retardos de entrada provienen de ENTRADAS y no admiten motivo desde el pase docente.'
+    :'Clase posterior: usa Presente, Ausente o Retardo. Cada retardo entre clases requiere motivo de 8 a 200 caracteres.';
+  const avisos=[];
+  if(d.yaExistePase)avisos.push('Ya existe un pase para este bloque. La validación de otro pase se bloquea para evitar duplicados.');
+  if(d.entradasDuplicadas)avisos.push('Se detectaron '+d.entradasDuplicadas+' entradas duplicadas: requiere revisión del control de acceso.');
+  if(avisos.length){$('la14-warning').textContent=avisos.join(' ');$('la14-warning').classList.remove('hide');}
+  else{$('la14-warning').textContent='';$('la14-warning').classList.add('hide');}
+  $('la14-validation').className='hide';$('la14-validation').textContent='';
+  la14UI.filtro='todos';document.querySelectorAll('[data-la14-filter]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.la14Filter==='todos')));
+  la14DibujarAlumnos();la14Conteos();
+}
+function la14EntradaTexto(a){
+  const e=a.entrada;
+  if(!e||!e.registrada)return {texto:'Ingreso: sin registro de entrada',tarde:false};
+  const dato=String(e.clasificacion||'Sin clasificar');
+  return {texto:'Ingreso: '+dato+(e.hora?' · '+e.hora:''),tarde:/retardo|diferido/i.test(dato)};
+}
+function la14CrearAlumno(a){
+  const marcado=la14UI.marcas.get(a.alumnoId)||{estado:'',motivoRetardo:''};
+  const card=la14Elem('div','la14-student');card.dataset.alumnoId=a.alumnoId;
+  const info=la14Elem('div','la14-student-info');info.append(la14Elem('strong','',a.nombre));
+  const ent=la14EntradaTexto(a);info.append(la14Elem('small',ent.tarde?'la14-arrival-late':'',ent.texto));
+  const choices=la14Elem('div','la14-choice');choices.setAttribute('role','group');choices.setAttribute('aria-label','Asistencia de '+a.nombre);
+  [['P','✓ Presente'],['A','✕ Ausente'],['R','◷ Retardo']].forEach(([estado,nombre])=>{
+    const b=la14Elem('button','',nombre);b.type='button';b.dataset.status=estado;
+    const primera=Boolean(la14UI.vista.clase.primeraHora);
+    b.disabled=primera&&estado==='R'||Boolean(la14UI.vista.yaExistePase);
+    b.classList.toggle('selected',marcado.estado===estado);b.setAttribute('aria-pressed',String(marcado.estado===estado));
+    if(b.disabled&&estado==='R')b.title='Primera hora: retardo administrado desde el registro de ingreso.';
+    b.addEventListener('click',()=>la14Marcar(a.alumnoId,estado));choices.append(b);
+  });
+  card.append(info,choices);
+  if(marcado.estado==='R'&&!la14UI.vista.clase.primeraHora){
+    const area=la14Elem('div','la14-motive');
+    const label=la14Elem('label','','Motivo del retardo entre clases (obligatorio · 8–200 caracteres)');
+    const text=la14Elem('textarea');text.id='la14-motive-'+a.alumnoId;label.htmlFor=text.id;
+    text.maxLength=200;text.minLength=8;text.placeholder='Ej.: Se presentó después del cambio de salón.';text.value=marcado.motivoRetardo;
+    text.addEventListener('input',()=>{const m=la14UI.marcas.get(a.alumnoId);if(m)m.motivoRetardo=text.value;la14BorrarResultado();});
+    area.append(label,text);card.append(area);
+  }
+  return card;
+}
+function la14DibujarAlumnos(){
+  const d=la14UI.vista;if(!d)return;
+  const alumnos=d.alumnos.filter(a=>{
+    const estado=la14UI.marcas.get(a.alumnoId)?.estado||'';
+    return la14UI.filtro==='todos'||(la14UI.filtro==='pendientes'&&!estado)||(la14UI.filtro==='retardos'&&(estado==='R'||/retardo|diferido/i.test(a.entrada?.clasificacion||'')));
+  });
+  $('la14-students').replaceChildren(...alumnos.map(la14CrearAlumno));
+  if(!alumnos.length)$('la14-students').append(la14Elem('div','la14-placeholder','No hay alumnos que coincidan con este filtro.'));
+}
+function la14BorrarResultado(){$('la14-validation').className='hide';$('la14-validation').textContent='';}
+function la14Marcar(id,estado){
+  if(!la14UI.vista||la14UI.vista.yaExistePase)return;
+  if(la14UI.vista.clase.primeraHora&&estado==='R')return;
+  const previo=la14UI.marcas.get(id);if(!previo)return;
+  // Una marca puede cambiarse pulsando otra; no se deja el pase incompleto inadvertidamente.
+  previo.estado=estado;if(estado!=='R')previo.motivoRetardo='';
+  la14BorrarResultado();la14DibujarAlumnos();la14Conteos();
+}
+function la14Conteos(){
+  const lista=[...la14UI.marcas.values()];
+  const asisten=lista.filter(m=>m.estado==='P'||m.estado==='R').length;
+  const ausentes=lista.filter(m=>m.estado==='A').length;
+  const pendientes=lista.filter(m=>!m.estado).length;
+  $('la14-total').textContent=String(lista.length);
+  $('la14-present').textContent=String(asisten);
+  $('la14-absent').textContent=String(ausentes);
+  $('la14-pending').textContent=String(pendientes);
+  $('la14-status').textContent='Retardos de clase: '+lista.filter(m=>m.estado==='R').length+' · '+pendientes+' sin marcar · No se guarda en Sheets';
+  $('la14-validate').disabled=Boolean(la14UI.vista?.yaExistePase)||la14UI.validando;
+  $('la14-all-present').disabled=Boolean(la14UI.vista?.yaExistePase)||la14UI.validando;
+}
+async function la14Validar(){
+  const vista=la14UI.vista;if(!vista||!la14PuedeConsultar()||la14UI.validando)return;
+  if(vista.yaExistePase){toast('Ya existe un pase para ese bloque.',true);return;}
+  // Validar todos los alumnos, incluso si se está mostrando el filtro "Pendientes".
+  const registros=vista.alumnos.map(a=>{
+    const m=la14UI.marcas.get(a.alumnoId)||{estado:'',motivoRetardo:''};
+    return {alumnoId:a.alumnoId,estado:m.estado,motivoRetardo:m.estado==='R'?m.motivoRetardo.trim():''};
+  });
+  if(registros.some(r=>!r.estado)){toast('Faltan alumnos por marcar. Usa “Todos presentes” o completa cada caso.',true);return;}
+  const malos=registros.filter(r=>r.estado==='R'&&(r.motivoRetardo.length<8||r.motivoRetardo.length>200));
+  if(malos.length){toast('Los retardos entre clases necesitan un motivo de 8 a 200 caracteres.',true);return;}
+  const secuencia=la14UI.solicitud;
+  la14UI.validando=true;la14Conteos();$('la14-validate').textContent='Validando…';
+  try{
+    const resultado=await api('la14ValidarPase',{fecha:vista.fecha,horarioId:vista.clase.horarioId,registros});
+    if(secuencia!==la14UI.solicitud)return;
+    if(resultado.VALIDACION!=='APROBADA_SIN_GUARDAR'||resultado.soloLectura!==true)throw Error('No se confirmó validación sin escritura.');
+    const contenedor=$('la14-validation');contenedor.className='la14-success';
+    contenedor.textContent='✓ Validación aprobada: '+resultado.total+' alumnos, '+resultado.presentes+' asistentes (incluye retardos de clase), '+resultado.ausentes+' ausentes y '+resultado.retardosEntreClases+' retardos entre clases. No se guardó ninguna asistencia.';
+  }catch(e){if(secuencia===la14UI.solicitud)la14Error(e);}
+  finally{la14UI.validando=false;$('la14-validate').textContent='Validar pase (sin guardar)';la14Conteos();}
+}
+$('la14-date').value=la14FechaLocal();
+$('la14-refresh').addEventListener('click',()=>void la14CargarClases());
+$('la14-date').addEventListener('change',()=>void la14CargarClases());
+$('la14-group').addEventListener('change',()=>{
+  la14UI.solicitud++;la14UI.vista=null;la14UI.seleccion=null;la14UI.marcas.clear();
+  la14VistaVacia('Selecciona una clase para consultar el pase.');la14DibujarClases();
+});
+$('la14-all-present').addEventListener('click',()=>{
+  if(!la14UI.vista||la14UI.vista.yaExistePase)return;
+  la14UI.marcas.forEach(m=>{m.estado='P';m.motivoRetardo='';});
+  la14BorrarResultado();la14DibujarAlumnos();la14Conteos();
+});
+document.querySelectorAll('[data-la14-filter]').forEach(b=>b.addEventListener('click',()=>{
+  la14UI.filtro=b.dataset.la14Filter;
+  document.querySelectorAll('[data-la14-filter]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
+  la14DibujarAlumnos();
+}));
+$('la14-validate').addEventListener('click',()=>void la14Validar());
+// === FIN MÓDULO 1.4 ===
+
 </script></body></html>
