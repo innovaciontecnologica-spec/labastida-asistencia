@@ -74,8 +74,8 @@ footer{max-width:1200px;margin:0 auto 20px;color:#7B879A;padding:12px 20px;font-
 .la16-good{color:#126044}.la16-late{color:#966000}.la16-readonly{font-size:13px;color:#825d17;background:#fff4de;border:1px solid #f0dfa8;padding:12px;border-radius:11px;margin:10px 0}
 @media(max-width:680px){.la16-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.la16-student{align-items:stretch;flex-direction:column}.la16-student button{width:100%;min-height:52px}.la16-results{gap:8px}}
 </style></head><body>
-<header class="header"><img class="escudo" src="assets/escudo.png" alt="Escudo del Colegio Labastida"><div class="brand"><div class="eyebrow">Colegio Labastida · Francisco de Paula</div><h1>Labastida Asistencia</h1><small>Administración académica · Ciclo 2026–2027</small></div><span class="tag">ETAPA 1.6 · ENTRADAS EN PRUEBA</span></header>
-<nav id="nav" class="hide"><div class="navinner"><button data-tab="resumen" class="active">Resumen</button><button data-tab="docentes">Docentes</button><button data-tab="asignaciones">Asignaciones</button><button id="tab-asistencia" data-tab="asistencia" class="hide">Pase de lista · Prueba</button><button id="tab-entradas" data-tab="entradas" class="hide">Entrada al colegio</button><span class="grow"></span><span id="username" class="account"></span><button id="logout">Salir</button></div></nav>
+<header class="header"><img class="escudo" src="assets/escudo.png" alt="Escudo del Colegio Labastida"><div class="brand"><div class="eyebrow">Colegio Labastida · Francisco de Paula</div><h1>Labastida Asistencia</h1><small>Administración académica · Ciclo 2026–2027</small></div><span class="tag">VERSIÓN 1.6.1 · RETARDOS EN PUERTA</span></header>
+<nav id="nav" class="hide"><div class="navinner"><button data-tab="resumen" class="active">Resumen</button><button data-tab="docentes">Docentes</button><button data-tab="asignaciones">Asignaciones</button><button id="tab-asistencia" data-tab="asistencia" class="hide">Pase de lista · Prueba</button><button id="tab-entradas" data-tab="entradas" class="hide">Retardos de ingreso</button><span class="grow"></span><span id="username" class="account"></span><button id="logout">Salir</button></div></nav>
 <main>
 <section id="login-screen" class="card" style="max-width:510px;margin:34px auto"><h2>Acceso institucional</h2><p>Direcciones y docentes autorizados ingresan con una cuenta individual. Los docentes solo consultan sus clases y validan pases en modo de prueba.</p><form id="form-login"><div class="field"><label for="login-user">Usuario</label><input id="login-user" autocomplete="username" required placeholder="dir_primaria"></div><div class="field" style="margin-top:12px"><label for="login-pass">Contraseña</label><input id="login-pass" autocomplete="current-password" type="password" required placeholder="Contraseña personal"></div><div class="buttonrow"><button class="btn" id="btn-login" type="submit">Entrar al sistema</button><span id="login-status" class="quiet"></span></div></form><div class="status">Administración disponible únicamente para Direcciones. Los docentes solo verán sus clases asignadas. Ningún pase se guarda todavía.</div><details style="margin-top:20px"><summary style="cursor:pointer;color:#6F7D91;font-size:12px">Configuración técnica</summary><div class="field" style="margin-top:12px"><label for="api-url">Dirección del Worker (terminada en /api)</label><input id="api-url" type="url" autocomplete="off" placeholder="https://labastida-asistencia-api....workers.dev/api"></div><button id="save-url" class="btn sec" style="margin-top:10px" type="button">Guardar dirección</button><div class="quiet" style="margin-top:7px">La dirección se conserva en este navegador. No introduzcas contraseñas ni secretos de Cloudflare aquí.</div></details></section>
 <section id="change-screen" class="card hide" style="max-width:510px;margin:34px auto"><h2>Establecer contraseña personal</h2><p>Por seguridad, cambia la clave temporal antes de comenzar a usar el panel.</p><form id="form-change"><div class="field"><label for="old-pass">Contraseña temporal actual</label><input id="old-pass" type="password" required></div><div class="field" style="margin-top:12px"><label for="new-pass">Nueva contraseña (15 caracteres mínimo)</label><input id="new-pass" type="password" minlength="15" maxlength="128" required></div><div class="field" style="margin-top:12px"><label for="confirm-pass">Confirma la nueva contraseña</label><input id="confirm-pass" type="password" minlength="15" maxlength="128" required></div><div class="buttonrow"><button class="btn" id="btn-change" type="submit">Guardar y volver a entrar</button></div></form></section>
@@ -146,16 +146,16 @@ footer{max-width:1200px;margin:0 auto 20px;color:#7B879A;padding:12px 20px;font-
 </section>
 
 <section id="view-entradas" class="view hide">
-  <div class="subhead"><div><h2>Control de entrada al colegio</h2><p>Primaria y Secundaria · Registro por personal de acceso · Hora oficial del servidor</p></div></div>
-  <div class="la16-readonly" id="la16-banner">Versión 1.6 en prueba: las llegadas se validan, pero todavía no se guardan.</div>
+  <div class="subhead"><div><h2>Registro rápido de retardos</h2><p>Primaria y Secundaria · Solo incidencias después de las 7:40 · Hora oficial del servidor</p></div></div>
+  <div class="la16-readonly" id="la16-banner">Modo prueba: solo se validan retardos e ingresos diferidos. Los alumnos puntuales pasan directamente, sin registro en puerta.</div>
   <div class="card"><div class="formgrid">
     <div class="field"><label for="la16-nivel">Nivel escolar</label><select id="la16-nivel"><option value="Primaria">Primaria</option><option value="Secundaria">Secundaria</option></select></div>
     <div class="field"><label for="la16-grupo">Grupo (opcional)</label><select id="la16-grupo"><option value="">Todos los grupos del nivel</option></select></div>
   </div><form id="la16-buscar-form" style="margin-top:14px"><div class="field"><label for="la16-buscar">Buscar alumno por nombre</label><input id="la16-buscar" type="search" autocomplete="off" placeholder="Escribe al menos 3 letras, o selecciona un grupo" maxlength="110"></div>
-    <div class="buttonrow"><button type="submit" class="btn" id="la16-buscar-btn">Buscar alumnos</button><button type="button" class="btn sec" id="la16-refresh">↻ Actualizar</button><span class="quiet" id="la16-hora" role="status" aria-live="polite"></span></div></form>
-    <div class="la16-kpis" aria-label="Resumen de entradas del día"><div><strong id="la16-total">—</strong><span>Alumnos del nivel</span></div><div><strong id="la16-entraron">—</strong><span>Entradas registradas</span></div><div><strong id="la16-retardos">—</strong><span>Retardos de puerta</span></div><div><strong id="la16-diferidos">—</strong><span>Ingresos diferidos</span></div></div>
-    <p class="quiet">Puntual hasta 7:40 · Retardo 7:41–7:45 · Ingreso diferido desde 7:46. No se modifica la primera hora en el pase docente.</p></div>
-  <div class="card"><h3>Alumnos encontrados</h3><p id="la16-encontrados" class="quiet">Selecciona un nivel, escribe un nombre y busca.</p><div class="la16-results" id="la16-resultados" aria-live="polite"></div></div>
+    <div class="buttonrow"><button type="submit" class="btn" id="la16-buscar-btn">Buscar alumnos</button><button type="button" class="btn sec" id="la16-refresh">↻ Actualizar</button><span class="quiet" id="la16-hora" role="status" aria-live="polite"></span></div><p class="quiet">Escribe al menos 3 letras: la búsqueda se ejecuta automáticamente. No se revisa a todos los alumnos que llegan puntuales.</p></form>
+    <div class="la16-kpis" aria-label="Incidencias del día"><div><strong id="la16-total">—</strong><span>Matrícula de referencia</span></div><div><strong id="la16-entraron">—</strong><span>Incidencias registradas</span></div><div><strong id="la16-retardos">—</strong><span>Retardos 7:41–7:45</span></div><div><strong id="la16-diferidos">—</strong><span>Diferidos desde 7:46</span></div></div>
+    <p class="quiet">Hasta las 7:40: paso libre sin captura. 7:41–7:45: retardo. Desde las 7:46: llegada diferida y espera hasta el cambio de clase. Estos registros se reflejarán en el pase de la primera clase; la asistencia la confirma el docente.</p></div>
+  <div class="card"><h3>Búsqueda de incidencias</h3><p id="la16-encontrados" class="quiet">Selecciona un nivel, escribe un nombre y busca.</p><div class="la16-results" id="la16-resultados" aria-live="polite"></div></div>
   <div class="card hide" id="la16-admin"><h3>Cuentas del personal de acceso · Dirección General</h3><p>Crea una cuenta individual, con contraseña temporal y cambio obligatorio en el primer ingreso. Las contraseñas no se guardan en la hoja.</p>
   <form id="la16-form-cuenta"><div class="formgrid"><div class="field"><label for="la16-nombre-cuenta">Nombre completo del personal</label><input id="la16-nombre-cuenta" required minlength="5" maxlength="110" placeholder="Nombre y apellidos"></div><div class="field"><label for="la16-usuario-cuenta">Usuario individual</label><input id="la16-usuario-cuenta" required placeholder="acc_puerta.nombre" autocomplete="off"></div></div><div class="buttonrow"><button class="btn" type="submit" id="la16-crear-cuenta">Crear cuenta de acceso</button><button class="btn sec" type="button" id="la16-refresh-cuentas">Actualizar cuentas</button></div></form>
   <div class="la15-creds hide" id="la16-clave-temporal"><strong>Credencial temporal · Mostrar una sola vez</strong><div class="formgrid" style="margin-top:10px"><div><label>Usuario</label><code id="la16-cred-user"></code></div><div><label>Contraseña temporal</label><code id="la16-cred-pass"></code></div></div><div class="buttonrow"><button class="btn sec" type="button" id="la16-ocultar">Ocultar credenciales</button></div></div>
@@ -173,7 +173,7 @@ const levels=['Preescolar','Primaria','Secundaria'];
 const idRequest=()=>('LA-'+Date.now()+'-'+(crypto.randomUUID?crypto.randomUUID():Math.random().toString(36).slice(2)));
 function toast(msg,bad=false){const t=$('toast');t.textContent=msg;t.className='toast'+(bad?' error':'');clearTimeout(toast._timeout);toast._timeout=setTimeout(()=>t.classList.add('hide'),5500);}
 function show(id){['login-screen','change-screen','app','nav'].forEach(v=>$(v).classList.add('hide'));$(id).classList.remove('hide');if(id==='app')$('nav').classList.remove('hide');}
-function tab(name){if(state.user?.rol==='acceso'&&name!=='entradas'){toast('Tu cuenta solo permite registrar entradas.',true);return;}if(name==='entradas'&&!la16PuedeAcceder()){toast('Sin autorización para las entradas.',true);return;}if(state.user?.rol==='docente'&&name!=='asistencia'){toast('Tu cuenta solo permite pase de lista.',true);return;}if(name==='asistencia'&&!la14PuedeConsultar()){toast('No tienes autorización para consultar el pase.',true);return;}state.tab=name;document.querySelectorAll('.view').forEach(x=>x.classList.add('hide'));$('view-'+name).classList.remove('hide');document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x.dataset.tab===name));if(name!=='docentes'&&typeof la15OcultarCredencial==='function')la15OcultarCredencial();if(name==='entradas'){la16ModoVista();void la16CargarEstado();}if(name==='asistencia')void la14CargarClases();if(name==='docentes'&&state.user?.rol==='general')void la15CargarCuentas();if(name==='asignaciones')void la151CargarVacantes();}
+function tab(name){if(state.user?.rol==='acceso'&&name!=='entradas'){toast('Tu cuenta solo permite consultar y registrar incidencias de tardanza.',true);return;}if(name==='entradas'&&!la16PuedeAcceder()){toast('Sin autorización para las entradas.',true);return;}if(state.user?.rol==='docente'&&name!=='asistencia'){toast('Tu cuenta solo permite pase de lista.',true);return;}if(name==='asistencia'&&!la14PuedeConsultar()){toast('No tienes autorización para consultar el pase.',true);return;}state.tab=name;document.querySelectorAll('.view').forEach(x=>x.classList.add('hide'));$('view-'+name).classList.remove('hide');document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x.dataset.tab===name));if(name!=='docentes'&&typeof la15OcultarCredencial==='function')la15OcultarCredencial();if(name==='entradas'){la16ModoVista();void la16CargarEstado();}if(name==='asistencia')void la14CargarClases();if(name==='docentes'&&state.user?.rol==='general')void la15CargarCuentas();if(name==='asignaciones')void la151CargarVacantes();}
 function opt(value,label){const o=document.createElement('option');o.value=value;o.textContent=label;return o;}
 function setOptions(el,items,placeholder){el.replaceChildren(opt('',placeholder),...items.map(x=>opt(x.value,x.label)));}
 function td(value){const x=document.createElement('td');x.textContent=String(value??'');return x;}
@@ -772,9 +772,9 @@ $('la151-sust-form').addEventListener('submit',async e=>{
 
 
 // === LABASTIDA 1.6 · PUERTA (mismo Worker y sesión; protección siempre en Apps Script) ===
-const la16UI={estado:null,consulta:0,ocupado:false};
+const la16UI={estado:null,consulta:0,ocupado:false,busquedaTemporizador:null};
 function la16PuedeAcceder(){const u=state.user;return !!(u&&(u.rol==='general'||u.rol==='acceso'||u.rol==='direccion'&&['Primaria','Secundaria'].includes(u.nivel)));}
-function la16Limpiar(){la16UI.consulta++;la16UI.estado=null;la16UI.ocupado=false;$('la16-resultados').replaceChildren();$('la16-encontrados').textContent='';$('la16-hora').textContent='';la16OcultarClave();}
+function la16Limpiar(){clearTimeout(la16UI.busquedaTemporizador);la16UI.consulta++;la16UI.estado=null;la16UI.ocupado=false;$('la16-resultados').replaceChildren();$('la16-encontrados').textContent='';$('la16-hora').textContent='';la16OcultarClave();}
 function la16OcultarClave(){$('la16-cred-user').textContent='';$('la16-cred-pass').textContent='';$('la16-clave-temporal').classList.add('hide');}
 function la16ModoVista(){
   const rol=state.user?.rol,nivel=$('la16-nivel');
@@ -792,10 +792,18 @@ async function la16CargarEstado(){
     la16UI.estado=data;
     $('la16-hora').textContent='Fecha '+data.fecha+' · Hora servidor '+data.horaServidor;
     $('la16-total').textContent=data.totalAlumnos;
-    $('la16-entraron').textContent=data.totalEntradas;
+    $('la16-entraron').textContent=data.totalIncidencias??data.totalEntradas;
     $('la16-retardos').textContent=data.retardo;
     $('la16-diferidos').textContent=data.ingresoDiferido;
-    $('la16-banner').textContent=data.escrituraHabilitada?'Registro de entradas habilitado en este servidor. La hora se toma automáticamente del servidor.':'MODO SEGURO · Validación sin guardar. Ninguna entrada nueva será registrada.';
+    $('la16-banner').textContent=!data.puedeRegistrarIncidencias
+      ?'Hasta las 7:40 no se captura ninguna entrada. Paso directo para alumnos puntuales.'
+      :data.escrituraHabilitada
+      ?data.clasificacionActual==='Ingreso diferido'
+        ?'Ingreso diferido: registrar incidencia y esperar al cambio de clase para ingresar al salón.'
+        :'Retardo: registrar incidencia con la hora automática. No se detiene a los puntuales.'
+      :data.clasificacionActual==='Ingreso diferido'
+        ?'MODO PRUEBA · ingreso diferido: esperar al cambio de clase. No se guarda la incidencia.'
+        :'MODO PRUEBA · retardo de entrada: validar sin guardar ninguna incidencia.';
     const selected=$('la16-grupo').value;
     setOptions($('la16-grupo'),data.grupos.map(g=>({value:g.id,label:g.nombre})),'Todos los grupos del nivel');
     if(data.grupos.some(g=>g.id===selected))$('la16-grupo').value=selected;
@@ -811,6 +819,19 @@ async function la16BuscarAlumnos(){
   $('la16-encontrados').textContent='Buscando alumnos…';$('la16-resultados').replaceChildren();
   try{
     const data=await api('la16Buscar',{nivel,grupoId,buscar});
+    // El estado de la hora cambia durante la llegada; usar la hora del servidor en cada búsqueda.
+    la16UI.estado={...(la16UI.estado||{}),puedeRegistrarIncidencias:data.puedeRegistrarIncidencias,
+      escrituraHabilitada:data.escrituraHabilitada};
+    $('la16-hora').textContent='Fecha '+data.fecha+' · Hora servidor '+data.horaServidor;
+    $('la16-banner').textContent=!data.puedeRegistrarIncidencias
+      ?'Hasta las 7:40 no se captura ninguna entrada. Los puntuales pasan directamente.'
+      :data.escrituraHabilitada
+      ?data.clasificacionActual==='Ingreso diferido'
+        ?'Ingreso diferido: registrar y esperar al cambio de clase antes de entrar al salón.'
+        :'Retardo de entrada: registrar con hora automática.'
+      :data.clasificacionActual==='Ingreso diferido'
+        ?'MODO PRUEBA · ingreso diferido: esperar al cambio de clase. Sin guardar.'
+        :'MODO PRUEBA · retardo de entrada: validar sin guardar.';
     $('la16-encontrados').textContent=data.totalCoincidencias+' coincidencia(s); mostrando '+data.resultados.length+'.';
     const caja=$('la16-resultados');
     if(!data.resultados.length){caja.append(la16Nodo('div','la14-placeholder','No hay alumnos que coincidan.'));return;}
@@ -818,10 +839,13 @@ async function la16BuscarAlumnos(){
     data.resultados.forEach(a=>{
       const ficha=la16Nodo('div','la16-student'),texto=la16Nodo('div');
       texto.append(la16Nodo('strong','',a.nombre));
-      const desc=a.grupo+' · '+(a.registrado?('Registrado '+a.hora+' · '+a.clasificacion):('Sin entrada hoy · '+a.retardosMes+' retardo(s) del mes'));
+      const desc=a.grupo+' · '+(a.registrado?('Incidencia '+a.hora+' · '+a.clasificacion):('Sin incidencia registrada · '+a.retardosMes+' retardo(s) del mes'));
       texto.append(la16Nodo('small',a.registrado?'la16-good':'',desc));
-      const b=la16Nodo('button','btn'+(a.registrado?' sec':''),a.registrado?'✓ Ya registrado':la16UI.estado?.escrituraHabilitada?'Registrar llegada':'Validar llegada (sin guardar)');
-      b.type='button';b.disabled=!!a.registrado||!puedeRegistrar;
+      const horarioHabilitado=!!la16UI.estado?.puedeRegistrarIncidencias;
+      const etiqueta=a.registrado?'✓ Incidencia registrada':!horarioHabilitado?'Paso libre · No registrar':
+        la16UI.estado?.escrituraHabilitada?'Registrar incidencia':'Validar incidencia (sin guardar)';
+      const b=la16Nodo('button','btn'+(a.registrado?' sec':''),etiqueta);
+      b.type='button';b.disabled=!!a.registrado||!puedeRegistrar||!horarioHabilitado;
       b.addEventListener('click',()=>void la16RegistrarAl(a,b));
       ficha.append(texto,b);caja.append(ficha);
     });
@@ -830,13 +854,20 @@ async function la16BuscarAlumnos(){
 }
 async function la16RegistrarAl(a,b){
   if(la16UI.ocupado)return;
-  if(la16UI.estado?.escrituraHabilitada&&!confirm('¿Registrar la llegada de '+a.nombre+' con la hora ACTUAL del servidor?'))return;
+  if(!la16UI.estado?.puedeRegistrarIncidencias){toast('Los puntuales no se registran en la puerta.',true);return;}
+  if(la16UI.estado?.escrituraHabilitada&&!confirm('¿Registrar exclusivamente una incidencia de tardanza de '+a.nombre+'?'))return;
   la16UI.ocupado=true;const anterior=b.textContent;b.disabled=true;b.textContent='Procesando…';
   try{
     const r=await api('la16Registrar',{alumnoId:a.alumnoId,requestId:idRequest()});
+    if(r.registroOmitidoPorPuntualidad){toast('Sin captura: el alumno es puntual. La asistencia corresponde al docente.');return;}
     const aviso=r.clasificacion+' · '+r.horaServidor+(r.alertaDireccion?' · Alerta para Dirección por umbral mensual.':'');
-    toast((r.soloValidacion?'SIMULACIÓN SIN GUARDAR: ':'ENTRADA GUARDADA: ')+aviso);
-    if(!r.soloValidacion){await la16CargarEstado();la16UI.ocupado=false;await la16BuscarAlumnos();}
+    toast((r.soloValidacion?'INCIDENCIA VALIDADA SIN GUARDAR: ':'INCIDENCIA REGISTRADA: ')+aviso);
+    if(!r.soloValidacion){
+      await la16CargarEstado();
+      $('la16-buscar').value='';$('la16-resultados').replaceChildren();
+      $('la16-encontrados').textContent='Incidencia registrada. Busca al siguiente alumno.';
+      $('la16-buscar').focus();
+    }
   }catch(e){toast(e.message,true);}
   finally{la16UI.ocupado=false;b.disabled=false;b.textContent=anterior;}
 }
@@ -877,9 +908,21 @@ $('la16-form-cuenta').addEventListener('submit',async e=>{
   try{const r=await api('la16CrearCuenta',{nombre:$('la16-nombre-cuenta').value.trim(),usuario:$('la16-usuario-cuenta').value.trim()});la16MostrarClave(r);toast('Cuenta creada. Entrega credenciales por canal seguro.');await la16CargarCuentas();}
   catch(e){toast(e.message,true);}finally{pending(false,b);}
 });
-$('la16-buscar-form').addEventListener('submit',e=>{e.preventDefault();void la16BuscarAlumnos();});
+$('la16-buscar-form').addEventListener('submit',e=>{e.preventDefault();clearTimeout(la16UI.busquedaTemporizador);void la16BuscarAlumnos();});
+$('la16-buscar').addEventListener('input',()=>{
+  clearTimeout(la16UI.busquedaTemporizador);
+  if($('la16-buscar').value.trim().length<3){
+    $('la16-resultados').replaceChildren();
+    $('la16-encontrados').textContent='Escribe 3 letras para buscar incidencias.';return;
+  }
+  la16UI.busquedaTemporizador=setTimeout(()=>{if(!la16UI.ocupado)void la16BuscarAlumnos();},320);
+});
 $('la16-nivel').addEventListener('change',()=>{ $('la16-resultados').replaceChildren();$('la16-encontrados').textContent='Selecciona un grupo o busca un nombre.';void la16CargarEstado();});
-$('la16-grupo').addEventListener('change',()=>{ $('la16-resultados').replaceChildren();$('la16-encontrados').textContent='Pulsa Buscar alumnos.';});
+$('la16-grupo').addEventListener('change',()=>{
+  $('la16-resultados').replaceChildren();
+  $('la16-encontrados').textContent='Buscando alumnos del grupo…';
+  if($('la16-grupo').value||$('la16-buscar').value.trim().length>=3)void la16BuscarAlumnos();
+});
 $('la16-refresh').addEventListener('click',()=>void la16CargarEstado());
 $('la16-crear-cuenta').dataset.label=$('la16-crear-cuenta').textContent;
 
