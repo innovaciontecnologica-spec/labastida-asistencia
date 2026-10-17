@@ -56,21 +56,47 @@ footer{max-width:1200px;margin:0 auto 20px;color:#7B879A;padding:12px 20px;font-
 .la14-hidden{display:none!important}
 @media(max-width:920px){.la14-layout{grid-template-columns:1fr}.la14-side-scroll{max-height:250px}.la14-classes{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:650px){.la14-progress{grid-template-columns:repeat(2,minmax(0,1fr))}.la14-classes{grid-template-columns:1fr}.la14-side-scroll{max-height:245px}.la14-student{grid-template-columns:1fr;padding:12px}.la14-choice button{min-height:52px;font-size:13px}.la14-bottom{align-items:stretch;flex-direction:column}.la14-bottom button{width:100%}.la14-tools button{min-height:44px}}
+.la15-creds{border:1px solid #d8b46b;background:#fff7e6;padding:15px;border-radius:13px;margin:14px 0;overflow-wrap:anywhere}.la15-creds code{display:block;color:#183553;padding:10px;background:#fff;border:1px solid #e3d3b3;border-radius:8px;word-break:break-all}.la15-creds p{font-size:12px}
+
+/* Gestión de personal 1.5.1: botones cómodos para pantallas táctiles */
+.la151-dialog{border:1px solid #d7e2ee;border-radius:17px;max-width:530px;width:calc(100% - 30px);padding:24px;box-shadow:0 20px 70px #11284755}
+.la151-dialog::backdrop{background:#102c5380}.la151-dialog h3{margin:0 0 9px;color:var(--azul)}
+.la151-vacantes{display:grid;gap:9px}.la151-vacante{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:12px;border:1px solid #ead9b3;background:#fffaf0;border-radius:11px}.la151-vacante button{flex-shrink:0}
+@media(max-width:650px){.la151-vacante{align-items:stretch;flex-direction:column}.la151-dialog{padding:18px}.la151-dialog .btn{min-height:46px}}
 </style></head><body>
-<header class="header"><img class="escudo" src="assets/escudo.png" alt="Escudo del Colegio Labastida"><div class="brand"><div class="eyebrow">Colegio Labastida · Francisco de Paula</div><h1>Labastida Asistencia</h1><small>Administración académica · Ciclo 2026–2027</small></div><span class="tag">ETAPA 1.4 · CONSULTA SEGURA</span></header>
+<header class="header"><img class="escudo" src="assets/escudo.png" alt="Escudo del Colegio Labastida"><div class="brand"><div class="eyebrow">Colegio Labastida · Francisco de Paula</div><h1>Labastida Asistencia</h1><small>Administración académica · Ciclo 2026–2027</small></div><span class="tag">VERSIÓN 1.5.1 · GESTIÓN DOCENTE</span></header>
 <nav id="nav" class="hide"><div class="navinner"><button data-tab="resumen" class="active">Resumen</button><button data-tab="docentes">Docentes</button><button data-tab="asignaciones">Asignaciones</button><button id="tab-asistencia" data-tab="asistencia" class="hide">Pase de lista · Prueba</button><span class="grow"></span><span id="username" class="account"></span><button id="logout">Salir</button></div></nav>
 <main>
-<section id="login-screen" class="card" style="max-width:510px;margin:34px auto"><h2>Acceso de direcciones</h2><p>Inicia sesión con tu cuenta institucional. Los maestros se registrarán desde este panel; sus accesos se habilitarán en la siguiente etapa.</p><form id="form-login"><div class="field"><label for="login-user">Usuario</label><input id="login-user" autocomplete="username" required placeholder="dir_primaria"></div><div class="field" style="margin-top:12px"><label for="login-pass">Contraseña</label><input id="login-pass" autocomplete="current-password" type="password" required placeholder="Contraseña personal"></div><div class="buttonrow"><button class="btn" id="btn-login" type="submit">Entrar al sistema</button><span id="login-status" class="quiet"></span></div></form><div class="status">Este panel permite administrar docentes y asignaciones. La consulta de pases 1.4 está disponible para Dirección General y Dirección Secundaria en modo de prueba, sin guardar asistencias.</div><details style="margin-top:20px"><summary style="cursor:pointer;color:#6F7D91;font-size:12px">Configuración técnica</summary><div class="field" style="margin-top:12px"><label for="api-url">Dirección del Worker (terminada en /api)</label><input id="api-url" type="url" autocomplete="off" placeholder="https://labastida-asistencia-api....workers.dev/api"></div><button id="save-url" class="btn sec" style="margin-top:10px" type="button">Guardar dirección</button><div class="quiet" style="margin-top:7px">La dirección se conserva en este navegador. No introduzcas contraseñas ni secretos de Cloudflare aquí.</div></details></section>
+<section id="login-screen" class="card" style="max-width:510px;margin:34px auto"><h2>Acceso institucional</h2><p>Direcciones y docentes autorizados ingresan con una cuenta individual. Los docentes solo consultan sus clases y validan pases en modo de prueba.</p><form id="form-login"><div class="field"><label for="login-user">Usuario</label><input id="login-user" autocomplete="username" required placeholder="dir_primaria"></div><div class="field" style="margin-top:12px"><label for="login-pass">Contraseña</label><input id="login-pass" autocomplete="current-password" type="password" required placeholder="Contraseña personal"></div><div class="buttonrow"><button class="btn" id="btn-login" type="submit">Entrar al sistema</button><span id="login-status" class="quiet"></span></div></form><div class="status">Administración disponible únicamente para Direcciones. Los docentes solo verán sus clases asignadas. Ningún pase se guarda todavía.</div><details style="margin-top:20px"><summary style="cursor:pointer;color:#6F7D91;font-size:12px">Configuración técnica</summary><div class="field" style="margin-top:12px"><label for="api-url">Dirección del Worker (terminada en /api)</label><input id="api-url" type="url" autocomplete="off" placeholder="https://labastida-asistencia-api....workers.dev/api"></div><button id="save-url" class="btn sec" style="margin-top:10px" type="button">Guardar dirección</button><div class="quiet" style="margin-top:7px">La dirección se conserva en este navegador. No introduzcas contraseñas ni secretos de Cloudflare aquí.</div></details></section>
 <section id="change-screen" class="card hide" style="max-width:510px;margin:34px auto"><h2>Establecer contraseña personal</h2><p>Por seguridad, cambia la clave temporal antes de comenzar a usar el panel.</p><form id="form-change"><div class="field"><label for="old-pass">Contraseña temporal actual</label><input id="old-pass" type="password" required></div><div class="field" style="margin-top:12px"><label for="new-pass">Nueva contraseña (15 caracteres mínimo)</label><input id="new-pass" type="password" minlength="15" maxlength="128" required></div><div class="field" style="margin-top:12px"><label for="confirm-pass">Confirma la nueva contraseña</label><input id="confirm-pass" type="password" minlength="15" maxlength="128" required></div><div class="buttonrow"><button class="btn" id="btn-change" type="submit">Guardar y volver a entrar</button></div></form></section>
 <div id="app" class="hide">
 <section id="view-resumen" class="view"><div class="subhead"><div><h2>Panel de administración</h2><p id="scope-text">Resumen de matrícula y asignaciones.</p></div><button class="btn sec" id="refresh">↻ Actualizar</button></div><div class="grid"><div class="kpi"><strong id="k-alumnos">—</strong><span>Alumnos en grupos</span></div><div class="kpi"><strong id="k-grupos">—</strong><span>Grupos</span></div><div class="kpi"><strong id="k-docentes">—</strong><span>Docentes activos</span></div><div class="kpi"><strong id="k-asignaciones">—</strong><span>Asignaciones activas</span></div></div><div class="card" style="margin-top:20px"><h3>Grupos y carga académica</h3><p>En Preescolar y Primaria se asigna un titular por grupo; en Secundaria se asigna por materia y grupo según el horario aprobado.</p><div class="datawrap"><table class="data"><thead><tr><th>Grupo</th><th>Nivel</th><th>Alumnos</th><th>Modalidad</th><th>Docentes asignados</th></tr></thead><tbody id="groups-body"></tbody></table></div></div></section>
-<section id="view-docentes" class="view hide"><div class="subhead"><div><h2>Administración de docentes</h2><p>Cada dirección registra personal de su nivel. Dirección General puede autorizar a un docente existente para otro nivel sin duplicar su ficha. Aún no se generan accesos docentes.</p></div></div><div class="card"><h3>Registrar un docente</h3><form id="form-teacher"><div class="formgrid"><div class="field"><label for="teacher-name">Nombre completo</label><input id="teacher-name" maxlength="110" required placeholder="Nombre y apellidos"></div><div class="field"><label for="teacher-level">Nivel</label><select id="teacher-level" required></select></div><div class="field"><label for="teacher-email">Correo institucional (opcional)</label><input type="email" id="teacher-email" placeholder="docente@colegio.edu.mx"></div></div><div class="buttonrow"><button class="btn" id="btn-teacher" type="submit">Guardar docente</button><span class="quiet">Se protege el registro frente a clics repetidos.</span></div></form></div><div class="card"><h3>Docentes registrados</h3><div class="datawrap"><table class="data"><thead><tr><th>Nombre</th><th>Nivel</th><th>Correo</th><th>Estado</th></tr></thead><tbody id="teachers-body"></tbody></table></div></div>
-<div class="card hide" id="multinivel-card"><h3>Autorizar docente para otro nivel · Dirección General</h3><p>Utiliza el registro existente del docente para darle un nivel adicional. Solo Dirección General puede autorizarlo. No crea otra ficha ni cambia el nivel principal o sus apoyos.</p><form id="form-multinivel"><div class="formgrid"><div class="field"><label for="multi-teacher">Docente existente</label><select id="multi-teacher" required></select></div><div class="field"><label for="multi-level">Nivel adicional</label><select id="multi-level" required></select></div></div><div class="buttonrow"><button class="btn" id="btn-multinivel" type="submit">Autorizar nivel adicional</button></div></form><div class="datawrap" style="margin-top:18px"><table class="data"><thead><tr><th>Docente</th><th>Nivel adicional</th><th>Estado</th><th>Acción</th></tr></thead><tbody id="vinculos-body"></tbody></table></div></div></section>
-<section id="view-asignaciones" class="view hide"><div class="subhead"><div><h2>Asignaciones académicas</h2><p>Relaciona docentes con grupos o materias. Si un docente deja de atender un grupo, conserva el historial mediante desasignación.</p></div></div><div class="card"><h3>Nueva asignación</h3><form id="form-assign"><div class="formgrid"><div class="field"><label for="assign-group">Grupo</label><select id="assign-group" required></select></div><div class="field"><label for="assign-teacher">Docente</label><select id="assign-teacher" required></select></div><div class="field" id="matter-field"><label for="assign-matter">Materia (solo Secundaria)</label><select id="assign-matter"></select></div></div><div class="buttonrow"><button class="btn" type="submit" id="btn-assign">Guardar asignación</button></div></form></div><div class="card"><h3>Asignaciones registradas</h3><div class="datawrap"><table class="data"><thead><tr><th>Grupo</th><th>Materia</th><th>Docente</th><th>Estado</th><th>Acción</th></tr></thead><tbody id="assign-body"></tbody></table></div></div><div class="card" id="conjuntas-card"><h3>Autorizaciones de clases conjuntas · Secundaria</h3><p>Solo pueden autorizarse coincidencias exactas de materia, día y horario entre las secciones A y B del mismo grado. Autorizar no asigna maestros ni genera asistencias.</p><div class="status">Primero autoriza la coincidencia y después asigna al mismo docente a cada grupo desde «Nueva asignación». Si necesitas desactivar una autorización en uso, retira antes una de las dos asignaciones docentes.</div><div class="datawrap" style="margin-top:16px"><table class="data"><thead><tr><th>Grupos</th><th>Materia</th><th>Bloques semanales</th><th>Autorización</th><th>Acción</th></tr></thead><tbody id="conjuntas-body"></tbody></table></div></div><div class="card" id="apoyo-card"><h3>Docente de apoyo · Preescolar</h3><p>Asocia una docente de apoyo a un grupo que ya tenga titular. Esta asignación administrativa no habilita acceso al pase de lista ni duplica asistencias.</p><form id="form-apoyo"><div class="formgrid"><div class="field"><label for="apoyo-group">Grupo de Preescolar</label><select id="apoyo-group" required></select></div><div class="field"><label for="apoyo-teacher">Docente de apoyo</label><select id="apoyo-teacher" required></select></div></div><div class="buttonrow"><button class="btn" type="submit" id="btn-apoyo">Guardar apoyo</button></div></form><div class="datawrap" style="margin-top:18px"><table class="data"><thead><tr><th>Grupo</th><th>Docente de apoyo</th><th>Estado</th><th>Acción</th></tr></thead><tbody id="apoyos-body"></tbody></table></div></div></section>
+<section id="view-docentes" class="view hide"><div class="subhead"><div><h2>Administración de docentes</h2><p>Cada dirección registra personal de su nivel. Dirección General puede autorizar a un docente existente para otro nivel sin duplicar su ficha. Los accesos individuales se administran exclusivamente desde Dirección General.</p></div></div><div class="card"><h3>Registrar un docente</h3><form id="form-teacher"><div class="formgrid"><div class="field"><label for="teacher-name">Nombre completo</label><input id="teacher-name" maxlength="110" required placeholder="Nombre y apellidos"></div><div class="field"><label for="teacher-level">Nivel</label><select id="teacher-level" required></select></div><div class="field"><label for="teacher-email">Correo institucional (opcional)</label><input type="email" id="teacher-email" placeholder="docente@colegio.edu.mx"></div></div><div class="buttonrow"><button class="btn" id="btn-teacher" type="submit">Guardar docente</button><span class="quiet">Se protege el registro frente a clics repetidos.</span></div></form></div><div class="card" id="la151-gestion"><h3>Gestión de personal · Edición y bajas (1.5.1)</h3>
+<p>Corrige nombres y correos sin crear fichas nuevas. Una baja revoca la cuenta docente, conserva el historial y deja las materias vacantes. Los cambios multinivel requieren Dirección General.</p>
+<form id="la151-edit-form"><div class="formgrid">
+<div class="field"><label for="la151-docente">Docente</label><select id="la151-docente" required></select></div>
+<div class="field"><label for="la151-nombre">Nombre completo corregido</label><input id="la151-nombre" maxlength="110" required></div>
+<div class="field"><label for="la151-correo">Correo institucional (opcional)</label><input id="la151-correo" type="email"></div>
+<div class="field"><label for="la151-motivo">Motivo del cambio (obligatorio)</label><input id="la151-motivo" minlength="8" maxlength="200" required placeholder="Corrección de datos administrativos"></div>
+</div><div class="buttonrow"><button type="submit" class="btn" id="la151-edit-btn">Guardar corrección</button><button type="button" class="btn danger" id="la151-baja-btn">Dar de baja al docente</button></div></form>
+<div class="status">La baja institucional es distinta a desasignar una sola clase. Se revocan accesos y se liberan todas las asignaciones. No se elimina historial.</div>
+</div><div class="card"><h3>Docentes registrados</h3><div class="datawrap"><table class="data"><thead><tr><th>Nombre</th><th>Nivel</th><th>Correo</th><th>Estado</th></tr></thead><tbody id="teachers-body"></tbody></table></div></div>
+<div class="card hide" id="multinivel-card"><h3>Autorizar docente para otro nivel · Dirección General</h3><p>Utiliza el registro existente del docente para darle un nivel adicional. Solo Dirección General puede autorizarlo. No crea otra ficha ni cambia el nivel principal o sus apoyos.</p><form id="form-multinivel"><div class="formgrid"><div class="field"><label for="multi-teacher">Docente existente</label><select id="multi-teacher" required></select></div><div class="field"><label for="multi-level">Nivel adicional</label><select id="multi-level" required></select></div></div><div class="buttonrow"><button class="btn" id="btn-multinivel" type="submit">Autorizar nivel adicional</button></div></form><div class="datawrap" style="margin-top:18px"><table class="data"><thead><tr><th>Docente</th><th>Nivel adicional</th><th>Estado</th><th>Acción</th></tr></thead><tbody id="vinculos-body"></tbody></table></div></div><div id="la15-admin" class="card hide"><h3>Cuentas individuales · Docentes de Secundaria</h3>
+<p>Solo Dirección General puede crear cuentas. La clave temporal se muestra una sola vez y obliga a cambiarla al iniciar sesión. Los docentes no pueden administrar grupos ni guardar asistencias todavía.</p>
+<form id="la15-form"><div class="formgrid"><div class="field"><label for="la15-docente">Docente con asignación activa</label><select id="la15-docente" required><option value="">Selecciona un docente</option></select></div>
+<div class="field"><label for="la15-usuario">Usuario individual</label><input id="la15-usuario" required minlength="8" maxlength="35" placeholder="doc_nombre.apellido" autocomplete="off"></div></div>
+<div class="buttonrow"><button type="submit" class="btn" id="la15-create">Crear una cuenta</button><span class="quiet">Recomendamos comenzar con un solo docente piloto.</span></div></form>
+<div id="la15-creds" class="la15-creds hide" role="status"><strong>Credencial temporal — copia y entrega por canal privado</strong><p>Esta clave no se guarda ni se puede recuperar después de cerrar este recuadro.</p>
+<div class="formgrid"><div><label>Usuario</label><code id="la15-cred-user"></code></div><div><label>Contraseña temporal</label><code id="la15-cred-pass"></code></div></div>
+<div class="buttonrow"><button type="button" class="btn sec" id="la15-copy">Copiar credencial</button><button type="button" class="btn sec" id="la15-hide">Ocultar credencial</button></div></div>
+<div class="buttonrow"><button type="button" class="btn sec" id="la15-refresh">Actualizar cuentas</button></div>
+<div class="datawrap"><table class="data"><thead><tr><th>Docente</th><th>Usuario</th><th>Estado</th><th>Clave pendiente</th><th>Acción</th></tr></thead><tbody id="la15-users"><tr><td colspan="5">Consulta las cuentas para comenzar.</td></tr></tbody></table></div>
+</div></section>
+<section id="view-asignaciones" class="view hide"><div class="subhead"><div><h2>Asignaciones académicas</h2><p>Relaciona docentes con grupos o materias. Si un docente deja de atender un grupo, conserva el historial mediante desasignación.</p></div></div><div class="card"><h3>Nueva asignación</h3><form id="form-assign"><div class="formgrid"><div class="field"><label for="assign-group">Grupo</label><select id="assign-group" required></select></div><div class="field"><label for="assign-teacher">Docente</label><select id="assign-teacher" required></select></div><div class="field" id="matter-field"><label for="assign-matter">Materia (solo Secundaria)</label><select id="assign-matter"></select></div></div><div class="buttonrow"><button class="btn" type="submit" id="btn-assign">Guardar asignación</button></div></form></div><div class="card" id="la151-vacantes-card"><div class="subhead"><div><h3>Vacantes académicas</h3><p>Materias sin maestro que permanecen en el horario. No generan pase de lista hasta tener asignación.</p></div><button type="button" class="btn sec" id="la151-refresh-vacantes">↻ Verificar vacantes</button></div><div id="la151-vacantes" class="la151-vacantes"><span class="quiet">Pulsa Verificar vacantes para consultar.</span></div></div><div class="card"><h3>Asignaciones registradas</h3><div class="datawrap"><table class="data"><thead><tr><th>Grupo</th><th>Materia</th><th>Docente</th><th>Estado</th><th>Acción</th></tr></thead><tbody id="assign-body"></tbody></table></div></div><div class="card" id="conjuntas-card"><h3>Autorizaciones de clases conjuntas · Secundaria</h3><p>Solo pueden autorizarse coincidencias exactas de materia, día y horario entre las secciones A y B del mismo grado. Autorizar no asigna maestros ni genera asistencias.</p><div class="status">Primero autoriza la coincidencia y después asigna al mismo docente a cada grupo desde «Nueva asignación». Si necesitas desactivar una autorización en uso, retira antes una de las dos asignaciones docentes.</div><div class="datawrap" style="margin-top:16px"><table class="data"><thead><tr><th>Grupos</th><th>Materia</th><th>Bloques semanales</th><th>Autorización</th><th>Acción</th></tr></thead><tbody id="conjuntas-body"></tbody></table></div></div><div class="card" id="apoyo-card"><h3>Docente de apoyo · Preescolar</h3><p>Asocia una docente de apoyo a un grupo que ya tenga titular. Esta asignación administrativa no habilita acceso al pase de lista ni duplica asistencias.</p><form id="form-apoyo"><div class="formgrid"><div class="field"><label for="apoyo-group">Grupo de Preescolar</label><select id="apoyo-group" required></select></div><div class="field"><label for="apoyo-teacher">Docente de apoyo</label><select id="apoyo-teacher" required></select></div></div><div class="buttonrow"><button class="btn" type="submit" id="btn-apoyo">Guardar apoyo</button></div></form><div class="datawrap" style="margin-top:18px"><table class="data"><thead><tr><th>Grupo</th><th>Docente de apoyo</th><th>Estado</th><th>Acción</th></tr></thead><tbody id="apoyos-body"></tbody></table></div></div></section>
 
 <section id="view-asistencia" class="view hide" aria-labelledby="la14-title">
-  <div class="subhead"><div><h2 id="la14-title">Pase de lista · Secundaria</h2><p>Consulta de clases y validación de asistencia desde la cuenta de Dirección.</p></div><span class="pill pending">MODO PRUEBA · SIN GUARDADO</span></div>
-  <div class="la14-banner"><strong>Prueba segura 1.4.</strong> Los alumnos se consultan desde la base privada por una ruta autenticada. <strong>Validar no guarda pases ni entradas.</strong> El acceso docente y el registro definitivo se habilitarán después de aprobar esta prueba.</div>
+  <div class="subhead"><div><h2 id="la14-title">Pase de lista · Secundaria</h2><p>Consulta y validación de asistencia para Dirección y docentes autorizados.</p></div><span class="pill pending">MODO PRUEBA · SIN GUARDADO</span></div>
+  <div class="la14-banner"><strong>Prueba segura 1.5.1.</strong> Los alumnos se consultan desde la base privada por una ruta autenticada. <strong>Validar no guarda pases ni entradas.</strong> El acceso docente se limita a sus asignaciones; el registro definitivo continúa deshabilitado.</div>
   <div class="card">
     <div class="formgrid">
       <div class="field"><label for="la14-date">Fecha de clase</label><input type="date" id="la14-date" required autocomplete="off"></div>
@@ -109,6 +135,7 @@ footer{max-width:1200px;margin:0 auto 20px;color:#7B879A;padding:12px 20px;font-
   </div>
 </section>
 </div>
+<dialog id="la151-sust-dialog" class="la151-dialog" aria-labelledby="la151-sust-title"><form id="la151-sust-form"><h3 id="la151-sust-title">Sustituir docente en esta clase</h3><p id="la151-sust-info" class="quiet"></p><input id="la151-asig-id" type="hidden"><div class="field"><label for="la151-reemplazo">Docente sustituto</label><select id="la151-reemplazo" required></select></div><div class="field" style="margin-top:12px"><label for="la151-motivo-sust">Motivo de la sustitución</label><textarea id="la151-motivo-sust" required minlength="8" maxlength="200" placeholder="Cambio de docente a partir de la fecha actual"></textarea></div><div class="buttonrow"><button type="button" class="btn sec" id="la151-sust-cancel">Cancelar</button><button type="submit" class="btn" id="la151-sust-apply">Confirmar sustitución</button></div><p class="quiet">Se conserva la asignación anterior como Inactiva. No se transfieren contraseñas.</p></form></dialog>
 </main><footer>Colegio Labastida · Plataforma académica separada de SmartCoop · Acceso restringido por nivel.</footer><div id="toast" class="toast hide" role="status"></div>
 <script>
 'use strict';
@@ -119,7 +146,7 @@ const levels=['Preescolar','Primaria','Secundaria'];
 const idRequest=()=>('LA-'+Date.now()+'-'+(crypto.randomUUID?crypto.randomUUID():Math.random().toString(36).slice(2)));
 function toast(msg,bad=false){const t=$('toast');t.textContent=msg;t.className='toast'+(bad?' error':'');clearTimeout(toast._timeout);toast._timeout=setTimeout(()=>t.classList.add('hide'),5500);}
 function show(id){['login-screen','change-screen','app','nav'].forEach(v=>$(v).classList.add('hide'));$(id).classList.remove('hide');if(id==='app')$('nav').classList.remove('hide');}
-function tab(name){if(name==='asistencia'&&!la14PuedeConsultar()){toast('Esta vista solo corresponde a Dirección General o Secundaria.',true);return;}state.tab=name;document.querySelectorAll('.view').forEach(x=>x.classList.add('hide'));$('view-'+name).classList.remove('hide');document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x.dataset.tab===name));if(name==='asistencia')void la14CargarClases();}
+function tab(name){if(state.user?.rol==='docente'&&name!=='asistencia'){toast('Tu cuenta solo permite pase de lista.',true);return;}if(name==='asistencia'&&!la14PuedeConsultar()){toast('No tienes autorización para consultar el pase.',true);return;}state.tab=name;document.querySelectorAll('.view').forEach(x=>x.classList.add('hide'));$('view-'+name).classList.remove('hide');document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x.dataset.tab===name));if(name!=='docentes'&&typeof la15OcultarCredencial==='function')la15OcultarCredencial();if(name==='asistencia')void la14CargarClases();if(name==='docentes'&&state.user?.rol==='general')void la15CargarCuentas();if(name==='asignaciones')void la151CargarVacantes();}
 function opt(value,label){const o=document.createElement('option');o.value=value;o.textContent=label;return o;}
 function setOptions(el,items,placeholder){el.replaceChildren(opt('',placeholder),...items.map(x=>opt(x.value,x.label)));}
 function td(value){const x=document.createElement('td');x.textContent=String(value??'');return x;}
@@ -142,6 +169,7 @@ function render(){const d=state.data;if(!d)return;
   const rows=d.grupos.map(g=>{const cu=d.asignaciones.filter(a=>a.grupoId===g.id&&a.estado==='Activa').length;return row([groupName(g),g.nivel,g.alumnos,g.modalidad,cu]);});
   $('groups-body').replaceChildren(...(rows.length?rows:[row(['Sin grupos','','','',''])]));
   const teachers=d.docentes.map(t=>row([t.nombre,(t.niveles||[t.nivel]).join(' / '),t.correo||'—',t.estado]));$('teachers-body').replaceChildren(...(teachers.length?teachers:[row(['Sin docentes registrados','','',''])]));
+  la151RenderGestion();
   const currentLevel=$('teacher-level').value;
   setOptions($('teacher-level'),levels.filter(n=>state.user.rol==='general'||state.user.nivel===n).map(x=>({value:x,label:x})),'Selecciona nivel');
   if(currentLevel&&Array.from($('teacher-level').options).some(o=>o.value===currentLevel))$('teacher-level').value=currentLevel;
@@ -155,7 +183,7 @@ function render(){const d=state.data;if(!d)return;
   const doc=Object.fromEntries(d.docentes.map(x=>[x.id,x])),groups=Object.fromEntries(d.grupos.map(x=>[x.id,x])),matter=Object.fromEntries(d.materias.map(x=>[x.id,x]));
   const aa=d.asignaciones.map(a=>{
     const tr=row([groups[a.grupoId]?groupName(groups[a.grupoId]):a.grupoId,matter[a.materiaId]?.nombre||'Pase diario',doc[a.docenteId]?.nombre||a.docenteId,a.estado]);
-    const cell=document.createElement('td');if(a.estado==='Activa'){const b=document.createElement('button');b.className='btn danger small';b.textContent='Desasignar';b.addEventListener('click',()=>deactivate(a));cell.appendChild(b);}else cell.textContent='—';tr.appendChild(cell);return tr;
+    const cell=document.createElement('td');if(a.estado==='Activa'){const b=document.createElement('button');b.className='btn danger small';b.textContent='Desasignar';b.addEventListener('click',()=>deactivate(a));cell.appendChild(b);const s=document.createElement('button');s.className='btn sec small';s.textContent='Sustituir';s.style.marginLeft='6px';s.addEventListener('click',()=>la151AbrirSustitucion(a));cell.appendChild(s);}else cell.textContent='—';tr.appendChild(cell);return tr;
   });$('assign-body').replaceChildren(...(aa.length?aa:[row(['Sin asignaciones','','',''])]));
   const puedeApoyo=state.user.rol==='general'||state.user.nivel==='Preescolar';
   $('apoyo-card').classList.toggle('hide',!puedeApoyo);
@@ -321,7 +349,7 @@ async function sendForm(e,action,button,payload,onDone){
   }finally{pending(false,button);}
 }
 async function deactivate(a){if(state.pending)return;const motivo=prompt('Motivo de desasignación (mínimo 8 caracteres):');if(motivo===null)return;if(motivo.trim().length<8){toast('Explica el motivo con al menos 8 caracteres.',true);return;}if(!confirm('¿Desactivar esta asignación conservando el historial?'))return;state.pending=true;try{const r=await api('desactivarAsignacion',{asignacionId:a.id,motivo,requestId:idRequest()});toast(r.mensaje);await refresh();}catch(e){toast(e.message,true);}finally{state.pending=false;}}
-$('form-login').addEventListener('submit',async e=>{e.preventDefault();if(state.pending)return;const button=$('btn-login');pending(true,button,'Conectando…');$('login-status').textContent='Verificando acceso…';try{const r=await api('login',{usuario:$('login-user').value.trim(),clave:$('login-pass').value});state.token=r.token;state.user={usuario:r.usuario,rol:r.rol,nivel:r.nivel,nombre:r.nombre};la14ActualizarAcceso();$('login-pass').value='';if(r.debeCambiar)show('change-screen');else{show('app');tab('resumen');await refresh();}}catch(err){toast(err.message,true);}finally{$('login-status').textContent='';pending(false,button);}});
+$('form-login').addEventListener('submit',async e=>{e.preventDefault();if(state.pending)return;const button=$('btn-login');pending(true,button,'Conectando…');$('login-status').textContent='Verificando acceso…';try{const r=await api('login',{usuario:$('login-user').value.trim(),clave:$('login-pass').value});state.token=r.token;state.user={usuario:r.usuario,rol:r.rol,nivel:r.nivel,nombre:r.nombre};la14ActualizarAcceso();$('login-pass').value='';if(r.debeCambiar)show('change-screen');else{la15ActualizarMenu();show('app');if(r.rol==='docente'){tab('asistencia');}else{tab('resumen');await refresh();}}}catch(err){toast(err.message,true);}finally{$('login-status').textContent='';pending(false,button);}});
 $('form-change').addEventListener('submit',async e=>{e.preventDefault();if(state.pending)return;if($('new-pass').value!==$('confirm-pass').value){toast('Las contraseñas nuevas no coinciden.',true);return;}const b=$('btn-change');pending(true,b,'Guardando…');try{const r=await api('cambiarClave',{actual:$('old-pass').value,nueva:$('new-pass').value});toast(r.mensaje);state.token=null;['old-pass','new-pass','confirm-pass'].forEach(x=>$(x).value='');show('login-screen');}catch(err){toast(err.message,true);}finally{pending(false,b);}});
 $('form-multinivel').addEventListener('submit',e=>sendForm(e,'vincularDocenteNivel',$('btn-multinivel'),{docenteId:$('multi-teacher').value,nivel:$('multi-level').value},null));
 $('multi-teacher').addEventListener('change',()=>updateMultinivelChoices());
@@ -339,7 +367,7 @@ $('save-url').addEventListener('click',()=>{const url=$('api-url').value.trim().
 
 // === LABASTIDA 1.4 - UI TÁCTIL: SOLO CONSULTA Y VALIDACIÓN, SIN ESCRITURAS ===
 const la14UI={clases:[],grupos:[],vista:null,seleccion:null,marcas:new Map(),filtro:'todos',fechaCargada:'',solicitud:0,validando:false};
-function la14PuedeConsultar(){return Boolean(state.user&&(state.user.rol==='general'||(state.user.rol==='direccion'&&state.user.nivel==='Secundaria')));}
+function la14PuedeConsultar(){return Boolean(state.user&&(state.user.rol==='docente'&&state.user.nivel==='Secundaria'||state.user.rol==='general'||state.user.rol==='direccion'&&state.user.nivel==='Secundaria'));}
 function la14ActualizarAcceso(){
   $('tab-asistencia').classList.toggle('hide',!la14PuedeConsultar());
 }
@@ -371,7 +399,7 @@ async function la14CargarClases(){
   la14VistaVacia('Consultando las clases autorizadas…');la14Message('Cargando horario…');
   $('la14-refresh').disabled=true;
   try{
-    const d=await api('la14Clases',{fecha});
+    const d=await api(state.user?.rol==='docente'?'la15Clases':'la14Clases',{fecha});
     if(seq!==la14UI.solicitud||!la14PuedeConsultar())return;
     if(!d.soloLectura||!Array.isArray(d.clases)||!Array.isArray(d.grupos))throw Error('El servidor no confirmó la modalidad de solo lectura.');
     la14UI.clases=d.clases;la14UI.grupos=d.grupos;la14UI.fechaCargada=fecha;
@@ -407,7 +435,7 @@ async function la14AbrirClase(c){
   la14UI.seleccion=c.horarioId;la14UI.vista=null;la14UI.marcas.clear();la14UI.filtro='todos';
   la14DibujarClases();la14VistaVacia('Consultando alumnos y control de entrada…');
   try{
-    const d=await api('la14VistaPase',{fecha:la14UI.fechaCargada,horarioId:c.horarioId});
+    const d=await api(state.user?.rol==='docente'?'la15VistaPase':'la14VistaPase',{fecha:la14UI.fechaCargada,horarioId:c.horarioId});
     if(seq!==la14UI.solicitud||!la14PuedeConsultar())return;
     if(!d.soloLectura||!d.condiciones||d.condiciones.guardarHabilitado!==false||!Array.isArray(d.alumnos))
       throw Error('El servidor no confirmó la vista de prueba sin guardado.');
@@ -512,7 +540,7 @@ async function la14Validar(){
   const secuencia=la14UI.solicitud;
   la14UI.validando=true;la14Conteos();$('la14-validate').textContent='Validando…';
   try{
-    const resultado=await api('la14ValidarPase',{fecha:vista.fecha,horarioId:vista.clase.horarioId,registros});
+    const resultado=await api(state.user?.rol==='docente'?'la15ValidarPase':'la14ValidarPase',{fecha:vista.fecha,horarioId:vista.clase.horarioId,registros});
     if(secuencia!==la14UI.solicitud)return;
     if(resultado.VALIDACION!=='APROBADA_SIN_GUARDAR'||resultado.soloLectura!==true)throw Error('No se confirmó validación sin escritura.');
     const contenedor=$('la14-validation');contenedor.className='la14-success';
@@ -538,6 +566,181 @@ document.querySelectorAll('[data-la14-filter]').forEach(b=>b.addEventListener('c
   la14DibujarAlumnos();
 }));
 $('la14-validate').addEventListener('click',()=>void la14Validar());
+
+// === LABASTIDA 1.5: ACCESOS DE DOCENTES. NO GUARDA ASISTENCIAS ===
+const la15UI={credencial:null,cuentas:[],busy:false};
+function la15ActualizarMenu(){
+  const esDocente=state.user?.rol==='docente';
+  document.querySelectorAll('[data-tab]').forEach(el=>{
+    if(el.id!=='tab-asistencia')el.classList.toggle('hide',esDocente);
+  });
+  $('la15-admin').classList.toggle('hide',state.user?.rol!=='general');
+  if(esDocente){$('username').textContent=state.user.nombre+' · Docente';$('scope-text').textContent='Tus clases autorizadas · Secundaria';}
+}
+function la15OcultarCredencial(){
+  la15UI.credencial=null;$('la15-cred-user').textContent='';$('la15-cred-pass').textContent='';
+  $('la15-creds').classList.add('hide');
+}
+function la15MostrarCredencial(r){
+  la15UI.credencial={usuario:r.usuario,claveTemporal:r.claveTemporal};
+  $('la15-cred-user').textContent=r.usuario;$('la15-cred-pass').textContent=r.claveTemporal;
+  $('la15-creds').classList.remove('hide');
+}
+function la15FillDocentes(){
+  if(!state.data||state.user?.rol!=='general')return;
+  const ids=new Set(state.data.asignaciones.filter(a=>a.estado==='Activa'&&state.data.grupos.some(g=>g.id===a.grupoId&&g.nivel==='Secundaria')).map(a=>a.docenteId));
+  const ocupados=new Set(la15UI.cuentas.map(c=>c.docenteId));
+  const options=state.data.docentes.filter(d=>d.estado==='Activo'&&ids.has(d.id)&&!ocupados.has(d.id))
+    .sort((a,b)=>a.nombre.localeCompare(b.nombre,'es'))
+    .map(d=>({value:d.id,label:d.nombre}));
+  setOptions($('la15-docente'),options,'Selecciona un docente de Secundaria');
+}
+async function la15CargarCuentas(){
+  if(state.user?.rol!=='general')return;
+  try{
+    const r=await api('la15CuentasDocentes');
+    if(state.user?.rol!=='general')return;
+    la15UI.cuentas=r.cuentas||[];
+    la15FillDocentes();
+    const tbody=$('la15-users');tbody.replaceChildren();
+    if(!la15UI.cuentas.length){const tr=document.createElement('tr');const td=document.createElement('td');td.colSpan=5;td.textContent='Sin cuentas individuales todavía.';tr.append(td);tbody.append(tr);return;}
+    la15UI.cuentas.forEach(c=>{
+      const tr=row([c.nombre,c.usuario,c.estado,c.debeCambiar?'Sí':'No']);
+      const tdAcc=document.createElement('td');
+      if(c.estado==='Activo'){
+        const reset=document.createElement('button');reset.className='btn sec small';reset.type='button';reset.textContent='Restablecer clave';
+        reset.addEventListener('click',()=>void la15AccionCuenta('reset',c));tdAcc.append(reset,' ');
+        const baja=document.createElement('button');baja.className='btn danger small';baja.type='button';baja.textContent='Desactivar';
+        baja.addEventListener('click',()=>void la15AccionCuenta('baja',c));tdAcc.append(baja);
+      }else{tdAcc.textContent='—';}
+      if(c.consistencia!=='OK'){tdAcc.append(document.createTextNode(' · Revisar ficha'));}
+      tr.append(tdAcc);tbody.append(tr);
+    });
+  }catch(e){toast('Cuentas docentes: '+e.message,true);}
+}
+async function la15AccionCuenta(accion,c){
+  if(state.user?.rol!=='general'||la15UI.busy)return;
+  const r=(accion==='reset')?confirm('¿Restablecer la clave de '+c.nombre+'? Invalidará sus sesiones.')
+    :confirm('¿Desactivar la cuenta de '+c.nombre+'? Ya no podrá entrar.');
+  if(!r)return;
+  let motivo='';if(accion==='baja'){motivo=prompt('Explica el motivo de desactivación (mín. 8 caracteres):')||'';
+    if(motivo.length<8){toast('Motivo insuficiente.',true);return;}}
+  la15UI.busy=true;la15OcultarCredencial();
+  try{
+    const res=await api(accion==='reset'?'la15RestablecerClave':'la15DesactivarCuenta',{usuario:c.usuario,motivo});
+    if(res.claveTemporal)la15MostrarCredencial(res);
+    else toast(res.mensaje||'Cuenta desactivada.');
+    await la15CargarCuentas();
+  }catch(e){toast(e.message,true);}finally{la15UI.busy=false;}
+}
+$('la15-form').addEventListener('submit',async e=>{
+  e.preventDefault();if(state.user?.rol!=='general'||la15UI.busy)return;
+  const docenteId=$('la15-docente').value,usuario=$('la15-usuario').value.trim().toLowerCase();
+  if(!docenteId||!/^doc_[a-z0-9][a-z0-9._-]{3,30}$/.test(usuario)){toast('Revisa docente y nombre de usuario (doc_...).',true);return;}
+  if(!confirm('¿Crear la cuenta individual '+usuario+'? Se mostrará la contraseña una sola vez.'))return;
+  la15UI.busy=true;const b=$('la15-create');b.disabled=true;la15OcultarCredencial();
+  try{
+    const r=await api('la15CrearCuenta',{docenteId,usuario});
+    la15MostrarCredencial(r);$('la15-usuario').value='';
+    await la15CargarCuentas();
+    toast('Cuenta creada. Entrega la clave temporal por canal privado.');
+  }catch(e){toast(e.message,true);}finally{la15UI.busy=false;b.disabled=false;}
+});
+$('la15-hide').addEventListener('click',la15OcultarCredencial);
+$('la15-copy').addEventListener('click',async()=>{
+  const c=la15UI.credencial;if(!c)return;
+  try{await navigator.clipboard.writeText('Usuario: '+c.usuario+'\nClave temporal: '+c.claveTemporal);toast('Credencial copiada. Compártela por un canal seguro.');}
+  catch(e){toast('Selecciona la clave y cópiala manualmente.',true);}
+});
+$('la15-refresh').addEventListener('click',()=>void la15CargarCuentas());
+const la15Logout=()=>{la15OcultarCredencial();la15UI.cuentas=[];};
+$('logout').addEventListener('click',la15Logout);
+
 // === FIN MÓDULO 1.4 ===
+
+
+['la151-edit-btn','la151-baja-btn','la151-sust-apply'].forEach(id=>$(id).dataset.label=$(id).textContent);
+// Gestión de docentes 1.5.1. Las verificaciones de permisos reales viven en Apps Script.
+function la151RenderGestion(){
+  if(!state.data||!state.user||state.user.rol==='docente')return;
+  const select=$('la151-docente'),actual=select.value;
+  const lista=state.data.docentes;
+  setOptions(select,lista.map(t=>({value:t.id,label:t.nombre+' · '+t.nivel+(t.estado==='Activo'?'':' [Inactivo]')})),'Selecciona docente');
+  if(lista.some(t=>t.id===actual))select.value=actual;
+  la151RellenarFicha();
+}
+function la151RellenarFicha(){
+  if(!state.data)return;
+  const t=state.data.docentes.find(x=>x.id===$('la151-docente').value);
+  $('la151-nombre').value=t?.nombre||'';
+  $('la151-correo').value=t?.correo||'';
+  $('la151-baja-btn').disabled=!t||t.estado!=='Activo';
+  $('la151-edit-btn').disabled=!t||t.estado!=='Activo';
+}
+$('la151-docente').addEventListener('change',()=>{$('la151-motivo').value='';la151RellenarFicha();});
+$('la151-edit-form').addEventListener('submit',async e=>{
+  e.preventDefault();if(state.pending)return;
+  const docenteId=$('la151-docente').value,nombre=$('la151-nombre').value.trim(),correo=$('la151-correo').value.trim(),motivo=$('la151-motivo').value.trim();
+  if(!docenteId||motivo.length<8){toast('Selecciona docente y explica el motivo.',true);return;}
+  if(!confirm('¿Confirmas que solo quieres corregir la ficha de este docente?'))return;
+  const b=$('la151-edit-btn');pending(true,b,'Corrigiendo…');
+  try{const r=await api('la151EditarDocente',{docenteId,nombre,correo,motivo,requestId:idRequest()});toast(r.mensaje);$('la151-motivo').value='';await refresh();}
+  catch(e){toast(e.message,true);}finally{pending(false,b);}
+});
+$('la151-baja-btn').addEventListener('click',async()=>{
+  if(state.pending)return;
+  const docenteId=$('la151-docente').value,t=state.data?.docentes.find(x=>x.id===docenteId);
+  if(!t||t.estado!=='Activo')return;
+  const motivo=prompt('Motivo administrativo de la baja de '+t.nombre+' (mínimo 8 caracteres):');
+  if(motivo===null)return;if(motivo.trim().length<8){toast('El motivo debe tener al menos 8 caracteres.',true);return;}
+  const activo=state.data.asignaciones.filter(a=>a.docenteId===docenteId&&a.estado==='Activa').length;
+  if(!confirm('ATENCIÓN: ¿dar de baja a '+t.nombre+'? Se revocará su cuenta y quedarán vacantes '+activo+' asignaciones. Esta operación no es un simple cambio de clase.'))return;
+  if(!confirm('Confirma por segunda vez la baja institucional y la revocación de accesos.'))return;
+  const b=$('la151-baja-btn');pending(true,b,'Procesando baja…');
+  try{const r=await api('la151BajaDocente',{docenteId,motivo:motivo.trim(),requestId:idRequest()});toast(r.mensaje);await refresh();await la151CargarVacantes();}
+  catch(e){toast(e.message,true);}finally{pending(false,b);}
+});
+async function la151CargarVacantes(){
+  if(!state.user||state.user.rol==='docente')return;
+  const el=$('la151-vacantes');el.textContent='Consultando vacantes…';
+  try{
+    const r=await api('la151Vacantes');el.replaceChildren();
+    if(!r.total){el.textContent='Sin vacantes. Todas las materias programadas tienen docente activo.';return;}
+    const grupos=Object.fromEntries(state.data.grupos.map(g=>[g.id,g]));
+    r.vacantes.forEach(v=>{
+      const item=document.createElement('div');item.className='la151-vacante';
+      const info=document.createElement('span');info.textContent=(grupos[v.grupoId]?groupName(grupos[v.grupoId]):v.nivel+' '+v.grupo)+' · '+v.materia;
+      const b=document.createElement('button');b.type='button';b.className='btn sec small';b.textContent='Asignar docente';
+      b.addEventListener('click',()=>{
+        tab('asignaciones');$('assign-group').value=v.grupoId;updateAssignChoices();
+        if(v.materiaId)$('assign-matter').value=v.materiaId;
+        $('form-assign').scrollIntoView({behavior:'smooth',block:'start'});
+      });item.append(info,b);el.append(item);
+    });
+  }catch(e){el.textContent='No fue posible consultar vacantes: '+e.message;}
+}
+$('la151-refresh-vacantes').addEventListener('click',()=>void la151CargarVacantes());
+function la151AbrirSustitucion(a){
+  if(!state.data||state.pending)return;
+  const g=state.data.grupos.find(x=>x.id===a.grupoId),actual=state.data.docentes.find(x=>x.id===a.docenteId);
+  if(!g||!actual)return;
+  const disponibles=state.data.docentes.filter(x=>x.id!==a.docenteId&&x.estado==='Activo'&&(x.niveles||[x.nivel]).includes(g.nivel));
+  if(!disponibles.length){toast('No hay sustitutos activos en este nivel. Registra primero al nuevo docente.',true);return;}
+  const sel=$('la151-reemplazo');setOptions(sel,disponibles.map(t=>({value:t.id,label:t.nombre})),'Selecciona sustituto');
+  $('la151-asig-id').value=a.id;
+  const m=state.data.materias.find(x=>x.id===a.materiaId);
+  $('la151-sust-info').textContent=groupName(g)+' · '+(m?.nombre||'Titular diario')+' · Docente anterior: '+actual.nombre;
+  $('la151-motivo-sust').value='';$('la151-sust-dialog').showModal();
+}
+$('la151-sust-cancel').addEventListener('click',()=>$('la151-sust-dialog').close());
+$('la151-sust-form').addEventListener('submit',async e=>{
+  e.preventDefault();if(state.pending)return;
+  const asignacionId=$('la151-asig-id').value,nuevoDocenteId=$('la151-reemplazo').value,motivo=$('la151-motivo-sust').value.trim();
+  if(!nuevoDocenteId||motivo.length<8){toast('Selecciona docente y escribe el motivo.',true);return;}
+  if(!confirm('¿Sustituir al docente de esta clase a partir de hoy? El historial anterior permanecerá inactivo.'))return;
+  const b=$('la151-sust-apply');pending(true,b,'Sustituyendo…');
+  try{const r=await api('la151SustituirClase',{asignacionId,nuevoDocenteId,motivo,requestId:idRequest()});$('la151-sust-dialog').close();toast(r.mensaje);await refresh();await la151CargarVacantes();}
+  catch(e){toast(e.message,true);}finally{pending(false,b);}
+});
 
 </script></body></html>
