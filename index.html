@@ -74,7 +74,7 @@ footer{max-width:1200px;margin:0 auto 20px;color:#7B879A;padding:12px 20px;font-
 .la16-good{color:#126044}.la16-late{color:#966000}.la16-readonly{font-size:13px;color:#825d17;background:#fff4de;border:1px solid #f0dfa8;padding:12px;border-radius:11px;margin:10px 0}
 @media(max-width:680px){.la16-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.la16-student{align-items:stretch;flex-direction:column}.la16-student button{width:100%;min-height:52px}.la16-results{gap:8px}}
 </style></head><body>
-<header class="header"><img class="escudo" src="assets/escudo.png" alt="Escudo del Colegio Labastida"><div class="brand"><div class="eyebrow">Colegio Labastida · Francisco de Paula</div><h1>Labastida Asistencia</h1><small>Administración académica · Ciclo 2026–2027</small></div><span class="tag">VERSIÓN 1.6.1 · RETARDOS EN PUERTA</span></header>
+<header class="header"><img class="escudo" src="assets/escudo.png" alt="Escudo del Colegio Labastida"><div class="brand"><div class="eyebrow">Colegio Labastida · Francisco de Paula</div><h1>Labastida Asistencia</h1><small>Administración académica · Ciclo 2026–2027</small></div><span class="tag">VERSIÓN 1.6.3 · RETARDOS EN PUERTA</span></header>
 <nav id="nav" class="hide"><div class="navinner"><button data-tab="resumen" class="active">Resumen</button><button data-tab="docentes">Docentes</button><button data-tab="asignaciones">Asignaciones</button><button id="tab-asistencia" data-tab="asistencia" class="hide">Pase de lista · Prueba</button><button id="tab-entradas" data-tab="entradas" class="hide">Retardos de ingreso</button><span class="grow"></span><span id="username" class="account"></span><button id="logout">Salir</button></div></nav>
 <main>
 <section id="login-screen" class="card" style="max-width:510px;margin:34px auto"><h2>Acceso institucional</h2><p>Direcciones y docentes autorizados ingresan con una cuenta individual. Los docentes solo consultan sus clases y validan pases en modo de prueba.</p><form id="form-login"><div class="field"><label for="login-user">Usuario</label><input id="login-user" autocomplete="username" required placeholder="dir_primaria"></div><div class="field" style="margin-top:12px"><label for="login-pass">Contraseña</label><input id="login-pass" autocomplete="current-password" type="password" required placeholder="Contraseña personal"></div><div class="buttonrow"><button class="btn" id="btn-login" type="submit">Entrar al sistema</button><span id="login-status" class="quiet"></span></div></form><div class="status">Administración disponible únicamente para Direcciones. Los docentes solo verán sus clases asignadas. Ningún pase se guarda todavía.</div><details style="margin-top:20px"><summary style="cursor:pointer;color:#6F7D91;font-size:12px">Configuración técnica</summary><div class="field" style="margin-top:12px"><label for="api-url">Dirección del Worker (terminada en /api)</label><input id="api-url" type="url" autocomplete="off" placeholder="https://labastida-asistencia-api....workers.dev/api"></div><button id="save-url" class="btn sec" style="margin-top:10px" type="button">Guardar dirección</button><div class="quiet" style="margin-top:7px">La dirección se conserva en este navegador. No introduzcas contraseñas ni secretos de Cloudflare aquí.</div></details></section>
@@ -154,7 +154,7 @@ footer{max-width:1200px;margin:0 auto 20px;color:#7B879A;padding:12px 20px;font-
   </div><form id="la16-buscar-form" style="margin-top:14px"><div class="field"><label for="la16-buscar">Buscar alumno por nombre</label><input id="la16-buscar" type="search" autocomplete="off" placeholder="Escribe al menos 3 letras, o selecciona un grupo" maxlength="110"></div>
     <div class="buttonrow"><button type="submit" class="btn" id="la16-buscar-btn">Buscar alumnos</button><button type="button" class="btn sec" id="la16-refresh">↻ Actualizar</button><span class="quiet" id="la16-hora" role="status" aria-live="polite"></span></div><p class="quiet">Escribe al menos 3 letras: la búsqueda se ejecuta automáticamente. No se revisa a todos los alumnos que llegan puntuales.</p></form>
     <div class="la16-kpis" aria-label="Incidencias del día"><div><strong id="la16-total">—</strong><span>Matrícula de referencia</span></div><div><strong id="la16-entraron">—</strong><span>Incidencias registradas</span></div><div><strong id="la16-retardos">—</strong><span>Retardos 7:41–7:45</span></div><div><strong id="la16-diferidos">—</strong><span>Diferidos desde 7:46</span></div></div>
-    <p class="quiet">Hasta las 7:40: paso libre sin captura. 7:41–7:45: retardo. Desde las 7:46: llegada diferida y espera hasta el cambio de clase. Estos registros se reflejarán en el pase de la primera clase; la asistencia la confirma el docente.</p></div>
+    <p class="quiet">Hasta las 7:40: paso libre sin captura. 7:41–7:45: retardo. De 7:46 a 8:00: llegada diferida y espera hasta el cambio de clase. Después de las 8:00: captura cerrada. Estos registros se reflejarán en el pase de la primera clase; la asistencia la confirma el docente.</p></div>
   <div class="card"><h3>Búsqueda de incidencias</h3><p id="la16-encontrados" class="quiet">Selecciona un nivel, escribe un nombre y busca.</p><div class="la16-results" id="la16-resultados" aria-live="polite"></div></div>
   <div class="card hide" id="la16-admin"><h3>Cuentas del personal de acceso · Dirección General</h3><p>Crea una cuenta individual, con contraseña temporal y cambio obligatorio en el primer ingreso. Las contraseñas no se guardan en la hoja.</p>
   <form id="la16-form-cuenta"><div class="formgrid"><div class="field"><label for="la16-nombre-cuenta">Nombre completo del personal</label><input id="la16-nombre-cuenta" required minlength="5" maxlength="110" placeholder="Nombre y apellidos"></div><div class="field"><label for="la16-usuario-cuenta">Usuario individual</label><input id="la16-usuario-cuenta" required placeholder="acc_puerta.nombre" autocomplete="off"></div></div><div class="buttonrow"><button class="btn" type="submit" id="la16-crear-cuenta">Crear cuenta de acceso</button><button class="btn sec" type="button" id="la16-refresh-cuentas">Actualizar cuentas</button></div></form>
@@ -772,6 +772,80 @@ $('la151-sust-form').addEventListener('submit',async e=>{
 
 
 // === LABASTIDA 1.6 · PUERTA (mismo Worker y sesión; protección siempre en Apps Script) ===
+// Los identificadores de solicitud pendientes se conservan durante la sesion de esta pestaña.
+// Nunca se guardan tokens ni contraseñas. Se separan por cuenta, fecha y alumno.
+const LA16_PENDING_KEY='labastida_asistencia_pendientes_v163';
+const la16PendingMem=new Map();
+function la16PendClave_(alumnoId,fecha){
+  const usuario=String(state.user?.usuario||'');
+  const servidor=String(state.api||'');
+  return JSON.stringify([servidor,usuario,String(fecha||''),String(alumnoId||'')]);
+}
+function la16PendLeerTodo_(){
+  try{
+    const raw=sessionStorage.getItem(LA16_PENDING_KEY);
+    const obj=raw?JSON.parse(raw):{};
+    return obj&&typeof obj==='object'&&!Array.isArray(obj)?obj:{};
+  }catch(_){return {};}
+}
+function la16Pendiente_(alumnoId,fecha){
+  if(!state.user?.usuario||!/^\d{4}-\d{2}-\d{2}$/.test(String(fecha||'')))return null;
+  const clave=la16PendClave_(alumnoId,fecha);
+  const id=la16PendingMem.get(clave)||la16PendLeerTodo_()[clave];
+  return typeof id==='string'&&/^[A-Za-z0-9_-]{12,120}$/.test(id)?id:null;
+}
+function la16PendGuardar_(alumnoId,fecha,requestId){
+  const clave=la16PendClave_(alumnoId,fecha);
+  la16PendingMem.set(clave,requestId);
+  try{
+    const todos=la16PendLeerTodo_();
+    todos[clave]=requestId;
+    sessionStorage.setItem(LA16_PENDING_KEY,JSON.stringify(todos));
+  }catch(_){
+    toast('Este navegador no permite conservar la solicitud tras recargar. No cierres esta pestaña mientras esté pendiente.',true);
+  }
+}
+function la16PendBorrar_(alumnoId,fecha){
+  const clave=la16PendClave_(alumnoId,fecha);
+  la16PendingMem.delete(clave);
+  try{
+    const todos=la16PendLeerTodo_();
+    if(Object.prototype.hasOwnProperty.call(todos,clave)){
+      delete todos[clave];
+      sessionStorage.setItem(LA16_PENDING_KEY,JSON.stringify(todos));
+    }
+  }catch(_){/* Continúa protegido en la memoria de esta pestaña. */}
+}
+function la16TextoSituacion_(data){
+  if(data.estadoCalendario&&data.estadoCalendario!=='LECTIVO')
+    return data.motivoBloqueo||'Fecha no autorizada para capturar incidencias.';
+  if(data.clasificacionActual==='Fuera de horario')
+    return 'Control cerrado a las 08:00. Fuera de horario de captura; atender conforme al procedimiento escolar.';
+  if(data.clasificacionActual==='Puntual')
+    return 'Hasta las 07:40 no se captura ninguna entrada. Los alumnos puntuales pasan directamente.';
+  if(!data.puedeRegistrarIncidencias)
+    return data.motivoBloqueo||'Captura no autorizada para esta fecha y horario.';
+  const diferido=data.clasificacionActual==='Ingreso diferido';
+  if(data.escrituraHabilitada)
+    return diferido
+      ?'Ingreso diferido: registrar incidencia y esperar al cambio de clase antes de entrar al salón.'
+      :'Retardo de entrada: registrar incidencia con hora automática.';
+  return diferido
+    ?'MODO PRUEBA · ingreso diferido: validar sin guardar. Esperar al cambio de clase.'
+    :'MODO PRUEBA · retardo de entrada: validar sin guardar ninguna incidencia.';
+}
+function la16TextoBoton_(alumno,estado,pendiente){
+  if(alumno.registrado)return '✓ Incidencia registrada';
+  if(pendiente)return estado.escrituraHabilitada
+    ?'↻ Reintentar solicitud pendiente'
+    :'Solicitud pendiente · Consultar Dirección';
+  if(estado.estadoCalendario&&estado.estadoCalendario!=='LECTIVO')
+    return 'Día no lectivo · Sin captura';
+  if(estado.clasificacionActual==='Fuera de horario')
+    return 'Fuera de horario · Captura bloqueada';
+  if(!estado.puedeRegistrarIncidencias)return 'Paso libre · No registrar';
+  return estado.escrituraHabilitada?'Registrar incidencia':'Validar incidencia (sin guardar)';
+}
 const la16UI={estado:null,consulta:0,ocupado:false,busquedaTemporizador:null};
 function la16PuedeAcceder(){const u=state.user;return !!(u&&(u.rol==='general'||u.rol==='acceso'||u.rol==='direccion'&&['Primaria','Secundaria'].includes(u.nivel)));}
 function la16Limpiar(){clearTimeout(la16UI.busquedaTemporizador);la16UI.consulta++;la16UI.estado=null;la16UI.ocupado=false;$('la16-resultados').replaceChildren();$('la16-encontrados').textContent='';$('la16-hora').textContent='';la16OcultarClave();}
@@ -785,91 +859,156 @@ function la16ModoVista(){
 function la16Nodo(tag,cls,txt){const n=document.createElement(tag);if(cls)n.className=cls;if(txt!==undefined)n.textContent=String(txt);return n;}
 async function la16CargarEstado(){
   if(!la16PuedeAcceder())return;
-  la16ModoVista();const seq=++la16UI.consulta,nivel=$('la16-nivel').value;
+  la16ModoVista();
+  const seq=++la16UI.consulta,nivel=$('la16-nivel').value;
   $('la16-hora').textContent='Consultando servidor…';
   try{
-    const data=await api('la16Estado',{nivel});if(seq!==la16UI.consulta)return;
+    const data=await api('la16Estado',{nivel});
+    if(seq!==la16UI.consulta)return;
     la16UI.estado=data;
     $('la16-hora').textContent='Fecha '+data.fecha+' · Hora servidor '+data.horaServidor;
     $('la16-total').textContent=data.totalAlumnos;
     $('la16-entraron').textContent=data.totalIncidencias??data.totalEntradas;
     $('la16-retardos').textContent=data.retardo;
     $('la16-diferidos').textContent=data.ingresoDiferido;
-    $('la16-banner').textContent=!data.puedeRegistrarIncidencias
-      ?'Hasta las 7:40 no se captura ninguna entrada. Paso directo para alumnos puntuales.'
-      :data.escrituraHabilitada
-      ?data.clasificacionActual==='Ingreso diferido'
-        ?'Ingreso diferido: registrar incidencia y esperar al cambio de clase para ingresar al salón.'
-        :'Retardo: registrar incidencia con la hora automática. No se detiene a los puntuales.'
-      :data.clasificacionActual==='Ingreso diferido'
-        ?'MODO PRUEBA · ingreso diferido: esperar al cambio de clase. No se guarda la incidencia.'
-        :'MODO PRUEBA · retardo de entrada: validar sin guardar ninguna incidencia.';
+    $('la16-banner').textContent=la16TextoSituacion_(data);
     const selected=$('la16-grupo').value;
     setOptions($('la16-grupo'),data.grupos.map(g=>({value:g.id,label:g.nombre})),'Todos los grupos del nivel');
     if(data.grupos.some(g=>g.id===selected))$('la16-grupo').value=selected;
     if(rolPuedeAdministrar16())void la16CargarCuentas();
-  }catch(e){if(seq===la16UI.consulta){$('la16-hora').textContent='';toast(e.message,true);}}
+  }catch(e){
+    if(seq===la16UI.consulta){$('la16-hora').textContent='';toast(e.message,true);}
+  }
 }
 function rolPuedeAdministrar16(){return state.user?.rol==='general';}
 async function la16BuscarAlumnos(){
   if(!la16PuedeAcceder()||la16UI.ocupado)return;
   const nivel=$('la16-nivel').value,grupoId=$('la16-grupo').value,buscar=$('la16-buscar').value.trim();
   if(!grupoId&&buscar.length<3){toast('Escribe tres letras o selecciona un grupo.',true);return;}
-  la16UI.ocupado=true;$('la16-buscar-btn').disabled=true;
-  $('la16-encontrados').textContent='Buscando alumnos…';$('la16-resultados').replaceChildren();
+  la16UI.ocupado=true;
+  $('la16-buscar-btn').disabled=true;
+  $('la16-encontrados').textContent='Buscando alumnos…';
+  $('la16-resultados').replaceChildren();
   try{
     const data=await api('la16Buscar',{nivel,grupoId,buscar});
-    // El estado de la hora cambia durante la llegada; usar la hora del servidor en cada búsqueda.
-    la16UI.estado={...(la16UI.estado||{}),puedeRegistrarIncidencias:data.puedeRegistrarIncidencias,
-      escrituraHabilitada:data.escrituraHabilitada};
+    // La clasificacion y la hora deben proceder de ESTA respuesta del servidor.
+    la16UI.estado={
+      ...(la16UI.estado||{}),
+      fecha:data.fecha,horaServidor:data.horaServidor,nivel:data.nivel,
+      puedeRegistrarIncidencias:data.puedeRegistrarIncidencias,
+      escrituraHabilitada:data.escrituraHabilitada,
+      clasificacionActual:data.clasificacionActual,
+      estadoCalendario:data.estadoCalendario,
+      motivoBloqueo:data.motivoBloqueo,
+      horaMaxima:data.horaMaxima
+    };
     $('la16-hora').textContent='Fecha '+data.fecha+' · Hora servidor '+data.horaServidor;
-    $('la16-banner').textContent=!data.puedeRegistrarIncidencias
-      ?'Hasta las 7:40 no se captura ninguna entrada. Los puntuales pasan directamente.'
-      :data.escrituraHabilitada
-      ?data.clasificacionActual==='Ingreso diferido'
-        ?'Ingreso diferido: registrar y esperar al cambio de clase antes de entrar al salón.'
-        :'Retardo de entrada: registrar con hora automática.'
-      :data.clasificacionActual==='Ingreso diferido'
-        ?'MODO PRUEBA · ingreso diferido: esperar al cambio de clase. Sin guardar.'
-        :'MODO PRUEBA · retardo de entrada: validar sin guardar.';
+    $('la16-banner').textContent=la16TextoSituacion_(la16UI.estado);
     $('la16-encontrados').textContent=data.totalCoincidencias+' coincidencia(s); mostrando '+data.resultados.length+'.';
     const caja=$('la16-resultados');
-    if(!data.resultados.length){caja.append(la16Nodo('div','la14-placeholder','No hay alumnos que coincidan.'));return;}
+    if(!data.resultados.length){
+      caja.append(la16Nodo('div','la14-placeholder','No hay alumnos que coincidan.'));
+      return;
+    }
     const puedeRegistrar=['acceso','general'].includes(state.user.rol);
     data.resultados.forEach(a=>{
       const ficha=la16Nodo('div','la16-student'),texto=la16Nodo('div');
       texto.append(la16Nodo('strong','',a.nombre));
-      const desc=a.grupo+' · '+(a.registrado?('Incidencia '+a.hora+' · '+a.clasificacion):('Sin incidencia registrada · '+a.retardosMes+' retardo(s) del mes'));
+      const desc=a.grupo+' · '+(a.registrado
+        ?'Incidencia '+a.hora+' · '+a.clasificacion
+        :'Sin incidencia registrada · '+a.retardosMes+' retardo(s) del mes');
       texto.append(la16Nodo('small',a.registrado?'la16-good':'',desc));
-      const horarioHabilitado=!!la16UI.estado?.puedeRegistrarIncidencias;
-      const etiqueta=a.registrado?'✓ Incidencia registrada':!horarioHabilitado?'Paso libre · No registrar':
-        la16UI.estado?.escrituraHabilitada?'Registrar incidencia':'Validar incidencia (sin guardar)';
-      const b=la16Nodo('button','btn'+(a.registrado?' sec':''),etiqueta);
-      b.type='button';b.disabled=!!a.registrado||!puedeRegistrar||!horarioHabilitado;
+      // Si el servidor confirma que ya existe una incidencia, nunca reintentar.
+      if(a.registrado)la16PendBorrar_(a.alumnoId,data.fecha);
+      const pendiente=la16Pendiente_(a.alumnoId,data.fecha);
+      const textoBoton=la16TextoBoton_(a,la16UI.estado,pendiente);
+      const b=la16Nodo('button','btn'+(a.registrado?' sec':''),textoBoton);
+      b.type='button';
+      const puedeReintentar=Boolean(pendiente&&data.escrituraHabilitada);
+      b.disabled=!!a.registrado||!puedeRegistrar||
+        !(puedeReintentar||(!pendiente&&data.puedeRegistrarIncidencias));
       b.addEventListener('click',()=>void la16RegistrarAl(a,b));
-      ficha.append(texto,b);caja.append(ficha);
+      ficha.append(texto,b);
+      caja.append(ficha);
     });
-  }catch(e){$('la16-encontrados').textContent='Consulta no completada.';toast(e.message,true);}
-  finally{la16UI.ocupado=false;$('la16-buscar-btn').disabled=false;}
+  }catch(e){
+    $('la16-encontrados').textContent='Consulta no completada.';
+    toast(e.message,true);
+  }finally{
+    la16UI.ocupado=false;
+    $('la16-buscar-btn').disabled=false;
+  }
 }
 async function la16RegistrarAl(a,b){
-  if(la16UI.ocupado)return;
-  if(!la16UI.estado?.puedeRegistrarIncidencias){toast('Los puntuales no se registran en la puerta.',true);return;}
-  if(la16UI.estado?.escrituraHabilitada&&!confirm('¿Registrar exclusivamente una incidencia de tardanza de '+a.nombre+'?'))return;
-  la16UI.ocupado=true;const anterior=b.textContent;b.disabled=true;b.textContent='Procesando…';
+  if(la16UI.ocupado||!la16PuedeAcceder()||!['acceso','general'].includes(state.user?.rol))return;
+  const estado=la16UI.estado;
+  const fecha=String(estado?.fecha||'');
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(fecha)){
+    toast('Primero actualiza la consulta para obtener la fecha del servidor.',true);
+    return;
+  }
+  const pendiente=la16Pendiente_(a.alumnoId,fecha);
+  if(a.registrado){toast('Este alumno ya tiene una incidencia. Actualiza la búsqueda.',true);return;}
+  if(pendiente&&!estado.escrituraHabilitada){
+    toast('Esta solicitud sigue pendiente, pero el guardado está deshabilitado. Solicita revisión a Dirección; no generes otra.',true);
+    return;
+  }
+  if(!pendiente&&!estado.puedeRegistrarIncidencias){
+    toast(la16TextoSituacion_(estado),true);
+    return;
+  }
+  if(!pendiente&&estado.escrituraHabilitada&&
+     !confirm('¿Registrar exclusivamente una incidencia de tardanza de '+a.nombre+'?'))return;
+  const requestId=pendiente||idRequest();
+  // Persistir ANTES de llamar a la red. Un error ambiguo conservara este ID.
+  if(estado.escrituraHabilitada&&!pendiente)
+    la16PendGuardar_(a.alumnoId,fecha,requestId);
+  la16UI.ocupado=true;
+  const anterior=b.textContent;
+  b.disabled=true;b.textContent=pendiente?'Verificando solicitud pendiente…':'Procesando…';
   try{
-    const r=await api('la16Registrar',{alumnoId:a.alumnoId,requestId:idRequest()});
-    if(r.registroOmitidoPorPuntualidad){toast('Sin captura: el alumno es puntual. La asistencia corresponde al docente.');return;}
-    const aviso=r.clasificacion+' · '+r.horaServidor+(r.alertaDireccion?' · Alerta para Dirección por umbral mensual.':'');
-    toast((r.soloValidacion?'INCIDENCIA VALIDADA SIN GUARDAR: ':'INCIDENCIA REGISTRADA: ')+aviso);
-    if(!r.soloValidacion){
-      await la16CargarEstado();
-      $('la16-buscar').value='';$('la16-resultados').replaceChildren();
-      $('la16-encontrados').textContent='Incidencia registrada. Busca al siguiente alumno.';
-      $('la16-buscar').focus();
+    const r=await api('la16Registrar',{alumnoId:a.alumnoId,requestId});
+    if(r.registroOmitidoPorPuntualidad){
+      la16PendBorrar_(a.alumnoId,fecha);
+      toast('Sin captura: el alumno es puntual. La asistencia corresponde al docente.');
+      return;
     }
-  }catch(e){toast(e.message,true);}
-  finally{la16UI.ocupado=false;b.disabled=false;b.textContent=anterior;}
+    if(r.soloValidacion===true){
+      la16PendBorrar_(a.alumnoId,fecha);
+      toast('INCIDENCIA VALIDADA SIN GUARDAR: '+r.clasificacion+' · '+r.horaServidor);
+      return;
+    }
+    // Solo una respuesta positiva con entradaId confirma que puede borrarse el ID.
+    if(r.soloValidacion!==false||!r.entradaId||r.alumnoId!==a.alumnoId){
+      throw Error('La respuesta no confirmó un registro único. Conserva la solicitud pendiente.');
+    }
+    la16PendBorrar_(a.alumnoId,fecha);
+    toast('INCIDENCIA REGISTRADA: '+r.clasificacion+' · '+r.horaServidor+
+      (r.alertaDireccion?' · Alerta para Dirección por umbral mensual.':''));
+    await la16CargarEstado();
+    $('la16-buscar').value='';$('la16-resultados').replaceChildren();
+    $('la16-encontrados').textContent='Incidencia registrada. Busca al siguiente alumno.';
+    $('la16-buscar').focus();
+  }catch(e){
+    const error=String(e?.message||'No fue posible confirmar la operación.');
+    if(/ya tiene una incidencia registrada hoy/i.test(error)){
+      la16PendBorrar_(a.alumnoId,fecha);
+      toast('El servidor indica que este alumno ya tiene una incidencia. Actualiza la búsqueda; no intentes otra alta.',true);
+    }else if(/registro de puerta cerrado|fuera de horario|fecha.*no est[aá] autorizada|no hay clases autorizadas/i.test(error)){
+      // El servidor ha rechazado expresamente la operación antes de escribir.
+      la16PendBorrar_(a.alumnoId,fecha);
+      toast(error,true);
+    }else if(la16Pendiente_(a.alumnoId,fecha)){
+      toast('No se confirmó el registro. La solicitud queda pendiente: vuelve a buscar al alumno y usa «Reintentar solicitud pendiente», sin generar otra.',true);
+    }else{
+      toast(error,true);
+    }
+  }finally{
+    la16UI.ocupado=false;
+    b.disabled=false;
+    b.textContent=la16Pendiente_(a.alumnoId,fecha)
+      ?'↻ Reintentar solicitud pendiente':anterior;
+  }
 }
 async function la16CargarCuentas(){
   if(!rolPuedeAdministrar16())return;
