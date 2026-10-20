@@ -881,14 +881,18 @@ async function la16CargarEstado(){
   }
 }
 function rolPuedeAdministrar16(){return state.user?.rol==='general';}
-async function la16BuscarAlumnos(){
-  if(!la16PuedeAcceder()||la16UI.ocupado)return;
+async function la16BuscarAlumnos(opciones={}){
+  // Tras registrar, actualizar esta misma lista sin perder grupo, búsqueda ni desplazamiento.
+  // La llamada interna conserva el bloqueo global mientras finaliza el guardado.
+  const desdeRegistro=opciones?.desdeRegistro===true;
+  if(!la16PuedeAcceder()||(la16UI.ocupado&&!desdeRegistro))return;
   const nivel=$('la16-nivel').value,grupoId=$('la16-grupo').value,buscar=$('la16-buscar').value.trim();
   if(!grupoId&&buscar.length<3){toast('Escribe tres letras o selecciona un grupo.',true);return;}
-  la16UI.ocupado=true;
+  if(!desdeRegistro)la16UI.ocupado=true;
   $('la16-buscar-btn').disabled=true;
-  $('la16-encontrados').textContent='Buscando alumnos…';
-  $('la16-resultados').replaceChildren();
+  $('la16-encontrados').textContent=desdeRegistro?'Actualizando lista sin salir del grupo…':'Buscando alumnos…';
+  // No vaciar resultados al actualizar tras un guardado confirmado.
+  if(!desdeRegistro)$('la16-resultados').replaceChildren();
   try{
     const data=await api('la16Buscar',{nivel,grupoId,buscar});
     // La clasificacion y la hora deben proceder de ESTA respuesta del servidor.
@@ -907,9 +911,11 @@ async function la16BuscarAlumnos(){
     $('la16-encontrados').textContent=data.totalCoincidencias+' coincidencia(s); mostrando '+data.resultados.length+'.';
     const caja=$('la16-resultados');
     if(!data.resultados.length){
-      caja.append(la16Nodo('div','la14-placeholder','No hay alumnos que coincidan.'));
+      caja.replaceChildren(la16Nodo('div','la14-placeholder','No hay alumnos que coincidan.'));
       return;
     }
+    // Construir el listado fuera del DOM: no parpadear ni perder scroll.
+    const fragmento=document.createDocumentFragment();
     const puedeRegistrar=['acceso','general'].includes(state.user.rol);
     data.resultados.forEach(a=>{
       const ficha=la16Nodo('div','la16-student'),texto=la16Nodo('div');
@@ -929,13 +935,16 @@ async function la16BuscarAlumnos(){
         !(puedeReintentar||(!pendiente&&data.puedeRegistrarIncidencias));
       b.addEventListener('click',()=>void la16RegistrarAl(a,b));
       ficha.append(texto,b);
-      caja.append(ficha);
+      fragmento.append(ficha);
     });
+    caja.replaceChildren(fragmento);
   }catch(e){
-    $('la16-encontrados').textContent='Consulta no completada.';
-    toast(e.message,true);
+    $('la16-encontrados').textContent=desdeRegistro
+      ?'Incidencia guardada. No se pudo actualizar el listado; pulsa Buscar alumnos.'
+      :'Consulta no completada.';
+    toast('Error al actualizar la lista: '+e.message,true);
   }finally{
-    la16UI.ocupado=false;
+    if(!desdeRegistro)la16UI.ocupado=false;
     $('la16-buscar-btn').disabled=false;
   }
 }
@@ -964,6 +973,7 @@ async function la16RegistrarAl(a,b){
   if(estado.escrituraHabilitada&&!pendiente)
     la16PendGuardar_(a.alumnoId,fecha,requestId);
   la16UI.ocupado=true;
+  let confirmado=false;
   const anterior=b.textContent;
   b.disabled=true;b.textContent=pendiente?'Verificando solicitud pendiente…':'Procesando…';
   try{
@@ -983,12 +993,25 @@ async function la16RegistrarAl(a,b){
       throw Error('La respuesta no confirmó un registro único. Conserva la solicitud pendiente.');
     }
     la16PendBorrar_(a.alumnoId,fecha);
+    confirmado=true;
+    // Actualización inmediata y segura de la ficha confirmada, sin pedir un segundo registro.
+    a.registrado=true;
+    a.hora=r.horaServidor;
+    a.clasificacion=r.clasificacion;
+    const ficha=b.closest('.la16-student');
+    const detalle=ficha?.querySelector('small');
+    if(detalle){
+      detalle.textContent=a.grupo+' · Incidencia '+r.horaServidor+' · '+r.clasificacion;
+      detalle.classList.add('la16-good');
+    }
+    b.disabled=true;
+    b.classList.add('sec');
+    b.textContent='✓ Incidencia registrada';
     toast('INCIDENCIA REGISTRADA: '+r.clasificacion+' · '+r.horaServidor+
       (r.alertaDireccion?' · Alerta para Dirección por umbral mensual.':''));
+    // Mantener filtros y grupo; refrescar primero contadores y luego la lista actual.
     await la16CargarEstado();
-    $('la16-buscar').value='';$('la16-resultados').replaceChildren();
-    $('la16-encontrados').textContent='Incidencia registrada. Busca al siguiente alumno.';
-    $('la16-buscar').focus();
+    await la16BuscarAlumnos({desdeRegistro:true});
   }catch(e){
     const error=String(e?.message||'No fue posible confirmar la operación.');
     if(/ya tiene una incidencia registrada hoy/i.test(error)){
@@ -1005,9 +1028,15 @@ async function la16RegistrarAl(a,b){
     }
   }finally{
     la16UI.ocupado=false;
-    b.disabled=false;
-    b.textContent=la16Pendiente_(a.alumnoId,fecha)
-      ?'↻ Reintentar solicitud pendiente':anterior;
+    if(confirmado){
+      b.disabled=true;
+      b.classList.add('sec');
+      b.textContent='✓ Incidencia registrada';
+    }else{
+      b.disabled=false;
+      b.textContent=la16Pendiente_(a.alumnoId,fecha)
+        ?'↻ Reintentar solicitud pendiente':anterior;
+    }
   }
 }
 async function la16CargarCuentas(){
