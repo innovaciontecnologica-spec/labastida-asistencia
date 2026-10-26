@@ -1010,7 +1010,7 @@ function la16TextoBoton_(alumno,estado,pendiente){
 }
 const la16UI={estado:null,consulta:0,ocupado:false,busquedaTemporizador:null};
 function la16PuedeAcceder(){const u=state.user;return !!(u&&(u.rol==='general'||u.rol==='acceso'||u.rol==='direccion'&&['Primaria','Secundaria'].includes(u.nivel)));}
-function la16Limpiar(){clearTimeout(la16UI.busquedaTemporizador);la16UI.consulta++;la16UI.estado=null;la16UI.ocupado=false;if(typeof la201UI!=='undefined'){la201UI.catalogos.clear();la201UI.cargas.clear();la201UI.generacion++;la201UI.habilitado=true;}if(typeof la202UI!=='undefined'){la202UI.secuencia++;la202UI.ultimo=null;la202UI.nivel='';la202UI.bloqueoLocal=true;}$('la16-resultados').replaceChildren();$('la16-encontrados').textContent='';$('la16-hora').textContent='';la16OcultarClave();}
+function la16Limpiar(){clearTimeout(la16UI.busquedaTemporizador);la16UI.consulta++;la16UI.estado=null;la16UI.ocupado=false;if(typeof la201UI!=='undefined'){la201UI.catalogos.clear();la201UI.cargas.clear();la201UI.confirmados.clear();la201UI.generacion++;la201UI.habilitado=true;}if(typeof la202UI!=='undefined'){la202UI.secuencia++;la202UI.ultimo=null;la202UI.nivel='';la202UI.bloqueoLocal=true;}$('la16-resultados').replaceChildren();$('la16-encontrados').textContent='';$('la16-hora').textContent='';la16OcultarClave();}
 function la16OcultarClave(){$('la16-cred-user').textContent='';$('la16-cred-pass').textContent='';$('la16-clave-temporal').classList.add('hide');}
 function la16ModoVista(){
   const rol=state.user?.rol,nivel=$('la16-nivel');
@@ -1111,11 +1111,11 @@ async function la16BuscarAlumnosRemoto_(opciones={}){
   }
 }
 
-// ===== LABASTIDA 2.0.1 | ACCESO RAPIDO (CLIENTE; PILOTO SIN ESCRITURAS) =====
+// ===== LABASTIDA 2.0.1 | ACCESO RAPIDO (CLIENTE) =====
 // Cache SOLO EN MEMORIA DE LA SESION. No se almacena matricula en localStorage,
 // sessionStorage, service workers ni cache permanente del navegador.
 // Los permisos y el horario de escritura se verifican en Apps Script, no aqui.
-const la201UI={catalogos:new Map(),cargas:new Map(),habilitado:true,generacion:0};
+const la201UI={catalogos:new Map(),cargas:new Map(),confirmados:new Map(),habilitado:true,generacion:0};
 const LA201_MAX_MINUTOS=3;
 function la201Normalizar_(v){return String(v||'').normalize('NFD')
   .replace(/[\u0300-\u036f]/g,'').trim().replace(/\s+/g,' ').toUpperCase();}
@@ -1171,7 +1171,11 @@ async function la201ObtenerCatalogo_(nivel){
        state.user?.usuario!==usuario)throw Error('La sesión cambió; no se conserva el catálogo.');
     la201ValidarCatalogo_(data,nivel);
     for(const a of data.alumnos){
-      if(a.registrado)la16PendBorrar_(a.alumnoId,data.fecha);
+      if(a.registrado){
+        la16PendBorrar_(a.alumnoId,data.fecha);
+        // El servidor confirmó la incidencia: retirar el cerrojo local.
+        la201UI.confirmados.delete(data.fecha+'|'+a.alumnoId);
+      }
     }
     la201UI.catalogos.set(nivel,{recibido:Date.now(),data});
     return data;
@@ -1267,22 +1271,26 @@ function la201Dibujar_(data){
   const puedeRegistrar=['acceso','general'].includes(state.user?.rol);
   for(const a of data.resultados){
     const ficha=la16Nodo('div','la16-student'),texto=la16Nodo('div');
+    const cerrojo=la201UI.confirmados.get(la16UI.estado.fecha+'|'+a.alumnoId);
+    // Si una consulta tardía devuelve datos anteriores al registro, NO reabrir el botón.
+    const registrado=Boolean(a.registrado||cerrojo);
     texto.append(la16Nodo('strong','',a.nombre));
-    const descripcion=a.grupo+' · '+(a.registrado?
-      'Incidencia '+a.hora+' · '+a.clasificacion:
+    const descripcion=a.grupo+' · '+(registrado?
+      'Incidencia '+(a.registrado?a.hora:cerrojo.horaServidor)+' · '+
+      (a.registrado?a.clasificacion:cerrojo.clasificacion):
       'Sin incidencia registrada · '+a.retardosMes+' retardo(s) del mes');
-    texto.append(la16Nodo('small',a.registrado?'la16-good':'',descripcion));
+    texto.append(la16Nodo('small',registrado?'la16-good':'',descripcion));
     // Este listado puede usar la confirmacion optimista. NO borrar el cerrojo
     // hasta obtener un catalogo nuevo del servidor con registrado=true.
     const pendiente=la16Pendiente_(a.alumnoId,la16UI.estado.fecha);
     const cat=la201UI.catalogos.get($('la16-nivel').value);
     const fechaCoincide=cat?.data?.fecha===la16UI.estado?.fecha;
-    const puedeCapturar=LA20_CAPTURA_PRODUCCION&&puedeRegistrar&&!a.registrado&&
+    const puedeCapturar=LA20_CAPTURA_PRODUCCION&&puedeRegistrar&&!registrado&&
       fechaCoincide&&la201Vigente_(cat)&&la202PuedeEnviar_()&&!la16UI.ocupado;
-    const mensaje=a.registrado?'✓ Incidencia registrada':!LA20_CAPTURA_PRODUCCION?
+    const mensaje=registrado?'✓ Incidencia registrada':!LA20_CAPTURA_PRODUCCION?
       'Solo consulta · Sin registro':pendiente?'↻ Reintentar solicitud pendiente':
       puedeCapturar?'Registrar incidencia':'Sin captura · Consultar horario';
-    const b=la16Nodo('button','btn'+(a.registrado?' sec':''),mensaje);
+    const b=la16Nodo('button','btn'+(registrado?' sec':''),mensaje);
     b.type='button';
     b.disabled=!puedeCapturar;
     if(puedeCapturar)b.addEventListener('click',()=>void la16RegistrarAl(a,b));
@@ -1343,7 +1351,10 @@ async function la16BuscarAlumnos(opciones={}){
 }
 function la201ConfirmarEnCache_(a,r){
   const nivel=$('la16-nivel').value,c=la201UI.catalogos.get(nivel);
-  if(!c||c.data.fecha!==String(r.fecha||la16UI.estado?.fecha))return false;
+  const fecha=String(r.fecha||la16UI.estado?.fecha||'');
+  if(/^\d{4}-\d{2}-\d{2}$/.test(fecha))
+    la201UI.confirmados.set(fecha+'|'+a.alumnoId,{horaServidor:r.horaServidor,clasificacion:r.clasificacion});
+  if(!c||c.data.fecha!==fecha)return false;
   const actual=c.data.alumnos.find(x=>x.alumnoId===a.alumnoId);
   if(!actual)return false;
   const yaRegistrado=!!actual.registrado;
@@ -1377,7 +1388,7 @@ setInterval(()=>{
 },30000);
 // ===== FIN LABASTIDA 2.0.1 =====
 
-// ===== LABASTIDA 2.0.2 | RELOJ VIVO (PILOTO REAL, SOLO LECTURA) =====
+// ===== LABASTIDA 2.0.2 | RELOJ VIVO =====
 // La habilitación SOLO proviene de la respuesta autenticada del servidor.
 // La estimación local basada en hora del servidor puede BLOQUEAR preventivamente,
 // pero NUNCA habilitar ni cambiar la clasificación de una incidencia.
@@ -1569,9 +1580,9 @@ async function la16RegistrarAl(a,b){
     b.textContent='✓ Incidencia registrada';
     toast('INCIDENCIA REGISTRADA: '+r.clasificacion+' · '+r.horaServidor+
       (r.alertaDireccion?' · Alerta para Dirección por umbral mensual.':''));
-    // Mantener filtros y grupo; refrescar primero contadores y luego la lista actual.
-    await la16CargarEstado();
-    await la16BuscarAlumnos({desdeRegistro:true});
+    // El registro ya está confirmado: no bloquear la interfaz esperando otra lectura.
+    // Revalidar el catálogo desde el servidor, mientras el cerrojo local evita duplicados.
+    void la16CargarEstado({forzar:true});
   }catch(e){
     const error=String(e?.message||'No fue posible confirmar la operación.');
     if(/ya tiene una incidencia registrada hoy/i.test(error)){
@@ -1597,6 +1608,10 @@ async function la16RegistrarAl(a,b){
       b.textContent=la16Pendiente_(a.alumnoId,fecha)
         ?'↻ Reintentar solicitud pendiente':anterior;
     }
+    // Redibujar solamente tras soltar el bloqueo de operación.
+    // El catálogo confirmado o el cerrojo local deshabilitan cualquier segundo alta.
+    if(confirmado&&state.user?.rol&&state.tab==='entradas')
+      void la16BuscarAlumnos();
   }
 }
 async function la16CargarCuentas(){
