@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><title>Labastida Asistencia 2.0 · Administración escolar</title>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><title>Labastida Asistencia 2.0 · Candidata de integración segura</title>
 <link rel="icon" href="assets/escudo.png"><style>
 :root{--azul:#102C53;--azul2:#1f4772;--rojo:#AE203A;--oro:#C9A65E;--fondo:#F2F5FA;--gris:#64748b;--borde:#DFE6F1;--blanco:#fff;--verde:#146B53}
 *{box-sizing:border-box}body{margin:0;background:var(--fondo);font:15px/1.5 system-ui,-apple-system,'Segoe UI',sans-serif;color:#18273B}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.55}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #C9A65E;outline-offset:2px}
@@ -183,11 +183,20 @@ body:not(.lab2-authenticated) .header{min-height:104px}
 @media(max-width:650px){body.lab2-authenticated .header .escudo{width:40px;height:40px}.header .brand h1,body.lab2-authenticated .header .brand h1{font-size:19px}.header .brand .eyebrow{display:none}.header .brand small{font-size:11px}#view-entradas>.subhead{gap:12px;min-height:65px}#view-entradas>.subhead::before{width:48px;height:48px;flex-basis:48px;font-size:27px}#view-entradas>.subhead h2{font-size:23px}#view-entradas>.subhead p{font-size:11px}#view-entradas>.card{padding:15px}#view-entradas>.card>.formgrid{grid-template-columns:1fr;gap:11px}#view-entradas .la16-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}#view-entradas .la16-kpis>div{min-height:100px}#view-entradas .la16-student{grid-template-columns:35px minmax(0,1fr);gap:9px}#view-entradas .la16-student::before{width:33px;height:33px;background-size:21px}#view-entradas .la16-student>div:first-child{grid-column:2}#view-entradas .la16-student .btn{grid-column:1/3;width:100%;min-width:0!important;margin:0}#view-entradas .buttonrow .quiet{border-left:0;padding-left:0;width:100%}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 
+
+#la20-piloto-notice{background:#fff7e5;border-bottom:2px solid #d0a65a;color:#674e18;padding:12px max(18px,calc((100vw - 1250px)/2));font-size:13px;font-weight:650}
+#la20-piloto-notice strong{color:#173754}
+body.lab2-authenticated #la20-piloto-notice{padding-left:calc(var(--labnav) + 20px)}
+@media(max-width:900px){body.lab2-authenticated #la20-piloto-notice{padding-left:20px}}
+
+#login-screen details{display:none!important}
 </style></head><body>
-<header class="header"><img class="escudo" src="assets/escudo.png" alt="Escudo del Colegio Labastida"><div class="brand"><div class="eyebrow">Colegio Labastida · Francisco de Paula</div><h1>Labastida Asistencia</h1><small>Administración académica · Ciclo 2026–2027</small></div><span class="tag">VERSIÓN 2.0 · DISEÑO INSTITUCIONAL</span></header>
+<div id="la20-piloto-notice" role="status"><strong>LABASTIDA 2.0 · PREPRODUCCIÓN (SOLO LECTURA).</strong> Consulta catálogos y reloj oficial; ningún botón de esta página crea o modifica datos escolares. La aplicación principal sigue en <code>index.html</code>.</div>
+
+<header class="header"><img class="escudo" src="assets/escudo.png" alt="Escudo del Colegio Labastida"><div class="brand"><div class="eyebrow">Colegio Labastida · Francisco de Paula</div><h1>Labastida Asistencia</h1><small>Administración académica · Ciclo 2026–2027</small></div><span class="tag">CANDIDATA 2.0 · SOLO CONSULTA</span></header>
 <nav id="nav" class="hide"><div class="navinner"><button data-tab="resumen" class="active">Resumen</button><button data-tab="docentes">Docentes</button><button data-tab="asignaciones">Asignaciones</button><button id="tab-asistencia" data-tab="asistencia" class="hide">Pase de lista · Prueba</button><button id="tab-entradas" data-tab="entradas" class="hide">Retardos de ingreso</button><span class="grow"></span><span id="username" class="account"></span><button id="logout">Salir</button></div></nav>
 <main>
-<section id="login-screen" class="card" style="max-width:510px;margin:34px auto"><h2>Acceso institucional</h2><p>Direcciones y docentes autorizados ingresan con una cuenta individual. Los docentes solo consultan sus clases y validan pases en modo de prueba.</p><form id="form-login"><div class="field"><label for="login-user">Usuario</label><input id="login-user" autocomplete="username" required placeholder="dir_primaria"></div><div class="field" style="margin-top:12px"><label for="login-pass">Contraseña</label><input id="login-pass" autocomplete="current-password" type="password" required placeholder="Contraseña personal"></div><div class="buttonrow"><button class="btn" id="btn-login" type="submit">Entrar al sistema</button><span id="login-status" class="quiet"></span></div></form><div class="status">Administración disponible únicamente para Direcciones. Los docentes solo verán sus clases asignadas. Ningún pase se guarda todavía.</div><details style="margin-top:20px"><summary style="cursor:pointer;color:#6F7D91;font-size:12px">Configuración técnica</summary><div class="field" style="margin-top:12px"><label for="api-url">Dirección del Worker (terminada en /api)</label><input id="api-url" type="url" autocomplete="off" placeholder="https://labastida-asistencia-api....workers.dev/api"></div><button id="save-url" class="btn sec" style="margin-top:10px" type="button">Guardar dirección</button><div class="quiet" style="margin-top:7px">La dirección se conserva en este navegador. No introduzcas contraseñas ni secretos de Cloudflare aquí.</div></details></section>
+<section id="login-screen" class="card" style="max-width:510px;margin:34px auto"><h2>Acceso institucional</h2><p>Direcciones y docentes autorizados ingresan con una cuenta individual. Los docentes solo consultan sus clases y validan pases en modo de prueba.</p><form id="form-login"><div class="field"><label for="login-user">Usuario</label><input id="login-user" autocomplete="username" required placeholder="dir_primaria"></div><div class="field" style="margin-top:12px"><label for="login-pass">Contraseña</label><input id="login-pass" autocomplete="current-password" type="password" required placeholder="Contraseña personal"></div><div class="buttonrow"><button class="btn" id="btn-login" type="submit">Entrar al sistema</button><span id="login-status" class="quiet"></span></div></form><div class="status">Administración disponible únicamente para Direcciones. Los docentes solo verán sus clases asignadas. Ningún pase se guarda todavía.</div><details class="hide" style="margin-top:20px"><summary style="cursor:pointer;color:#6F7D91;font-size:12px">Configuración técnica</summary><div class="field" style="margin-top:12px"><label for="api-url">Dirección del Worker (terminada en /api)</label><input id="api-url" type="url" autocomplete="off" placeholder="https://labastida-asistencia-api....workers.dev/api"></div><button id="save-url" class="btn sec" style="margin-top:10px" type="button">Guardar dirección</button><div class="quiet" style="margin-top:7px">La dirección se conserva en este navegador. No introduzcas contraseñas ni secretos de Cloudflare aquí.</div></details></section>
 <section id="change-screen" class="card hide" style="max-width:510px;margin:34px auto"><h2>Establecer contraseña personal</h2><p>Por seguridad, cambia la clave temporal antes de comenzar a usar el panel.</p><form id="form-change"><div class="field"><label for="old-pass">Contraseña temporal actual</label><input id="old-pass" type="password" required></div><div class="field" style="margin-top:12px"><label for="new-pass">Nueva contraseña (15 caracteres mínimo)</label><input id="new-pass" type="password" minlength="15" maxlength="128" required></div><div class="field" style="margin-top:12px"><label for="confirm-pass">Confirma la nueva contraseña</label><input id="confirm-pass" type="password" minlength="15" maxlength="128" required></div><div class="buttonrow"><button class="btn" id="btn-change" type="submit">Guardar y volver a entrar</button></div></form></section>
 <div id="app" class="hide">
 <section id="view-resumen" class="view"><div class="subhead"><div><h2>Panel de administración</h2><p id="scope-text">Resumen de matrícula y asignaciones.</p></div><button class="btn sec" id="refresh">↻ Actualizar</button></div><div class="grid"><div class="kpi"><strong id="k-alumnos">—</strong><span>Alumnos en grupos</span></div><div class="kpi"><strong id="k-grupos">—</strong><span>Grupos</span></div><div class="kpi"><strong id="k-docentes">—</strong><span>Docentes activos</span></div><div class="kpi"><strong id="k-asignaciones">—</strong><span>Asignaciones activas</span></div></div><div class="card" style="margin-top:20px"><h3>Grupos y carga académica</h3><p>En Preescolar y Primaria se asigna un titular por grupo; en Secundaria se asigna por materia y grupo según el horario aprobado.</p><div class="datawrap"><table class="data"><thead><tr><th>Grupo</th><th>Nivel</th><th>Alumnos</th><th>Modalidad</th><th>Docentes asignados</th></tr></thead><tbody id="groups-body"></tbody></table></div></div></section>
@@ -255,17 +264,17 @@ body:not(.lab2-authenticated) .header{min-height:104px}
   </div>
 </section>
 
-<section id="view-entradas" class="view hide">
+<section id="view-entradas" class="view hide"><div class="la14-banner"><strong>Vista piloto (solo lectura):</strong> catálogo acelerado y reloj vivo conectados al servidor real. El registro de retardos y cualquier modificación administrativa están deshabilitados en esta página.</div>
   <div class="subhead"><div><h2>Registro rápido de retardos</h2><p>Primaria y Secundaria · Solo incidencias después de las 7:40 · Hora oficial del servidor</p></div></div>
   <div class="la16-readonly" id="la16-banner">Modo prueba: solo se validan retardos e ingresos diferidos. Los alumnos puntuales pasan directamente, sin registro en puerta.</div>
   <div class="card"><div class="formgrid">
     <div class="field"><label for="la16-nivel">Nivel escolar</label><select id="la16-nivel"><option value="Primaria">Primaria</option><option value="Secundaria">Secundaria</option></select></div>
     <div class="field"><label for="la16-grupo">Grupo (opcional)</label><select id="la16-grupo"><option value="">Todos los grupos del nivel</option></select></div>
   </div><form id="la16-buscar-form" style="margin-top:14px"><div class="field"><label for="la16-buscar">Buscar alumno por nombre</label><input id="la16-buscar" type="search" autocomplete="off" placeholder="Escribe al menos 3 letras, o selecciona un grupo" maxlength="110"></div>
-    <div class="buttonrow"><button type="submit" class="btn" id="la16-buscar-btn">Buscar alumnos</button><button type="button" class="btn sec" id="la16-refresh">↻ Actualizar</button><span class="quiet" id="la16-hora" role="status" aria-live="polite"></span></div><p class="quiet">Escribe al menos 3 letras: la búsqueda se ejecuta automáticamente. No se revisa a todos los alumnos que llegan puntuales.</p></form>
+    <div class="buttonrow"><button type="submit" class="btn" id="la16-buscar-btn">Buscar alumnos</button><button type="button" class="btn sec" id="la16-refresh">↻ Actualizar</button><span class="quiet" id="la16-hora" role="status" aria-live="polite"></span></div><p class="quiet">La primera descarga requiere conexión; después, filtra alumnos sin llamadas por cada búsqueda. Durante la actualización puedes consultar datos en memoria. No permite registrar.</p></form>
     <div class="la16-kpis" aria-label="Incidencias del día"><div><strong id="la16-total">—</strong><span>Matrícula de referencia</span></div><div><strong id="la16-entraron">—</strong><span>Incidencias registradas</span></div><div><strong id="la16-retardos">—</strong><span>Retardos 7:41–7:45</span></div><div><strong id="la16-diferidos">—</strong><span>Diferidos desde 7:46</span></div></div>
     <p class="quiet">Hasta las 7:40: paso libre sin captura. 7:41–7:45: retardo. De 7:46 a 8:00: llegada diferida y espera hasta el cambio de clase. Después de las 8:00: captura cerrada. Estos registros se reflejarán en el pase de la primera clase; la asistencia la confirma el docente.</p></div>
-  <div class="card"><h3>Búsqueda de incidencias</h3><p id="la16-encontrados" class="quiet">Selecciona un nivel, escribe un nombre y busca.</p><div class="la16-results" id="la16-resultados" aria-live="polite"></div></div>
+  <div class="card"><h3>Búsqueda de incidencias</h3><p id="la16-encontrados" class="quiet">Selecciona nivel: primera carga desde el servidor; después, búsqueda local inmediata.</p><div class="la16-results" id="la16-resultados" aria-live="polite"></div></div>
   <div class="card hide" id="la16-admin"><h3>Cuentas del personal de acceso · Dirección General</h3><p>Crea una cuenta individual, con contraseña temporal y cambio obligatorio en el primer ingreso. Las contraseñas no se guardan en la hoja.</p>
   <form id="la16-form-cuenta"><div class="formgrid"><div class="field"><label for="la16-nombre-cuenta">Nombre completo del personal</label><input id="la16-nombre-cuenta" required minlength="5" maxlength="110" placeholder="Nombre y apellidos"></div><div class="field"><label for="la16-usuario-cuenta">Usuario individual</label><input id="la16-usuario-cuenta" required placeholder="acc_puerta.nombre" autocomplete="off"></div></div><div class="buttonrow"><button class="btn" type="submit" id="la16-crear-cuenta">Crear cuenta de acceso</button><button class="btn sec" type="button" id="la16-refresh-cuentas">Actualizar cuentas</button></div></form>
   <div class="la15-creds hide" id="la16-clave-temporal"><strong>Credencial temporal · Mostrar una sola vez</strong><div class="formgrid" style="margin-top:10px"><div><label>Usuario</label><code id="la16-cred-user"></code></div><div><label>Contraseña temporal</label><code id="la16-cred-pass"></code></div></div><div class="buttonrow"><button class="btn sec" type="button" id="la16-ocultar">Ocultar credenciales</button></div></div>
@@ -277,23 +286,66 @@ body:not(.lab2-authenticated) .header{min-height:104px}
 <script>
 'use strict';
 const DEFAULT_API='https://labastida-asistencia-api.innovaciontecnologica.workers.dev/api';
-const state={api:localStorage.getItem('labastida_asistencia_api')||DEFAULT_API,token:null,user:null,data:null,tab:'resumen',pending:false};
+const state={api:DEFAULT_API,token:null,user:null,data:null,tab:'resumen',pending:false};
+// CANDIDATA DE INTEGRACION: nunca publicar como index.html antes de QA
+// y autorización independiente de puesta en servicio.
+// Se entrega con TODAS las escrituras bloqueadas.
+// Se habilita la operación REAL solo cuando este archivo sea el index.html canónico.
+// Cualquier ruta de revisión o una copia descargada funciona exclusivamente en lectura.
+const LA20_CAPTURA_PRODUCCION = location.protocol === 'https:' &&
+  location.hostname === 'innovaciontecnologica-spec.github.io' &&
+  /^\/labastida-asistencia\/(?:index\.html)?$/.test(location.pathname);
+function la20TextoBanner_(dato){
+  const estado=la16TextoSituacion_(dato);
+  return LA20_CAPTURA_PRODUCCION ? estado :
+    'PREPRODUCCIÓN · SOLO LECTURA · '+estado+' · No se permiten registros desde esta página.';
+}
+// Mostrar claramente el entorno, nunca usar una copia de pruebas como puerta operativa.
+const aviso20=document.getElementById('la20-piloto-notice');
+if(aviso20)aviso20.hidden=LA20_CAPTURA_PRODUCCION;
+const etiqueta20=document.querySelector('.header .tag');
+if(etiqueta20)etiqueta20.textContent=LA20_CAPTURA_PRODUCCION ?
+  'VERSIÓN 2.0 · DISEÑO INSTITUCIONAL' : 'CANDIDATA 2.0 · SOLO CONSULTA';
+const introPuerta20=document.querySelector('#view-entradas>.la14-banner');
+if(introPuerta20){
+  introPuerta20.textContent=LA20_CAPTURA_PRODUCCION ?
+    'Registro de incidencias: la hora oficial, los permisos y la unicidad del registro se verifican en el servidor. Después de las 08:00 la captura permanece cerrada.' :
+    'Vista de preproducción: consultas aceleradas y reloj oficial. Aquí no se registra ninguna incidencia ni se modifica información administrativa.';
+}
+
 const $=id=>document.getElementById(id), els={};
 const levels=['Preescolar','Primaria','Secundaria'];
 const idRequest=()=>('LA-'+Date.now()+'-'+(crypto.randomUUID?crypto.randomUUID():Math.random().toString(36).slice(2)));
 function toast(msg,bad=false){const t=$('toast');t.textContent=msg;t.className='toast'+(bad?' error':'');clearTimeout(toast._timeout);toast._timeout=setTimeout(()=>t.classList.add('hide'),5500);}
 function show(id){['login-screen','change-screen','app','nav'].forEach(v=>$(v).classList.add('hide'));$(id).classList.remove('hide');if(id==='app')$('nav').classList.remove('hide');}
-function tab(name){if(state.user?.rol==='acceso'&&name!=='entradas'){toast('Tu cuenta solo permite consultar y registrar incidencias de tardanza.',true);return;}if(name==='entradas'&&!la16PuedeAcceder()){toast('Sin autorización para las entradas.',true);return;}if(state.user?.rol==='docente'&&name!=='asistencia'){toast('Tu cuenta solo permite pase de lista.',true);return;}if(name==='asistencia'&&!la14PuedeConsultar()){toast('No tienes autorización para consultar el pase.',true);return;}state.tab=name;document.querySelectorAll('.view').forEach(x=>x.classList.add('hide'));$('view-'+name).classList.remove('hide');document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x.dataset.tab===name));if(name!=='docentes'&&typeof la15OcultarCredencial==='function')la15OcultarCredencial();if(name==='entradas'){la16ModoVista();void la16CargarEstado();}if(name==='asistencia')void la14CargarClases();if(name==='docentes'&&state.user?.rol==='general')void la15CargarCuentas();if(name==='asignaciones')void la151CargarVacantes();}
+function tab(name){if(state.user?.rol==='acceso'&&name!=='entradas'){toast('Tu cuenta solo permite consultar y registrar incidencias de tardanza.',true);return;}if(name==='entradas'&&!la16PuedeAcceder()){toast('Sin autorización para las entradas.',true);return;}if(state.user?.rol==='docente'&&name!=='asistencia'){toast('Tu cuenta solo permite pase de lista.',true);return;}if(name==='asistencia'&&!la14PuedeConsultar()){toast('No tienes autorización para consultar el pase.',true);return;}state.tab=name;document.querySelectorAll('.view').forEach(x=>x.classList.add('hide'));$('view-'+name).classList.remove('hide');document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x.dataset.tab===name));if(name!=='docentes'&&typeof la15OcultarCredencial==='function')la15OcultarCredencial();if(name==='entradas'){la16ModoVista();void la16CargarEstado().then(()=>la201PrecargarPermitidos_()).catch(e=>toast('No se pudo precargar el catálogo: '+e.message,true));}if(name==='asistencia')void la14CargarClases();if(name==='docentes'&&state.user?.rol==='general')void la15CargarCuentas();if(name==='asignaciones')void la151CargarVacantes();}
 function opt(value,label){const o=document.createElement('option');o.value=value;o.textContent=label;return o;}
 function setOptions(el,items,placeholder){el.replaceChildren(opt('',placeholder),...items.map(x=>opt(x.value,x.label)));}
 function td(value){const x=document.createElement('td');x.textContent=String(value??'');return x;}
 function row(cols){const r=document.createElement('tr');cols.forEach(x=>r.appendChild(td(x)));return r;}
 function pending(on,button,msg){state.pending=on;if(button){button.disabled=on;button.textContent=on?msg:button.dataset.label;} }
 async function api(action,payload={}){
-  const url=String(state.api||'').trim();if(!/^https:\/\/[a-z0-9.-]+\/api\/?$/i.test(url))throw Error('Configura la dirección /api del Worker.');
-  const response=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action,token:state.token,...payload}),cache:'no-store'});
-  if(!response.ok)throw Error('Servidor no disponible (HTTP '+response.status+').');
-  const d=await response.json();if(!d.success)throw Error(d.error||'La operación no fue confirmada.');return d;
+  // Corte preventivo para esta candidata; NO sustituye las validaciones del servidor.
+  const soloLecturas=new Set(['ping','login','logout','dashboard',
+    'la201Catalogo','la202EstadoHorario','la16Estado','la16Buscar',
+    'la14Clases','la14VistaPase','la15Clases','la15VistaPase',
+    'la15CuentasDocentes','la16Cuentas','la151Vacantes']);
+  if(!LA20_CAPTURA_PRODUCCION&&!soloLecturas.has(action))throw Error('CANDIDATA SIN ESCRITURAS: esta acción no está habilitada.');
+  const url=DEFAULT_API; // Worker institucional fijo (no configurable desde esta página).
+  if(!/^https:\/\/[a-z0-9.-]+\/api\/?$/i.test(url))throw Error('Dirección de servidor inválida.');
+  const ctrl=new AbortController();
+  const stop=setTimeout(()=>ctrl.abort(),35000);
+  try{
+    const response=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({action,token:state.token,...payload}),cache:'no-store',signal:ctrl.signal});
+    if(!response.ok)throw Error('Servidor no disponible (HTTP '+response.status+').');
+    const d=await response.json();
+    if(!d.success)throw Error(d.error||'La operación no fue confirmada.');
+    return d;
+  }catch(e){
+    if(e?.name==='AbortError')throw Error('La conexión excedió 35 segundos; si intentaste registrar una incidencia, la solicitud sigue pendiente y no debes generar otra.');
+    throw e;
+  }finally{clearTimeout(stop);}
 }
 async function refresh(){
   try{const r=await api('dashboard');state.data=r.data;render();}catch(e){toast(e.message,true);if(/sesión|invalidad|vencida/i.test(e.message)){state.token=null;show('login-screen');}}
@@ -499,7 +551,7 @@ $('refresh').addEventListener('click',refresh);
 document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>tab(b.dataset.tab)));
 $('logout').addEventListener('click',async()=>{la14Limpiar();la16Limpiar();const token=state.token;state.token=null;state.data=null;state.user=null;show('login-screen');if(token){try{await api('logout',{token});}catch(_){}}});
 $('api-url').value=state.api;
-$('save-url').addEventListener('click',()=>{const url=$('api-url').value.trim().replace(/\/$/,'');if(!/^https:\/\/[a-z0-9.-]+\/api$/i.test(url)){toast('Escribe la dirección HTTPS del Worker terminada en /api.',true);return;}state.api=url;localStorage.setItem('labastida_asistencia_api',url);toast('Dirección del servidor guardada.');});
+$('save-url').addEventListener('click',()=>toast('La dirección del servidor institucional está fijada por seguridad.',true));
 ['btn-login','btn-change','btn-teacher','btn-assign','btn-apoyo','btn-multinivel'].forEach(id=>$(id).dataset.label=$(id).textContent);
 
 // === LABASTIDA 1.4 - UI TÁCTIL: SOLO CONSULTA Y VALIDACIÓN, SIN ESCRITURAS ===
@@ -958,7 +1010,7 @@ function la16TextoBoton_(alumno,estado,pendiente){
 }
 const la16UI={estado:null,consulta:0,ocupado:false,busquedaTemporizador:null};
 function la16PuedeAcceder(){const u=state.user;return !!(u&&(u.rol==='general'||u.rol==='acceso'||u.rol==='direccion'&&['Primaria','Secundaria'].includes(u.nivel)));}
-function la16Limpiar(){clearTimeout(la16UI.busquedaTemporizador);la16UI.consulta++;la16UI.estado=null;la16UI.ocupado=false;$('la16-resultados').replaceChildren();$('la16-encontrados').textContent='';$('la16-hora').textContent='';la16OcultarClave();}
+function la16Limpiar(){clearTimeout(la16UI.busquedaTemporizador);la16UI.consulta++;la16UI.estado=null;la16UI.ocupado=false;if(typeof la201UI!=='undefined'){la201UI.catalogos.clear();la201UI.cargas.clear();la201UI.generacion++;la201UI.habilitado=true;}if(typeof la202UI!=='undefined'){la202UI.secuencia++;la202UI.ultimo=null;la202UI.nivel='';la202UI.bloqueoLocal=true;}$('la16-resultados').replaceChildren();$('la16-encontrados').textContent='';$('la16-hora').textContent='';la16OcultarClave();}
 function la16OcultarClave(){$('la16-cred-user').textContent='';$('la16-cred-pass').textContent='';$('la16-clave-temporal').classList.add('hide');}
 function la16ModoVista(){
   const rol=state.user?.rol,nivel=$('la16-nivel');
@@ -967,7 +1019,7 @@ function la16ModoVista(){
   $('tab-entradas').classList.toggle('hide',!la16PuedeAcceder());
 }
 function la16Nodo(tag,cls,txt){const n=document.createElement(tag);if(cls)n.className=cls;if(txt!==undefined)n.textContent=String(txt);return n;}
-async function la16CargarEstado(){
+async function la16CargarEstadoRemoto_(){
   if(!la16PuedeAcceder())return;
   la16ModoVista();
   const seq=++la16UI.consulta,nivel=$('la16-nivel').value;
@@ -981,7 +1033,7 @@ async function la16CargarEstado(){
     $('la16-entraron').textContent=data.totalIncidencias??data.totalEntradas;
     $('la16-retardos').textContent=data.retardo;
     $('la16-diferidos').textContent=data.ingresoDiferido;
-    $('la16-banner').textContent=la16TextoSituacion_(data);
+    $('la16-banner').textContent=la20TextoBanner_(data);
     const selected=$('la16-grupo').value;
     setOptions($('la16-grupo'),data.grupos.map(g=>({value:g.id,label:g.nombre})),'Todos los grupos del nivel');
     if(data.grupos.some(g=>g.id===selected))$('la16-grupo').value=selected;
@@ -991,7 +1043,7 @@ async function la16CargarEstado(){
   }
 }
 function rolPuedeAdministrar16(){return state.user?.rol==='general';}
-async function la16BuscarAlumnos(opciones={}){
+async function la16BuscarAlumnosRemoto_(opciones={}){
   // Tras registrar, actualizar esta misma lista sin perder grupo, búsqueda ni desplazamiento.
   // La llamada interna conserva el bloqueo global mientras finaliza el guardado.
   const desdeRegistro=opciones?.desdeRegistro===true;
@@ -1017,7 +1069,7 @@ async function la16BuscarAlumnos(opciones={}){
       horaMaxima:data.horaMaxima
     };
     $('la16-hora').textContent='Fecha '+data.fecha+' · Hora servidor '+data.horaServidor;
-    $('la16-banner').textContent=la16TextoSituacion_(la16UI.estado);
+    $('la16-banner').textContent=la20TextoBanner_(la16UI.estado);
     $('la16-encontrados').textContent=data.totalCoincidencias+' coincidencia(s); mostrando '+data.resultados.length+'.';
     const caja=$('la16-resultados');
     if(!data.resultados.length){
@@ -1058,7 +1110,403 @@ async function la16BuscarAlumnos(opciones={}){
     $('la16-buscar-btn').disabled=false;
   }
 }
+
+// ===== LABASTIDA 2.0.1 | ACCESO RAPIDO (CLIENTE; PILOTO SIN ESCRITURAS) =====
+// Cache SOLO EN MEMORIA DE LA SESION. No se almacena matricula en localStorage,
+// sessionStorage, service workers ni cache permanente del navegador.
+// Los permisos y el horario de escritura se verifican en Apps Script, no aqui.
+const la201UI={catalogos:new Map(),cargas:new Map(),habilitado:true,generacion:0};
+const LA201_MAX_MINUTOS=3;
+function la201Normalizar_(v){return String(v||'').normalize('NFD')
+  .replace(/[\u0300-\u036f]/g,'').trim().replace(/\s+/g,' ').toUpperCase();}
+function la201Vigente_(c){return !!(c && (Date.now()-c.recibido)<LA201_MAX_MINUTOS*60000);}
+function la201MostrarEstado_(data){
+  la16UI.estado={...data};
+  // Reponer la última autorización horaria comprobada cuando el catálogo se refresca.
+  if(typeof la202UI!=='undefined'&&la202UI.ultimo&&
+     la202UI.nivel===data.nivel&&la202UI.ultimo.fecha===data.fecha){
+    la16UI.estado={...la16UI.estado,...la202UI.ultimo};
+  }
+  $('la16-hora').textContent='Fecha '+data.fecha+' · Hora servidor '+data.horaServidor+' · Catálogo listo';
+  $('la16-total').textContent=String(data.totalAlumnos);
+  $('la16-entraron').textContent=String(data.totalIncidencias??data.totalEntradas);
+  $('la16-retardos').textContent=String(data.retardo);
+  $('la16-diferidos').textContent=String(data.ingresoDiferido);
+  $('la16-banner').textContent=la20TextoBanner_(la16UI.estado);
+  const elegido=$('la16-grupo').value;
+  setOptions($('la16-grupo'),data.grupos.map(g=>({value:g.id,label:g.nombre})),'Todos los grupos del nivel');
+  if(data.grupos.some(g=>g.id===elegido))$('la16-grupo').value=elegido;
+  if(rolPuedeAdministrar16())void la16CargarCuentas();
+}
+function la201ValidarCatalogo_(data,nivel){
+  if(!data||data.success!==true||data.nivel!==nivel||
+    !Array.isArray(data.alumnos)||!Array.isArray(data.grupos)||
+    data.alumnos.length!==Number(data.totalAlumnos)||
+    data.alumnos.length>300||data.alumnos.length===0||
+    !/^\d{4}-\d{2}-\d{2}$/.test(data.fecha)||
+    !['Primaria','Secundaria'].includes(nivel)||
+    typeof data.escrituraHabilitada!=='boolean')
+    throw Error('El catalogo rapido no coincide con el nivel o el contrato de lectura.');
+  const ids=new Set();
+  for(const a of data.alumnos){
+    if(!a||!a.alumnoId||!a.grupoId||!a.nombre||ids.has(String(a.alumnoId)))
+      throw Error('El catalogo contiene fichas invalidas o duplicadas.');
+    ids.add(String(a.alumnoId));
+  }
+}
+// PILOTO 2.0: precarga simultánea por nivel y una sola petición por nivel.
+// Nunca se guardan nombres de alumnos fuera de la memoria de esta pestaña.
+function la201NivelPermitido_(nivel){
+  const u=state.user;
+  return !!(u&&['Primaria','Secundaria'].includes(nivel)&&
+    (u.rol==='acceso'||u.rol==='general'||(u.rol==='direccion'&&u.nivel===nivel)));
+}
+async function la201ObtenerCatalogo_(nivel){
+  if(!la201NivelPermitido_(nivel)||!state.token)throw Error('Nivel no autorizado.');
+  if(la201UI.cargas.has(nivel))return la201UI.cargas.get(nivel);
+  const usuario=state.user.usuario,token=state.token,generacion=la201UI.generacion;
+  const trabajo=(async()=>{
+    const data=await api('la201Catalogo',{nivel});
+    if(generacion!==la201UI.generacion||state.token!==token||
+       state.user?.usuario!==usuario)throw Error('La sesión cambió; no se conserva el catálogo.');
+    la201ValidarCatalogo_(data,nivel);
+    for(const a of data.alumnos){
+      if(a.registrado)la16PendBorrar_(a.alumnoId,data.fecha);
+    }
+    la201UI.catalogos.set(nivel,{recibido:Date.now(),data});
+    return data;
+  })();
+  la201UI.cargas.set(nivel,trabajo);
+  try{return await trabajo;}
+  finally{if(la201UI.cargas.get(nivel)===trabajo)la201UI.cargas.delete(nivel);}
+}
+function la201PrecargarPermitidos_(){
+  if(!la201UI.habilitado||!state.user||!state.token)return;
+  for(const nivel of ['Primaria','Secundaria']){
+    if(!la201NivelPermitido_(nivel)||la201Vigente_(la201UI.catalogos.get(nivel))||
+       la201UI.cargas.has(nivel))continue;
+    // La segunda carga se hace en paralelo y NO bloquea los botones o la búsqueda.
+    void la201ObtenerCatalogo_(nivel).catch(()=>{
+      // La consulta visible notificará el error si se llega a necesitar ese nivel.
+    });
+  }
+}
+async function la16CargarEstado(opciones={}){
+  if(!la16PuedeAcceder())return;
+  la16ModoVista();
+  const nivel=$('la16-nivel').value;
+  if(!la201UI.habilitado)throw Error('Acceso Rápido no disponible en el servidor.');
+  const existente=la201UI.catalogos.get(nivel);
+  // PILOTO de solo lectura: al cambiar de nivel, no bloquear una lista
+  // ya descargada porque hayan pasado tres minutos. Se indica su antigüedad
+  // y se verifica en segundo plano. En producción jamás se permite escribir
+  // usando el catálogo anterior.
+  if(!opciones.forzar&&existente){
+    const antiguedad=Date.now()-existente.recibido;
+    const vigente=la201Vigente_(existente);
+    if(vigente || (antiguedad>=0&&antiguedad<15*60000)){
+      la201MostrarEstado_(existente.data);
+      if(!vigente){
+        $('la16-hora').textContent='Catálogo en actualización · sincronizando con servidor…';
+        if(!la201UI.cargas.has(nivel))void la16CargarEstado({forzar:true});
+      }
+      if($('la16-grupo').value||$('la16-buscar').value.trim().length>=3)
+        void la16BuscarAlumnos();
+      return;
+    }
+  }
+  const seq=++la16UI.consulta,generacion=la201UI.generacion;
+  $('la16-hora').textContent=existente?'Actualizando catálogo en segundo plano…':'Descargando catálogo una sola vez…';
+  const inicio=performance.now();
+  try{
+    const data=await la201ObtenerCatalogo_(nivel);
+    if(generacion!==la201UI.generacion||seq!==la16UI.consulta||
+       nivel!==$('la16-nivel').value||!la16PuedeAcceder())return;
+    la201ValidarCatalogo_(data,nivel);
+    // Unicamente la respuesta del servidor libera solicitudes ya comprobadas.
+    for(const a of data.alumnos){
+      if(a.registrado)la16PendBorrar_(a.alumnoId,data.fecha);
+    }
+    la201UI.catalogos.set(nivel,{recibido:Date.now(),data});
+    la201MostrarEstado_(data);
+    if($('la16-grupo').value||$('la16-buscar').value.trim().length>=3)
+      void la16BuscarAlumnos();
+    // Solo tiempos; nunca registrar datos personales en consola.
+    const tiempoCarga=Math.round(performance.now()-inicio);
+    $('la16-hora').textContent+=' · Carga '+tiempoCarga+' ms';
+    console.info('LABASTIDA 2.0.1 catálogo',nivel,'duracionMs',tiempoCarga,'alumnos',data.alumnos.length);
+  }catch(e){
+    if(generacion!==la201UI.generacion||seq!==la16UI.consulta)return;
+    // Ante sesion revocada/caducada se descarta INMEDIATAMENTE la lista local.
+    if(/sesi[oó]n (vencida|invalidada|caducada)|inicia sesi[oó]n nuevamente/i.test(String(e?.message||''))){
+      la16Limpiar();state.token=null;state.user=null;show('login-screen');
+      toast('La sesión terminó. Vuelve a iniciar sesión para consultar alumnos.',true);
+      return;
+    }
+    // Version previa: conservar la consulta original sin tocar la escritura.
+    if(/operaci[oó]n desconocida|unknown action/i.test(String(e?.message||''))){
+      la201UI.habilitado=false;
+      $('la16-hora').textContent='Acceso Rápido no disponible en el servidor.';
+      toast('La ruta de Acceso Rápido no está disponible.',true);
+      return;
+    }
+    $('la16-hora').textContent='';
+    toast('No fue posible cargar el catálogo: '+e.message,true);
+    // No mostrar datos obsoletos como una consulta confirmada nueva.
+  }
+}
+function la201Dibujar_(data){
+  if(!la16PuedeAcceder())return;
+  const caja=$('la16-resultados');
+  $('la16-encontrados').textContent=data.totalCoincidencias+' coincidencia(s); mostrando '+data.resultados.length+'.';
+  if(!data.resultados.length){
+    caja.replaceChildren(la16Nodo('div','la14-placeholder','No hay alumnos que coincidan.'));
+    return;
+  }
+  const fragmento=document.createDocumentFragment();
+  const puedeRegistrar=['acceso','general'].includes(state.user?.rol);
+  for(const a of data.resultados){
+    const ficha=la16Nodo('div','la16-student'),texto=la16Nodo('div');
+    texto.append(la16Nodo('strong','',a.nombre));
+    const descripcion=a.grupo+' · '+(a.registrado?
+      'Incidencia '+a.hora+' · '+a.clasificacion:
+      'Sin incidencia registrada · '+a.retardosMes+' retardo(s) del mes');
+    texto.append(la16Nodo('small',a.registrado?'la16-good':'',descripcion));
+    // Este listado puede usar la confirmacion optimista. NO borrar el cerrojo
+    // hasta obtener un catalogo nuevo del servidor con registrado=true.
+    const pendiente=la16Pendiente_(a.alumnoId,la16UI.estado.fecha);
+    const cat=la201UI.catalogos.get($('la16-nivel').value);
+    const fechaCoincide=cat?.data?.fecha===la16UI.estado?.fecha;
+    const puedeCapturar=LA20_CAPTURA_PRODUCCION&&puedeRegistrar&&!a.registrado&&
+      fechaCoincide&&la201Vigente_(cat)&&la202PuedeEnviar_()&&!la16UI.ocupado;
+    const mensaje=a.registrado?'✓ Incidencia registrada':!LA20_CAPTURA_PRODUCCION?
+      'Solo consulta · Sin registro':pendiente?'↻ Reintentar solicitud pendiente':
+      puedeCapturar?'Registrar incidencia':'Sin captura · Consultar horario';
+    const b=la16Nodo('button','btn'+(a.registrado?' sec':''),mensaje);
+    b.type='button';
+    b.disabled=!puedeCapturar;
+    if(puedeCapturar)b.addEventListener('click',()=>void la16RegistrarAl(a,b));
+    else b.title='La captura está inactiva o falta confirmación actual del servidor.';
+    ficha.append(texto,b);fragmento.append(ficha);
+  }
+  caja.replaceChildren(fragmento);
+}
+async function la16BuscarAlumnos(opciones={}){
+  if(!la201UI.habilitado)return;
+  if(!la16PuedeAcceder()||la16UI.ocupado)return;
+  const nivel=$('la16-nivel').value,grupoId=$('la16-grupo').value,
+    buscar=$('la16-buscar').value.trim();
+  if(!grupoId&&buscar.length<3){
+    $('la16-resultados').replaceChildren();
+    $('la16-encontrados').textContent='Escribe tres letras o selecciona un grupo.';
+    return;
+  }
+  const catalogo=la201UI.catalogos.get(nivel);
+  if(!catalogo){
+    // Primer ingreso: el servidor debe devolver el listado una sola vez.
+    if(!la201UI.cargas.has(nivel))void la16CargarEstado();
+    $('la16-encontrados').textContent='Primera carga del nivel en curso. Después, la búsqueda será local.';
+    return;
+  }
+  // SOLO LECTURA: una lista descargada puede seguir filtrándose mientras
+  // se actualiza en segundo plano. Jamás autoriza registrar una incidencia.
+  const desactualizado=!la201Vigente_(catalogo);
+  if(desactualizado&&!la201UI.cargas.has(nivel))
+    void la16CargarEstado({forzar:true});
+  if(!la201UI.habilitado)return;
+  if(catalogo.data.fecha!==la16UI.estado?.fecha){
+    $('la16-encontrados').textContent='Fecha cambiada. Pulsa Actualizar antes de registrar.';
+    return;
+  }
+  // El reloj del navegador NUNCA habilita registros. Solo sirve para
+  // DESHABILITAR de forma conservadora cuando ya debio cerrar el servidor.
+  const hhmm=String(catalogo.data.horaServidor||'').match(/^(\d{1,2}):(\d{2})/);
+  if(hhmm){
+    const minutoBase=Number(hhmm[1])*60+Number(hhmm[2]);
+    const minutoEstimado=minutoBase+Math.floor(Math.max(0,Date.now()-catalogo.recibido)/60000);
+    if(minutoEstimado>480){
+      la16UI.estado={...la16UI.estado,puedeRegistrarIncidencias:false,
+        clasificacionActual:'Fuera de horario',motivoBloqueo:'Control cerrado: limite 08:00.'};
+      $('la16-banner').textContent=la20TextoBanner_(la16UI.estado);
+    }
+  }
+  const q=la201Normalizar_(buscar);
+  const filtrar=catalogo.data.alumnos.filter(a=>
+    (!grupoId||String(a.grupoId)===grupoId)&&(!q||la201Normalizar_(a.nombre).includes(q)));
+  la202VigilarTransicion_();
+  const inicioFiltro=performance.now();
+  la201Dibujar_({totalCoincidencias:filtrar.length,resultados:filtrar.slice(0,40)});
+  const ms=Math.max(0,Math.round(performance.now()-inicioFiltro));
+  $('la16-encontrados').textContent+=' · Filtro local '+ms+' ms'+
+    (desactualizado?' · Datos en actualización; solo consulta':' · Sin solicitud al servidor');
+  if(la202UI.bloqueoLocal)la202VigilarTransicion_();
+}
+function la201ConfirmarEnCache_(a,r){
+  const nivel=$('la16-nivel').value,c=la201UI.catalogos.get(nivel);
+  if(!c||c.data.fecha!==String(r.fecha||la16UI.estado?.fecha))return false;
+  const actual=c.data.alumnos.find(x=>x.alumnoId===a.alumnoId);
+  if(!actual)return false;
+  const yaRegistrado=!!actual.registrado;
+  actual.registrado=true;actual.hora=r.horaServidor;
+  actual.clasificacion=r.clasificacion;
+  // Solo contar una incidencia CONFIRMADA, sin sumar una recuperacion previa.
+  if(!yaRegistrado&&r.yaExistia!==true){
+    actual.retardosMes++;
+    c.data.totalEntradas++;
+    c.data.totalIncidencias++;
+    if(r.clasificacion==='Retardo de entrada')c.data.retardo++;
+    if(r.clasificacion==='Ingreso diferido')c.data.ingresoDiferido++;
+  }
+  $('la16-entraron').textContent=String(c.data.totalIncidencias);
+  $('la16-retardos').textContent=String(c.data.retardo);
+  $('la16-diferidos').textContent=String(c.data.ingresoDiferido);
+  $('la16-buscar').focus({preventScroll:true});
+  // En reintentos conciliados, forzar sincronizacion posterior no bloqueante.
+  if(r.yaExistia===true)void la16CargarEstado({forzar:true});
+  return true;
+}
+// Resinc. no bloqueante de reglas y KPIs: el backend continua siendo autoridad.
+setInterval(()=>{
+  if(!state.user||state.tab!=='entradas'||document.visibilityState!=='visible'||
+    !la201UI.habilitado||la16UI.ocupado)return;
+  const nivel=$('la16-nivel').value,c=la201UI.catalogos.get(nivel);
+  if(!c||Date.now()-c.recibido<60000)return;
+  // Renovar catalogo cada tres minutos; una busqueda nunca desencadena
+  // consultas por cada alumno ni almacena el catalogo permanentemente.
+  if(!la201Vigente_(c))void la16CargarEstado({forzar:true});
+},30000);
+// ===== FIN LABASTIDA 2.0.1 =====
+
+// ===== LABASTIDA 2.0.2 | RELOJ VIVO (PILOTO REAL, SOLO LECTURA) =====
+// La habilitación SOLO proviene de la respuesta autenticada del servidor.
+// La estimación local basada en hora del servidor puede BLOQUEAR preventivamente,
+// pero NUNCA habilitar ni cambiar la clasificación de una incidencia.
+const la202UI={ultimo:null,inicioPeticionMs:0,ultimoIntentoMs:0,consultando:false,
+  nivel:'',bloqueoLocal:false,motivoLocal:'',secuencia:0};
+function la202MinutoServidorEstimado_(){
+  if(!la202UI.ultimo)return null;
+  // Conservar una cota SUPERIOR del tiempo del servidor para cierre preventivo.
+  const ms=la202UI.ultimo.servidorEpochMs+Math.max(0,performance.now()-la202UI.inicioPeticionMs);
+  const partes=new Intl.DateTimeFormat('en-GB',{timeZone:'America/Mexico_City',
+    hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date(ms));
+  const get=t=>Number(partes.find(p=>p.type===t)?.value||0);
+  return get('hour')*60+get('minute');
+}
+function la202FaseMinuto_(min){
+  return min===null?'SIN_RELOJ':min<=460?'Puntual':
+    min<=465?'Retardo de entrada':min<=480?'Ingreso diferido':'Fuera de horario';
+}
+function la202BloquearVisual_(motivo,fuera){
+  if(!la16UI.estado)return;
+  la202UI.bloqueoLocal=true;la202UI.motivoLocal=motivo;
+  la16UI.estado={...la16UI.estado,puedeRegistrarIncidencias:false,
+    clasificacionActual:fuera?'Fuera de horario':'Verificando horario',motivoBloqueo:motivo};
+  $('la16-banner').textContent=motivo;
+  document.querySelectorAll('#la16-resultados .la16-student button').forEach(b=>{
+    if(/incidencia registrada/i.test(b.textContent))return;
+    // En el piloto todas las acciones de alta están bloqueadas.
+    b.disabled=true;b.textContent=fuera?'Fuera de horario · Captura bloqueada':'Verificando horario…';
+  });
+}
+function la202DibujarResultadoLocal_(){
+  if(!la201UI.habilitado||!la16UI.estado||la16UI.ocupado)return;
+  const c=la201UI.catalogos.get($('la16-nivel').value);
+  if(!c||!la201Vigente_(c))return;
+  const gid=$('la16-grupo').value,q=la201Normalizar_($('la16-buscar').value.trim());
+  if(!gid&&q.length<3)return;
+  const lista=c.data.alumnos.filter(a=>(!gid||a.grupoId===gid)&&
+    (!q||la201Normalizar_(a.nombre).includes(q)));
+  la201Dibujar_({totalCoincidencias:lista.length,resultados:lista.slice(0,40)});
+}
+function la202ActualizarPantalla_(dato,tiempoPeticion){
+  if(!dato||dato.success!==true||!Number.isFinite(dato.servidorEpochMs)||
+    !Number.isInteger(dato.servidorEpochMs)||
+    !['Primaria','Secundaria'].includes(dato.nivel))throw Error('Reloj no confiable.');
+  la202UI.ultimo=dato;la202UI.nivel=dato.nivel;
+  la202UI.inicioPeticionMs=tiempoPeticion;
+  la202UI.bloqueoLocal=false;la202UI.motivoLocal='';
+  // El catálogo queda en memoria, pero NO tiene autoridad para reabrir el registro.
+  la16UI.estado={...(la16UI.estado||{}),...dato};
+  $('la16-hora').textContent='Fecha '+dato.fecha+' · Hora servidor '+dato.horaServidor;
+  $('la16-banner').textContent=la20TextoBanner_(la16UI.estado);
+  la202VigilarTransicion_();
+  la202DibujarResultadoLocal_();
+}
+function la202VigilarTransicion_(){
+  if(!state.user||state.tab!=='entradas'||!la16UI.estado)return;
+  const min=la202MinutoServidorEstimado_();
+  if(min===null)return;
+  const fase=la202FaseMinuto_(min),confirmada=la202UI.ultimo?.clasificacionActual;
+  if(fase==='Fuera de horario'){
+    if(!la202UI.bloqueoLocal||la16UI.estado.puedeRegistrarIncidencias)
+      la202BloquearVisual_('Control cerrado a las 08:00. Captura bloqueada automáticamente.',true);
+    return;
+  }
+  if(confirmada!==fase){
+    if(!la202UI.bloqueoLocal||la16UI.estado.puedeRegistrarIncidencias)
+      la202BloquearVisual_('Cambio de horario: confirmando hora oficial del servidor…',false);
+  }
+}
+function la202PuedeEnviar_(){
+  if(!LA20_CAPTURA_PRODUCCION || !state.token || !state.user || !la16UI.estado) return false;
+  const nivel=$('la16-nivel').value;
+  const reloj=la202UI.ultimo;
+  const minuto=la202MinutoServidorEstimado_();
+  if(!reloj||reloj.nivel!==nivel||la202UI.nivel!==nivel||la202UI.bloqueoLocal||
+     minuto===null||minuto<461||minuto>480||
+     performance.now()-la202UI.inicioPeticionMs>30000)return false;
+  return reloj.fecha===la16UI.estado.fecha&&
+    reloj.estadoCalendario==='LECTIVO'&&reloj.puedeRegistrarIncidencias===true&&
+    reloj.escrituraHabilitada===true&&
+    la202FaseMinuto_(minuto)===reloj.clasificacionActual;
+}
+async function la202RefrescarHorario_(forzar=false){
+  if(!state.user||state.tab!=='entradas'||!la16PuedeAcceder()||
+    la16UI.ocupado||la202UI.consultando||document.visibilityState==='hidden')return;
+  const n=$('la16-nivel').value,ahora=performance.now();
+  const min=la202MinutoServidorEstimado_();
+  const cerca=min===null||[460,461,465,466,480,481].some(x=>Math.abs(min-x)<=1);
+  const espera=cerca?3000:30000;
+  if(!forzar&&ahora-la202UI.ultimoIntentoMs<espera)return;
+  la202UI.ultimoIntentoMs=ahora;la202UI.consultando=true;
+  const seq=++la202UI.secuencia;
+  const t0=performance.now();
+  try{
+    const dato=await api('la202EstadoHorario',{nivel:n});
+    if(seq!==la202UI.secuencia||n!==$('la16-nivel').value||
+      !state.user||state.tab!=='entradas')return;
+    la202ActualizarPantalla_(dato,t0);
+  }catch(e){
+    // FALLAR CERRADO; no tomar la última clasificación como permiso vigente.
+    if(seq===la202UI.secuencia&&n===$('la16-nivel').value){
+      la202BloquearVisual_('No se pudo verificar la hora oficial. Captura suspendida; usa el procedimiento escolar.',false);
+      // Ningún registro de alumnos/contraseña se registra en consola.
+      console.warn('LABASTIDA RELOJ VIVO: sincronización horaria no disponible.');
+    }
+  }finally{la202UI.consultando=false;}
+}
+// Los temporizadores pueden retrasarse cuando la tableta duerme. Revalidar al volver.
+setInterval(()=>{
+  if(!state.user||state.tab!=='entradas'||document.visibilityState==='hidden')return;
+  la202VigilarTransicion_();
+  if(la202UI.ultimo&&performance.now()-la202UI.inicioPeticionMs>45000)
+    la202BloquearVisual_('Hora de servidor desactualizada. Verificando…',false);
+  void la202RefrescarHorario_(false);
+},1000);
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState==='visible'){la202VigilarTransicion_();void la202RefrescarHorario_(true);}
+});
+window.addEventListener('focus',()=>{la202VigilarTransicion_();void la202RefrescarHorario_(true);});
+window.addEventListener('pageshow',()=>{la202VigilarTransicion_();void la202RefrescarHorario_(true);});
+$('la16-nivel').addEventListener('change',()=>{
+  la202UI.secuencia++;la202UI.ultimo=null;la202UI.nivel='';
+  la202BloquearVisual_('Confirmando horario del nivel seleccionado…',false);
+  void la202RefrescarHorario_(true);
+});
+// ===== FIN LABASTIDA 2.0.2 =====
+
 async function la16RegistrarAl(a,b){
+  if(!LA20_CAPTURA_PRODUCCION||!la202PuedeEnviar_())return;
   if(la16UI.ocupado||!la16PuedeAcceder()||!['acceso','general'].includes(state.user?.rol))return;
   const estado=la16UI.estado;
   const fecha=String(estado?.fecha||'');
@@ -1104,6 +1552,8 @@ async function la16RegistrarAl(a,b){
     }
     la16PendBorrar_(a.alumnoId,fecha);
     confirmado=true;
+    // Conservar bloqueo visual e idempotencia antes de refrescar el catálogo.
+    la201ConfirmarEnCache_(a,r);
     // Actualización inmediata y segura de la ficha confirmada, sin pedir un segundo registro.
     a.registrado=true;
     a.hora=r.horaServidor;
@@ -1189,11 +1639,11 @@ $('la16-form-cuenta').addEventListener('submit',async e=>{
 $('la16-buscar-form').addEventListener('submit',e=>{e.preventDefault();clearTimeout(la16UI.busquedaTemporizador);void la16BuscarAlumnos();});
 $('la16-buscar').addEventListener('input',()=>{
   clearTimeout(la16UI.busquedaTemporizador);
-  if($('la16-buscar').value.trim().length<3){
+  if($('la16-buscar').value.trim().length<3&&!$('la16-grupo').value){
     $('la16-resultados').replaceChildren();
-    $('la16-encontrados').textContent='Escribe 3 letras para buscar incidencias.';return;
+    $('la16-encontrados').textContent='Escribe 3 letras o selecciona un grupo.';return;
   }
-  la16UI.busquedaTemporizador=setTimeout(()=>{if(!la16UI.ocupado)void la16BuscarAlumnos();},320);
+  la16UI.busquedaTemporizador=setTimeout(()=>{if(!la16UI.ocupado)void la16BuscarAlumnos();},la201UI.catalogos.has($('la16-nivel').value)?65:320);
 });
 $('la16-nivel').addEventListener('change',()=>{ $('la16-resultados').replaceChildren();$('la16-encontrados').textContent='Selecciona un grupo o busca un nombre.';void la16CargarEstado();});
 $('la16-grupo').addEventListener('change',()=>{
@@ -1201,7 +1651,7 @@ $('la16-grupo').addEventListener('change',()=>{
   $('la16-encontrados').textContent='Buscando alumnos del grupo…';
   if($('la16-grupo').value||$('la16-buscar').value.trim().length>=3)void la16BuscarAlumnos();
 });
-$('la16-refresh').addEventListener('click',()=>void la16CargarEstado());
+$('la16-refresh').addEventListener('click',()=>void la16CargarEstado({forzar:true}));
 $('la16-crear-cuenta').dataset.label=$('la16-crear-cuenta').textContent;
 
 </script>
