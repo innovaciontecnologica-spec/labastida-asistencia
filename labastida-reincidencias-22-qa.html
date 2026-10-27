@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LABASTIDA 2.2 · Reincidencias · Laboratorio QA</title>
+  <style>
+    :root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#112d50;background:#f3f6fa}
+    *{box-sizing:border-box}body{margin:0}header{background:#102e53;color:#fff;padding:19px max(18px,calc((100vw - 1100px)/2));border-bottom:4px solid #c49b40}
+    header h1{margin:2px 0;font-size:clamp(22px,3vw,30px)}header small{color:#e9e0ce;letter-spacing:.1em}
+    main{max-width:1100px;margin:22px auto;padding:0 15px 50px}.warning{border:1px solid #e5bc5d;background:#fff8e7;padding:14px 18px;border-radius:10px;margin-bottom:18px;color:#76530f}
+    .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}.card{background:#fff;border:1px solid #e1e7f0;border-radius:14px;padding:20px;box-shadow:0 5px 20px #0d2d500a;margin-bottom:15px}
+    .stat{background:#fff;padding:16px;border-radius:12px;border:1px solid #dce5f0}.stat strong{display:block;font-size:27px}.stat span{font-size:12px;color:#526174}
+    .two{display:grid;grid-template-columns:1.2fr 1fr;gap:15px}h2{font-size:19px;margin:0 0 12px}h3{font-size:15px;margin:14px 0 7px}p{line-height:1.55}label{font-weight:650}
+    button{padding:11px 14px;background:#173f6b;border:0;border-radius:9px;color:#fff;cursor:pointer;font:inherit;font-weight:650;margin:4px}
+    button:hover{background:#275785}button:disabled{background:#aeb9c7;cursor:not-allowed}button.secondary{background:#f1e3c2;color:#4c3c19}
+    select{width:100%;padding:10px;border:1px solid #c4d2e2;border-radius:8px;font:inherit}
+    .pill{display:inline-block;padding:7px 10px;border-radius:40px;font-size:12px;font-weight:700;background:#e9f6ed;color:#17683f}.pill.alerta{background:#fff0cc;color:#76510c}.pill.firme{background:#fce5e5;color:#9c2626}
+    ul{padding-left:21px;line-height:1.7}.muted{color:#576579;font-size:13px}.audit{max-height:255px;overflow:auto;padding-left:22px;font-size:13px;line-height:1.6}
+    table{border-collapse:collapse;width:100%;font-size:13px}th,td{text-align:left;padding:10px;border-bottom:1px solid #e2e9f1}th{background:#f5f8fc}
+    #puerta{text-align:left;padding:15px;background:#f5f8fc;border-radius:9px;border-left:5px solid #2d7b6e}
+    @media(max-width:760px){.grid{grid-template-columns:repeat(2,1fr)}.two{grid-template-columns:1fr}.card{padding:15px}}
+  </style>
+</head>
+<body>
+<header><small>COLEGIO LABASTIDA · ENTORNO DE DEMOSTRACIÓN</small><h1>LABASTIDA ASISTENCIA 2.2</h1><div>Reincidencias, medidas escolares y supervisión de acceso</div></header>
+<main>
+  <div class="warning"><strong>PRUEBA QA · DATOS TOTALMENTE FICTICIOS.</strong> Esta página no se conecta al Worker, no autentica alumnos reales y no escribe en Google Sheets. La medida escolar requiere reglamento válido, aviso a tutores y autorización humana.</div>
+  <div class="card"><label for="perfil">Ver perspectiva:</label> <select id="perfil"><option value="acceso">Personal de puerta · solo consulta</option><option value="direccion">Dirección / suplente autorizado · simulación</option></select><p class="muted">Las operaciones de Dirección solo se habilitan al seleccionar el perfil administrativo. La puerta nunca autoriza ni cancela suspensiones.</p></div>
+  <div class="grid" aria-live="polite">
+    <div class="stat"><strong id="hoy">—</strong><span>Fecha simulada</span></div>
+    <div class="stat"><strong id="total">—</strong><span>Incidencias en el mes</span></div>
+    <div class="stat"><strong id="ciclo">—</strong><span>Incidencias del ciclo vigente</span></div>
+    <div class="stat"><strong id="etapa">—</strong><span>Etapa del protocolo</span></div>
+    <div class="stat"><strong id="restringidos">—</strong><span>Alumnos con medida autorizada HOY (QA)</span></div>
+    <div class="stat"><strong id="alertas">—</strong><span>Alumnos con alerta sin autorización (QA)</span></div>
+  </div>
+  <section class="card" style="margin-top:15px"><h2>Vista operativa del personal de puerta</h2>
+    <p class="muted">Este resumen separa las alertas de revisión y las medidas efectivamente autorizadas. Los tres alumnos de la lista son identificadores inventados.</p>
+    <table><thead><tr><th>Alumno ficticio</th><th>Alertas</th><th>Medida autorizada para hoy</th></tr></thead><tbody id="listadoPuerta"></tbody></table>
+  </section>
+  <div class="two" style="margin-top:15px">
+    <section class="card"><h2>Alumno ficticio · QA-001 (Primaria)</h2>
+      <div id="estado" class="pill">Consultando...</div>
+      <p id="explicacion"></p>
+      <h3>Lo que debe ver la puerta</h3><div id="puerta" role="status" aria-live="polite"></div>
+      <h3>Resumen mensual</h3><div id="detalle"></div>
+    </section>
+    <section class="card"><h2>Simulación guiada del procedimiento</h2>
+      <p class="muted">Empieza con dos incidencias en octubre. Cada botón realiza un paso ficticio separado para verificar permisos y cómputos.</p>
+      <div id="operaciones">
+        <button id="tercera">1. Registrar tercera incidencia QA</button>
+        <button id="avisar">2. Registrar aviso a familia (QA)</button>
+        <button id="primera">3. Autorizar primer día (QA)</button>
+        <button id="ver1" class="secondary">Ver día de medida · 9 oct.</button>
+        <button id="cumplir1">4. Simular cumplimiento</button>
+        <button id="otras3">5. Registrar otras tres incidencias</button>
+        <button id="avisar2">6. Avisar nuevamente a familia</button>
+        <button id="segunda">7. Autorizar tres días (QA)</button>
+        <button id="ver2" class="secondary">Ver día de medida · 15 oct.</button>
+        <button id="cumplir2">8. Simular cumplimiento</button>
+        <button id="mesNuevo" class="secondary">9. Simular mes siguiente</button>
+        <button id="reiniciar" class="secondary">Reiniciar prueba</button>
+      </div>
+    </section>
+  </div>
+  <div class="two">
+    <section class="card"><h2>Calendario y medidas simuladas</h2><table><thead><tr><th>Ciclo</th><th>Días lectivos</th><th>Estado</th></tr></thead><tbody id="medidas"></tbody></table></section>
+    <section class="card"><h2>Bitácora de decisiones</h2><ol class="audit" id="bitacora"></ol></section>
+  </div>
+  <div class="card"><h2>Reglas de seguridad incorporadas a la propuesta</h2><ul>
+    <li>El sistema detecta automáticamente 3 incidencias mensuales computables (retardos e ingresos diferidos), pero <strong>no suspende automáticamente</strong>.</li>
+    <li>Una persona autorizada comprueba la situación, registra aviso a madre, padre o tutor y valida los días conforme al calendario lectivo.</li>
+    <li>Después de cumplir 1 día, empieza otro conteo de 0 dentro del mismo mes; si suma otras 3, se propone revisión para 3 días. El mes siguiente comienza en 0 sin eliminar registros históricos.</li>
+    <li>El personal de puerta consulta el estado aprobado y contacta a Dirección ante cualquier duda; nunca decide por su cuenta dejar a un menor sin supervisión.</li>
+  </ul></div>
+</main>
+<script src="labastida-disciplina22-core.js"></script>
+<script>
+(() => {
+  'use strict';
+  const core=window.LabastidaDisciplina22;
+  const $=id=>document.getElementById(id);
+  const calendario=[];
+  for(let i=1;i<=65;i++){
+    const d=new Date(Date.UTC(2026,9,i));
+    if(d.getUTCDay()!==0&&d.getUTCDay()!==6)calendario.push(d.toISOString().slice(0,10));
+  }
+  // Calendario de demostración; NO es el calendario SEP/productivo.
+  let datos, avisos, hoy, bitacora;
+  const alumnosQA=[{id:'QA-001'},{id:'QA-002'},{id:'QA-003'}];
+  const nueva=(fecha,id)=>({id,alumnoId:'QA-001',fecha,tipo:'Retardo de entrada',computable:true});
+  const auditar=texto=>{bitacora.push({hoy,texto});render();};
+  function reiniciar(){
+    datos={incidencias:[nueva('2026-10-02','QA-01'),nueva('2026-10-05','QA-02'),
+      ...['2026-10-02','2026-10-05','2026-10-08'].map(fecha=>({alumnoId:'QA-002',fecha,tipo:'Retardo de entrada'}))],medidas:[]};
+    avisos={};hoy='2026-10-08';bitacora=[{hoy,texto:'Inicio de la prueba ficticia: dos incidencias en octubre.'}];render();
+  }
+  const autorizados=()=> $('perfil').value==='direccion';
+  const tiene=ciclo=>datos.medidas.some(m=>m.ciclo===ciclo);
+  const tieneAviso=ciclo=>Boolean(avisos[ciclo]);
+  const mes=()=>hoy.slice(0,7);
+  function resumen(){return core.resumenAlumno({alumnoId:'QA-001',mes:mes(),hoy,
+    incidencias:datos.incidencias,medidas:datos.medidas});}
+  function render(){
+    const r=resumen();
+    const filas=alumnosQA.map(a=>core.resumenAlumno({alumnoId:a.id,mes:mes(),hoy,
+      incidencias:datos.incidencias,medidas:datos.medidas}));
+    $('restringidos').textContent=String(filas.filter(x=>x.restriccionAutorizadaHoy).length);
+    $('alertas').textContent=String(filas.filter(x=>x.requiereRevision).length);
+    $('listadoPuerta').replaceChildren(...filas.map(x=>{
+      const tr=document.createElement('tr');
+      [x.alumnoId,x.requiereRevision?'Sí, falta validación':'No',
+        x.restriccionAutorizadaHoy?'SÍ · CONTACTAR RESPONSABLE':'No'].forEach(t=>{
+        const td=document.createElement('td');td.textContent=t;tr.append(td);
+      });
+      return tr;
+    }));
+    $('hoy').textContent=hoy;
+    $('total').textContent=r.totalMes;
+    $('ciclo').textContent=r.conteoCiclo;
+    $('etapa').textContent=r.cicloActual>2?'Revisión':String(r.cicloActual)+' de 2';
+    const estado=r.restriccionAutorizadaHoy?'MEDIDA AUTORIZADA PARA HOY':r.requiereRevision?'REQUIERE REVISIÓN':r.medida?'MEDIDA EN TRÁMITE':'SIN RESTRICCIÓN VIGENTE';
+    $('estado').textContent=estado;
+    $('estado').className='pill'+(r.restriccionAutorizadaHoy?' firme':r.requiereRevision?' alerta':'');
+    $('explicacion').textContent=r.motivo;
+    $('puerta').textContent=r.restriccionAutorizadaHoy?
+      'Avisar a la persona responsable del protocolo. Existe una medida aprobada aplicable hoy; verificar notificación y resguardar al alumno conforme al procedimiento institucional.':
+      r.requiereRevision?
+      'ALERTA PARA DIRECCIÓN: revisar tres incidencias. Aún no existe medida aprobada: no impedir el ingreso por esta alerta.':
+      'No existe una restricción autorizada para hoy. Aplicar horario normal de puerta.';
+    $('detalle').textContent=`Retardos: ${r.retardos} · Diferidos: ${r.diferidos} · Total: ${r.totalMes}. `+
+      `Historial conservado: ${datos.incidencias.length} registros QA.`;
+    $('medidas').replaceChildren(...datos.medidas.map(m=>{
+      const tr=document.createElement('tr');
+      [m.ciclo===1?'Primera (1 día)':'Segunda (3 días)',m.diasLectivos.join(', '),core.estadoMedida(m,hoy)]
+        .forEach(t=>{const td=document.createElement('td');td.textContent=t;tr.append(td);});
+      return tr;
+    }));
+    $('bitacora').replaceChildren(...bitacora.map(x=>{
+      const li=document.createElement('li');li.textContent=x.hoy+' · '+x.texto;return li;
+    }));
+    const d=autorizados();
+    $('tercera').disabled=!d||r.totalMes!==2||hoy!=='2026-10-08';
+    $('avisar').disabled=!d||!r.requiereRevision||r.cicloActual!==1||tieneAviso(1);
+    $('primera').disabled=!d||!r.requiereRevision||r.cicloActual!==1||!tieneAviso(1)||tiene(1);
+    $('ver1').disabled=!d||!tiene(1)||hoy!=='2026-10-08';
+    $('cumplir1').disabled=!d||!tiene(1)||!['2026-10-08','2026-10-09'].includes(hoy);
+    $('otras3').disabled=!d||hoy!=='2026-10-12'||r.cicloActual!==2||r.conteoCiclo!==0;
+    $('avisar2').disabled=!d||!r.requiereRevision||r.cicloActual!==2||tieneAviso(2);
+    $('segunda').disabled=!d||!r.requiereRevision||r.cicloActual!==2||!tieneAviso(2)||tiene(2);
+    $('ver2').disabled=!d||!tiene(2)||hoy!=='2026-10-14';
+    $('cumplir2').disabled=!d||!tiene(2)||!['2026-10-14','2026-10-15'].includes(hoy);
+    $('mesNuevo').disabled=!d||hoy!=='2026-10-20';
+    $('reiniciar').disabled=!d;
+  }
+  $('perfil').addEventListener('change',render);
+  $('tercera').addEventListener('click',()=>{datos.incidencias.push(nueva('2026-10-08','QA-03'));auditar('Tres incidencias: alerta generada, sin suspensión automática.');});
+  $('avisar').addEventListener('click',()=>{avisos[1]='2026-10-08';auditar('Aviso de demostración al tutor por primera medida.');});
+  $('primera').addEventListener('click',()=>{
+    datos.medidas.push(core.crearMedidaAutorizada({alumnoId:'QA-001',mes:'2026-10',ciclo:1,
+      fechaDeteccion:'2026-10-08',fechaAviso:avisos[1],autorizadoPor:'Dirección ficticia',
+      rolAutorizante:'delegado_autorizado',calendario}));
+    auditar('Primera medida simulada autorizada para 2026-10-09 (1 día).');
+  });
+  $('ver1').addEventListener('click',()=>{hoy='2026-10-09';auditar('Día activo: personal de puerta ve una medida autorizada.');});
+  $('cumplir1').addEventListener('click',()=>{hoy='2026-10-12';auditar('Primer día cumplido; contador del segundo ciclo vuelve a 0.');});
+  $('otras3').addEventListener('click',()=>{
+    ['2026-10-12','2026-10-13','2026-10-14'].forEach((f,i)=>datos.incidencias.push(nueva(f,'QA-B'+i)));
+    hoy='2026-10-14';auditar('Segundo bloque de tres incidencias; nueva alerta sin suspensión automática.');
+  });
+  $('avisar2').addEventListener('click',()=>{avisos[2]='2026-10-14';auditar('Segundo aviso ficticio al tutor.');});
+  $('segunda').addEventListener('click',()=>{
+    datos.medidas.push(core.crearMedidaAutorizada({alumnoId:'QA-001',mes:'2026-10',ciclo:2,
+      fechaDeteccion:'2026-10-14',fechaAviso:avisos[2],autorizadoPor:'Dirección ficticia',
+      rolAutorizante:'direccion',calendario}));
+    auditar('Segunda medida aprobada: 15, 16 y 19 de octubre (3 días lectivos ficticios).');
+  });
+  $('ver2').addEventListener('click',()=>{hoy='2026-10-15';auditar('Día activo de la segunda medida: mostrar en puerta sin decisiones automáticas.');});
+  $('cumplir2').addEventListener('click',()=>{hoy='2026-10-20';auditar('Segunda medida cumplida; historial permanece intacto.');});
+  $('mesNuevo').addEventListener('click',()=>{hoy='2026-11-03';auditar('Nuevo mes: contador vuelve a cero, historial se conserva.');});
+  $('reiniciar').addEventListener('click',reiniciar);
+  reiniciar();
+})();
+</script>
+</body>
+</html>

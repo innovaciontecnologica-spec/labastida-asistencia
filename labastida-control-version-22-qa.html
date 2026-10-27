@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="labastida-revision" content="2026102602">
+<title>LABASTIDA 2.2 · Verificación Android · QA</title>
+<style>
+  body{margin:0;background:#f4f7fc;color:#183b64;font:16px/1.5 system-ui,Arial,sans-serif}
+  header{background:#112f54;color:#fff;padding:20px;border-bottom:5px solid #c49b42}
+  main{max-width:720px;margin:25px auto;padding:0 18px}section{background:#fff;border:1px solid #dce4ee;border-radius:13px;margin:15px 0;padding:21px}
+  h1{margin:0;font-size:26px}h2{margin:0 0 12px}button{padding:11px 16px;background:#133f71;border:none;border-radius:9px;color:#fff;cursor:pointer;margin:7px 7px 7px 0}
+  button:disabled{background:#a5afbe}code{background:#edf1f8;padding:3px 5px}.aviso{background:#fff5dc;padding:12px;border-radius:8px}
+</style></head>
+<body><header><h1>LABASTIDA · Actualización automática · QA</h1><small>Control técnico para tableta Android · sin registros reales</small></header>
+<main>
+  <section><h2>Versión cargada</h2><p>Revisión local: <code>2026102602</code></p>
+    <p>Observa el recuadro de verificación en la esquina inferior derecha. El archivo de referencia <code>labastida-version.json</code> se consulta por Internet sin usar caché.</p>
+    <p class="aviso">Si no hay conexión, la pantalla indica «Versión sin verificar». Esto no significa que la versión sea actual.</p>
+  </section>
+  <section><h2>Comprobaciones de seguridad</h2><p>En esta página puedes simular los bloqueos del módulo sin conectarte a Google Sheets:</p>
+    <button id="ingreso">Simular guardado activo</button><button id="pendiente">Simular petición por conciliar</button><button id="libre">Liberar bloqueos</button>
+    <p id="resultado" role="status"></p>
+    <p>Mientras exista cualquiera de estos bloqueos, la app no debe recargarse, aunque haya una versión nueva.</p>
+  </section>
+  <section><h2>Preparación de la publicación</h2><ol>
+    <li>Probar este control en QA junto a <code>labastida-identidad-puerta-qa.html</code>.</li>
+    <li>Publicar una nueva revisión de prueba y verificar la notificación sin guardar incidencias.</li>
+    <li>Solo después de aprobarla, agregar el controlador al <code>index.html</code> canónico y actualizar el archivo de revisión en cada despliegue.</li>
+  </ol><p><strong>No incluye service worker</strong>, para evitar conservar una copia antigua de la página en una caché offline.</p></section>
+</main>
+<script>
+const state={token:'QA-SESION-SIMULADA',pending:false};
+const la16UI={ocupado:false};
+document.getElementById('ingreso').onclick=()=>{la16UI.ocupado=true;mostrar();};
+document.getElementById('pendiente').onclick=()=>{state.pending=true;mostrar();};
+document.getElementById('libre').onclick=()=>{state.pending=false;la16UI.ocupado=false;mostrar();};
+function mostrar(){
+  document.getElementById('resultado').textContent=state.pending||la16UI.ocupado?
+    'Operación activa: actualizar automáticamente = NO':'Sin operación: el controlador puede actualizar conforme a la sesión.';
+}
+mostrar();
+</script>
+<script src="labastida-actualizaciones22.js"></script>
+</body></html>
