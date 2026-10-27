@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src https://labastida-reportes21-qa.innovaciontecnologica.workers.dev; img-src 'self' data:; base-uri 'none'; form-action 'none'">
+  <title>LABASTIDA | Reportes 2.1 QA</title>
+  <style>
+    :root{--navy:#102b4b;--navy2:#193b61;--gold:#c7a15c;--gold2:#e8d09d;--ink:#192b3e;--muted:#63778c;--bg:#f1f5fa;--line:#dce4ef;--white:#fff;--ok:#0b795b;--danger:#af2934;--shadow:0 14px 40px rgba(18,45,77,.10)}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}button,input,select{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.58}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+    .hidden{display:none!important}.topline{height:5px;background:linear-gradient(90deg,var(--navy),var(--gold),var(--navy))}.shell{min-height:100vh;display:grid;grid-template-columns:235px 1fr}.sidebar{background:linear-gradient(180deg,#102b4b,#0c223a);color:#fff;padding:27px 20px;display:flex;flex-direction:column;gap:22px}.brand{display:flex;gap:12px;align-items:center}.brand-icon{display:grid;place-items:center;border:2px solid var(--gold);color:var(--gold2);width:49px;height:49px;border-radius:13px;font-size:23px;font-weight:800}.brand b{letter-spacing:1px;font-size:17px}.brand span{display:block;color:#c9d6e4;font-size:12px}.nav-box{border:1px solid #385572;border-radius:13px;padding:13px;font-size:14px;background:#ffffff09}.nav-box strong{display:block;color:var(--gold2);margin-bottom:6px}.nav-box p{margin:0;color:#d4e0ec}.sidebar footer{margin-top:auto;color:#afc4d8;font-size:12px}.content{padding:30px max(20px,calc((100vw - 1250px)/2));min-width:0}.heading{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:23px}.eyebrow{text-transform:uppercase;letter-spacing:1.5px;color:var(--gold);font-size:12px;font-weight:800}.heading h1{font-size:27px;line-height:1.22;margin:5px 0;color:var(--navy)}.hint{color:var(--muted);margin:4px 0}.pill{border-radius:999px;display:inline-block;padding:6px 12px;background:#fff4d8;color:#65470a;font-size:12px;font-weight:800;border:1px solid #e5d5ae}.card{background:var(--white);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:22px;margin-bottom:18px}.card h2{margin:0 0 12px;color:var(--navy);font-size:18px}.login{max-width:475px;margin:35px auto}.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:14px}.field{display:flex;flex-direction:column;gap:5px;grid-column:span 3}.field.wide{grid-column:span 6}.field.full{grid-column:span 12}.field label{font-size:12px;color:#4f6276;font-weight:800}input,select{background:#fff;border:1px solid #cbd7e5;color:var(--ink);border-radius:10px;padding:10px 12px;width:100%;min-height:43px}input:disabled{background:#f3f6fa}.btn{background:var(--navy);color:#fff;border:1px solid var(--navy);padding:10px 16px;min-height:42px;border-radius:11px;font-weight:750;transition:transform .15s ease,filter .15s ease}.btn:hover:not(:disabled){filter:brightness(1.1);transform:translateY(-1px)}.btn.alt{background:white;color:var(--navy);border-color:#cbd7e5}.buttons{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-top:15px}.error{color:var(--danger);background:#fff0f1;border:1px solid #f0b8c0;border-radius:11px;padding:10px 13px;margin:14px 0}.notice{background:#f8f2e6;border-left:4px solid var(--gold);padding:12px 15px;border-radius:8px;color:#65512f;font-size:13px;margin-bottom:19px}.userline{font-size:13px;color:var(--muted)}.stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:13px;margin:16px 0}.stat{background:#fff;border-radius:15px;border:1px solid var(--line);box-shadow:var(--shadow);padding:16px;min-width:0}.stat small{display:block;color:var(--muted);font-weight:650;font-size:12px;min-height:34px}.stat strong{display:block;color:var(--navy);font-size:28px;margin-top:6px;font-variant-numeric:tabular-nums}.stat.gold{border-top:4px solid var(--gold)}.stat.blue{border-top:4px solid #547eac}.stat.green{border-top:4px solid #4f9c87}.stat.purple{border-top:4px solid #8973b4}.stat.red{border-top:4px solid #d17b80}.sections{display:grid;grid-template-columns:1fr 1fr;gap:18px}.scroll{overflow-x:auto}.table{width:100%;border-collapse:collapse;font-size:13px}.table th{text-align:left;color:#48617b;background:#f1f5fa;white-space:nowrap}.table th,.table td{padding:11px 9px;border-bottom:1px solid #e2e9f1}.table tr:last-child td{border-bottom:0}.table tbody tr:hover{background:#f8fbff}.bar-track{width:95px;height:8px;background:#e6ecf3;border-radius:9px;overflow:hidden}.bar-fill{height:100%;background:linear-gradient(90deg,var(--gold),#d6bd85);border-radius:9px}.empty{padding:18px;text-align:center;color:var(--muted)}.footbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:13px}.footbar span{color:var(--muted);font-size:13px}.pagebtns{display:flex;gap:7px}.safe{display:inline-block;color:var(--ok);background:#e9f7f0;border-radius:9px;padding:5px 10px;font-size:12px;font-weight:800}
+    @media(max-width:1120px){.stats{grid-template-columns:repeat(3,1fr)}.field{grid-column:span 4}.field.wide{grid-column:span 6}}
+    @media(max-width:840px){.shell{grid-template-columns:1fr}.sidebar{padding:18px 20px;gap:12px}.sidebar footer{display:none}.content{padding:22px 14px}.sections{grid-template-columns:1fr}.heading h1{font-size:24px}.stats{grid-template-columns:repeat(2,1fr)}.field,.field.wide{grid-column:span 6}}
+    @media(max-width:470px){.field,.field.wide{grid-column:span 12}.stats{grid-template-columns:1fr 1fr}.stat strong{font-size:24px}.card{padding:16px}}
+  </style>
+</head>
+<body>
+<div class="topline"></div>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-icon" aria-hidden="true">L</div><div><b>LABASTIDA</b><span>ASISTENCIA · 2.1 QA</span></div></div>
+    <div class="nav-box"><strong>Reportes y estadísticas</strong><p>Consulta institucional de incidencias de entrada. Información visible solo para personal autorizado.</p></div>
+    <div class="nav-box"><strong>Entorno protegido</strong><p>Preproducción, sin altas, modificaciones ni registros. NEXQOR 1.9 conserva sus exclusiones.</p></div>
+    <footer>Plataforma independiente de SmartCoop. Todos los datos escolares permanecen en Google Apps Script.</footer>
+  </aside>
+  <main class="content">
+    <header class="heading"><div><div class="eyebrow">Panel escolar institucional</div><h1>Reportes de entradas</h1><p class="hint">Retardos, ingresos diferidos y reincidencia mensual.</p></div><span class="pill">QA · SOLO LECTURA</span></header>
+    <div class="notice">Esta página no permite registrar, corregir, eliminar ni exportar datos. La conexión apunta exclusivamente al Worker de pruebas de Reportes 2.1.</div>
+    <section class="card login" id="login-panel" aria-labelledby="login-title">
+      <h2 id="login-title">Iniciar sesión institucional</h2>
+      <p class="hint">Utiliza una cuenta existente de Dirección General, Primaria o Secundaria. No compartas contraseñas ni capturas de credenciales.</p>
+      <form id="login-form">
+        <div class="grid">
+          <div class="field full"><label for="usuario">Usuario</label><input id="usuario" autocomplete="username" required maxlength="100"></div>
+          <div class="field full"><label for="clave">Contraseña</label><input id="clave" type="password" autocomplete="current-password" required maxlength="200"></div>
+        </div>
+        <div class="buttons"><button class="btn" type="submit" id="login-button">Entrar a reportes</button></div>
+      </form>
+      <div id="login-error" class="error hidden" role="alert"></div>
+    </section>
+    <section id="reports-panel" class="hidden">
+      <div class="card">
+        <div class="heading" style="margin-bottom:15px"><div><h2 style="margin:0">Filtros de consulta</h2><span id="user-text" class="userline"></span></div><button class="btn alt" id="logout-button" type="button">Cerrar sesión</button></div>
+        <form id="filter-form">
+          <div class="grid">
+            <div class="field"><label for="desde">Desde</label><input id="desde" type="date" required></div>
+            <div class="field"><label for="hasta">Hasta</label><input id="hasta" type="date" required></div>
+            <div class="field"><label for="mes">Mes de reincidencia</label><input id="mes" type="month" required></div>
+            <div class="field"><label for="nivel">Nivel</label><select id="nivel"><option value="">Primaria y Secundaria</option><option value="Primaria">Primaria</option><option value="Secundaria">Secundaria</option></select></div>
+            <div class="field wide"><label for="grupo">Grupo</label><select id="grupo"><option value="">Todos los grupos</option></select></div>
+            <div class="field wide"><label for="buscar">Buscar alumno (mínimo 3 letras)</label><input id="buscar" maxlength="110" placeholder="Opcional"></div>
+          </div>
+          <div class="buttons"><button class="btn" type="submit" id="consultar-button">Consultar reportes</button><span class="safe">Sin operaciones de escritura</span></div>
+        </form>
+        <div id="report-error" class="error hidden" role="alert"></div>
+      </div>
+      <div id="results" class="hidden" aria-live="polite">
+        <div class="stats">
+          <div class="stat gold"><small>Total de incidencias</small><strong id="s-total">0</strong></div>
+          <div class="stat blue"><small>Retardos de entrada</small><strong id="s-retardos">0</strong></div>
+          <div class="stat green"><small>Ingresos diferidos</small><strong id="s-diferidos">0</strong></div>
+          <div class="stat purple"><small>Alumnos distintos</small><strong id="s-alumnos">0</strong></div>
+          <div class="stat red"><small>Reincidentes del mes (3+)</small><strong id="s-reincidentes">0</strong></div>
+        </div>
+        <div class="sections">
+          <section class="card"><h2>Incidencias por grupo</h2><div class="scroll"><table class="table"><thead><tr><th>Grupo</th><th>Total</th><th>Retardos</th><th>Diferidos</th><th>Distribución</th></tr></thead><tbody id="groups-body"></tbody></table></div></section>
+          <section class="card"><h2>Reincidencia mensual</h2><p class="hint">Tres o más incidencias combinadas durante el mes seleccionado.</p><div class="scroll"><table class="table"><thead><tr><th>Alumno</th><th>Grupo</th><th>Total</th><th>Retardos</th><th>Diferidos</th></tr></thead><tbody id="repeat-body"></tbody></table></div></section>
+        </div>
+        <section class="card"><h2>Detalle de entradas computables</h2><div class="scroll"><table class="table"><thead><tr><th>Fecha</th><th>Hora</th><th>Alumno</th><th>Nivel</th><th>Grupo</th><th>Clasificación</th></tr></thead><tbody id="detail-body"></tbody></table></div>
+          <div class="footbar"><span id="page-info">Página 1</span><div class="pagebtns"><button type="button" class="btn alt" id="prev-page">Anterior</button><button type="button" class="btn alt" id="next-page">Siguiente</button></div></div>
+        </section>
+        <p class="hint">Cifras calculadas en el servidor con las exclusiones NEXQOR verificadas. No corresponden al registro de alumnos puntuales.</p>
+      </div>
+    </section>
+  </main>
+</div>
+<script>
+'use strict';
+// QA EXCLUSIVO. No enlazar a la API de producción ni cambiar por una URL editable.
+const API='https://labastida-reportes21-qa.innovaciontecnologica.workers.dev/api';
+const ACTIONS=new Set(['login','logout','la21Reporte']);
+const state={token:null,user:null,page:1,limit:25,last:null,busy:false,epoch:0};
+const el=id=>document.getElementById(id);
+const hide=(id,yes)=>el(id).classList.toggle('hidden',yes);
+function error(id,message){el(id).textContent=message||'';hide(id,!message);}
+function mexDate(){const p=new Intl.DateTimeFormat('en-US',{timeZone:'America/Mexico_City',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());const obj=Object.fromEntries(p.map(x=>[x.type,x.value]));return obj.year+'-'+obj.month+'-'+obj.day;}
+const hoy=mexDate();el('hasta').value=hoy;el('desde').value=hoy.slice(0,7)+'-01';el('mes').value=hoy.slice(0,7);
+async function api(action,params={}){
+  if(!ACTIONS.has(action))throw Error('Acción deshabilitada en QA.');
+  const ctrl=new AbortController();const timeout=setTimeout(()=>ctrl.abort(),32000);
+  try{
+    const response=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({action,token:state.token,...params}),cache:'no-store',signal:ctrl.signal});
+    const data=await response.json();
+    if(!response.ok||!data||data.success!==true)throw Error(data?.error||'No fue posible consultar el servidor QA.');
+    return data;
+  }catch(e){if(e.name==='AbortError')throw Error('La consulta tardó demasiado. Inténtalo más tarde.');throw e;}
+  finally{clearTimeout(timeout);}
+}
+function addCell(tr,value){const td=document.createElement('td');td.textContent=String(value??'');tr.appendChild(td);return td;}
+function emptyRow(bodyId,colspan,message){const tr=document.createElement('tr'),td=document.createElement('td');td.colSpan=colspan;td.className='empty';td.textContent=message;tr.appendChild(td);el(bodyId).replaceChildren(tr);}
+function rows(bodyId,items,map,cols,missing){const tbody=el(bodyId);tbody.replaceChildren();if(!items.length)return emptyRow(bodyId,cols,missing);items.forEach(item=>{const tr=document.createElement('tr');map(tr,item);tbody.appendChild(tr);});}
+function setBusy(yes){state.busy=yes;el('login-button').disabled=yes;el('consultar-button').disabled=yes;el('prev-page').disabled=yes;el('next-page').disabled=yes;el('login-button').textContent=yes?'Verificando…':'Entrar a reportes';el('consultar-button').textContent=yes?'Consultando…':'Consultar reportes';}
+function clearReportView(){state.last=null;hide('results',true);for(const id of ['groups-body','repeat-body','detail-body'])el(id).replaceChildren();}
+async function logout(){const token=state.token;state.epoch++;state.token=null;state.user=null;state.page=1;clearReportView();hide('reports-panel',true);hide('login-panel',false);el('clave').value='';error('report-error','');if(token){try{await api('logout',{token});}catch(_){/* La sesión ya se descartó en el navegador. */}}}
+el('login-form').addEventListener('submit',async event=>{
+  event.preventDefault();if(state.busy)return;error('login-error','');setBusy(true);
+  try{
+    const res=await api('login',{usuario:el('usuario').value.trim(),clave:el('clave').value});
+    el('clave').value='';
+    if(!res.token||!['general','direccion'].includes(res.rol)||
+      (res.rol==='direccion'&&!['Primaria','Secundaria'].includes(res.nivel))){
+      if(res.token){state.token=res.token;await logout();}
+      throw Error('Tu cuenta no tiene permiso para consultar reportes de entrada.');
+    }
+    state.token=res.token;state.user={nombre:res.nombre,rol:res.rol,nivel:res.nivel};
+    if(res.debeCambiar){await logout();throw Error('Esta cuenta requiere actualizar su contraseña mediante la aplicación operativa antes de consultar reportes.');}
+    el('user-text').textContent=String(res.nombre||res.usuario||'Usuario autorizado')+' · '+(res.rol==='general'?'Dirección General':res.nivel);
+    el('nivel').value=res.rol==='general'?'':res.nivel;
+    el('nivel').disabled=res.rol!=='general';
+    hide('login-panel',true);hide('reports-panel',false);
+    await report();
+  }catch(e){error(state.token?'report-error':'login-error',e.message);}
+  finally{setBusy(false);}
+});
+el('logout-button').addEventListener('click',()=>{void logout();});
+function readFilters(){
+  const desde=el('desde').value,hasta=el('hasta').value,mes=el('mes').value;
+  if(!desde||!hasta||!mes||desde>hasta)throw Error('Verifica el rango de fechas.');
+  const buscar=el('buscar').value.trim();
+  if(buscar&&buscar.length<3)throw Error('Escribe por lo menos tres letras para buscar un alumno.');
+  return {desde,hasta,mes,nivel:state.user.rol==='general'?el('nivel').value:state.user.nivel,
+    grupoId:el('grupo').value,buscar,pagina:state.page,limite:state.limit};
+}
+async function report(){
+  if(!state.token||!state.user)return;
+  error('report-error','');clearReportView();setBusy(true);const epoch=state.epoch;
+  try{
+    const filtros=readFilters();const res=await api('la21Reporte',filtros);
+    if(epoch!==state.epoch||!state.token)return;
+    if(res.modo!=='SOLO_LECTURA'||res.resumen?.umbralMensual!==3||
+      res.resumen?.criterioReincidencia!=='RETARDOS_MAS_INGRESOS_DIFERIDOS'||
+      !res.detalle||!Array.isArray(res.reincidentes))
+      throw Error('La respuesta del servidor QA no cumple el contrato de reportes 2.1.');
+    state.last=res;render(res);
+    if(!filtros.grupoId&&!filtros.buscar)renderGroupOptions(res.resumen.grupos||[]);
+    hide('results',false);
+  }catch(e){error('report-error',e.message);}
+  finally{setBusy(false);updatePaging();}
+}
+function renderGroupOptions(groups){
+  const selected=el('grupo').value;const frag=document.createDocumentFragment();
+  const any=document.createElement('option');any.value='';any.textContent='Todos los grupos';frag.appendChild(any);
+  [...groups].sort((a,b)=>String(a.nivel+' '+a.grupo).localeCompare(String(b.nivel+' '+b.grupo),'es'))
+    .forEach(g=>{const opt=document.createElement('option');opt.value=g.grupoId;opt.textContent=g.nivel+' · '+g.grupo;frag.appendChild(opt);});
+  el('grupo').replaceChildren(frag);
+  if([...el('grupo').options].some(o=>o.value===selected))el('grupo').value=selected;
+}
+function render(res){
+  const s=res.resumen;el('s-total').textContent=String(s.totalIncidencias||0);el('s-retardos').textContent=String(s.retardos||0);
+  el('s-diferidos').textContent=String(s.ingresosDiferidos||0);el('s-alumnos').textContent=String(s.alumnosUnicos||0);
+  el('s-reincidentes').textContent=String(s.alumnosReincidentes||0);
+  const groups=Array.isArray(s.grupos)?s.grupos:[];const max=Math.max(1,...groups.map(g=>Number(g.total)||0));
+  rows('groups-body',groups,(tr,g)=>{
+    addCell(tr,g.nivel+' · '+g.grupo);addCell(tr,g.total);addCell(tr,g.retardos);addCell(tr,g.diferidos);
+    const td=addCell(tr,'');const track=document.createElement('div');track.className='bar-track';const fill=document.createElement('div');fill.className='bar-fill';fill.style.width=(100*(Number(g.total)||0)/max).toFixed(2)+'%';track.appendChild(fill);td.appendChild(track);
+  },5,'Sin incidencias de grupos para estos filtros.');
+  rows('repeat-body',res.reincidentes,(tr,r)=>{addCell(tr,r.nombre);addCell(tr,r.nivel+' · '+r.grupo);addCell(tr,r.incidencias);addCell(tr,r.retardos);addCell(tr,r.ingresosDiferidos);},5,'Ningún alumno alcanza tres incidencias en el mes seleccionado.');
+  rows('detail-body',Array.isArray(res.detalle.registros)?res.detalle.registros:[],(tr,r)=>{
+    addCell(tr,r.fecha);addCell(tr,r.hora||'—');addCell(tr,r.nombre);addCell(tr,r.nivel);addCell(tr,r.grupo);addCell(tr,r.clasificacion);
+  },6,'No existen entradas computables en este período.');
+}
+function updatePaging(){const d=state.last?.detalle;el('page-info').textContent=d?'Página '+d.pagina+' · '+d.total+' registros':'Sin consulta';el('prev-page').disabled=state.busy||!d||d.pagina<=1;el('next-page').disabled=state.busy||!d||d.pagina*d.limite>=d.total;}
+el('filter-form').addEventListener('submit',event=>{event.preventDefault();if(state.busy)return;state.page=1;void report();});
+el('prev-page').addEventListener('click',()=>{if(state.busy||state.page<=1)return;state.page--;void report();});
+el('next-page').addEventListener('click',()=>{const d=state.last?.detalle;if(state.busy||!d||state.page*d.limite>=d.total)return;state.page++;void report();});
+el('nivel').addEventListener('change',()=>{el('grupo').replaceChildren(new Option('Todos los grupos',''));});
+window.addEventListener('pagehide',()=>{state.epoch++;state.token=null;state.user=null;clearReportView();hide('reports-panel',true);hide('login-panel',false);el('clave').value='';});
+updatePaging();
+</script>
+</body>
+</html>
