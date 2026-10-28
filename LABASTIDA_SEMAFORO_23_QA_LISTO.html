@@ -573,7 +573,7 @@ function la20MostrarIdentidadSesion_(){
       (u.rol==='acceso'?'Personal de entrada':u.rol==='docente'?'Docente':String(u.nivel||'')):
     '';
 }
-$('form-login').addEventListener('submit',async e=>{e.preventDefault();if(state.pending)return;const button=$('btn-login');pending(true,button,'Conectando…');$('login-status').textContent='Verificando acceso…';try{const r=await api('login',{usuario:$('login-user').value.trim(),clave:$('login-pass').value});state.token=r.token;state.user={usuario:r.usuario,rol:r.rol,nivel:r.nivel,nombre:r.nombre};la20MostrarIdentidadSesion_();la14ActualizarAcceso();$('login-pass').value='';if(r.debeCambiar)show('change-screen');else{la15ActualizarMenu();show('app');if(r.rol==='docente'){tab('asistencia');}else if(r.rol==='acceso'){tab('entradas');}else{tab('resumen');await refresh();}}}catch(err){toast(err.message,true);}finally{$('login-status').textContent='';pending(false,button);}});
+$('form-login').addEventListener('submit',async e=>{e.preventDefault();if(state.pending)return;const button=$('btn-login');pending(true,button,'Conectando…');$('login-status').textContent='Verificando acceso…';try{const r=await api('login',{usuario:$('login-user').value.trim(),clave:$('login-pass').value});la23LimpiarSesion_();state.tab='resumen';state.token=r.token;state.user={usuario:r.usuario,rol:r.rol,nivel:r.nivel,nombre:r.nombre};la20MostrarIdentidadSesion_();la14ActualizarAcceso();$('login-pass').value='';if(r.debeCambiar)show('change-screen');else{la15ActualizarMenu();show('app');if(r.rol==='docente'){tab(r.nivel==='Secundaria'?'asistencia':'semaforo');}else if(r.rol==='acceso'){tab('entradas');}else{tab('resumen');await refresh();}}}catch(err){toast(err.message,true);}finally{$('login-status').textContent='';pending(false,button);}});
 $('form-change').addEventListener('submit',async e=>{e.preventDefault();if(state.pending)return;if($('new-pass').value!==$('confirm-pass').value){toast('Las contraseñas nuevas no coinciden.',true);return;}const b=$('btn-change');pending(true,b,'Guardando…');try{const r=await api('cambiarClave',{actual:$('old-pass').value,nueva:$('new-pass').value});toast(r.mensaje);state.token=null;['old-pass','new-pass','confirm-pass'].forEach(x=>$(x).value='');show('login-screen');}catch(err){toast(err.message,true);}finally{pending(false,b);}});
 $('form-multinivel').addEventListener('submit',e=>sendForm(e,'vincularDocenteNivel',$('btn-multinivel'),{docenteId:$('multi-teacher').value,nivel:$('multi-level').value},null));
 $('multi-teacher').addEventListener('change',()=>updateMultinivelChoices());
@@ -1763,6 +1763,23 @@ $('la16-crear-cuenta').dataset.label=$('la16-crear-cuenta').textContent;
  */
 'use strict';
 const la23UI={solicitud:0,ocupado:false};
+function la23LimpiarSesion_() {
+  // Invalida las consultas pendientes de sesiones anteriores.
+  la23UI.solicitud++;
+  la23UI.ocupado = false;
+
+  // Elimina inmediatamente los datos escolares mostrados.
+  const grupos = document.getElementById('la23-grupos');
+  if (grupos) grupos.replaceChildren();
+
+  const estado = document.getElementById('la23-estado');
+  if (estado) {
+    estado.textContent = 'Sin consulta vigente.';
+  }
+
+  const boton = document.getElementById('la23-actualizar');
+  if (boton) boton.disabled = false;
+}
 
 function la23Elemento_(etiqueta,clase,texto){
   const el=document.createElement(etiqueta);
@@ -1820,7 +1837,7 @@ async function la23Cargar(){
   const token=state.token;
   const estado=document.getElementById('la23-estado');
   const btn=document.getElementById('la23-actualizar');
-  la23UI.ocupado=true;
+  const caja=document.getElementById('la23-grupos'); if(caja)caja.replaceChildren(); la23UI.ocupado=true;
   if(btn)btn.disabled=true;
   if(estado)estado.textContent='Consultando los retardos del mes en el servidor...';
   try{
