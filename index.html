@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><meta name="labastida-revision" content="2026102804"><title>Labastida Asistencia 2.3.3 · Pases por módulo y semáforo con fechas</title>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><meta name="labastida-revision" content="2026102805"><title>Labastida Asistencia 2.3.4 · Pases por materia y semáforo con fechas</title>
 <link rel="icon" href="assets/escudo.png"><style>
 :root{--azul:#102C53;--azul2:#1f4772;--rojo:#AE203A;--oro:#C9A65E;--fondo:#F2F5FA;--gris:#64748b;--borde:#DFE6F1;--blanco:#fff;--verde:#146B53}
 *{box-sizing:border-box}body{margin:0;background:var(--fondo);font:15px/1.5 system-ui,-apple-system,'Segoe UI',sans-serif;color:#18273B}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.55}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #C9A65E;outline-offset:2px}
@@ -274,8 +274,8 @@ body.lab2-authenticated #la20-piloto-notice{padding-left:calc(var(--labnav) + 20
 <section id="view-asignaciones" class="view hide"><div class="subhead"><div><h2>Asignaciones académicas</h2><p>Relaciona docentes con grupos o materias. Si un docente deja de atender un grupo, conserva el historial mediante desasignación.</p></div></div><div class="card"><h3>Nueva asignación</h3><form id="form-assign"><div class="formgrid"><div class="field"><label for="assign-group">Grupo</label><select id="assign-group" required></select></div><div class="field"><label for="assign-teacher">Docente</label><select id="assign-teacher" required></select></div><div class="field" id="matter-field"><label for="assign-matter">Materia (solo Secundaria)</label><select id="assign-matter"></select></div></div><div class="buttonrow"><button class="btn" type="submit" id="btn-assign">Guardar asignación</button></div></form></div><div class="card" id="la151-vacantes-card"><div class="subhead"><div><h3>Vacantes académicas</h3><p>Materias sin maestro que permanecen en el horario. No generan pase de lista hasta tener asignación.</p></div><button type="button" class="btn sec" id="la151-refresh-vacantes">↻ Verificar vacantes</button></div><div id="la151-vacantes" class="la151-vacantes"><span class="quiet">Pulsa Verificar vacantes para consultar.</span></div></div><div class="card"><h3>Asignaciones registradas</h3><div class="datawrap"><table class="data"><thead><tr><th>Grupo</th><th>Materia</th><th>Docente</th><th>Estado</th><th>Acción</th></tr></thead><tbody id="assign-body"></tbody></table></div></div><div class="card" id="conjuntas-card"><h3>Autorizaciones de clases conjuntas · Secundaria</h3><p>Solo pueden autorizarse coincidencias exactas de materia, día y horario entre las secciones A y B del mismo grado. Autorizar no asigna maestros ni genera asistencias.</p><div class="status">Primero autoriza la coincidencia y después asigna al mismo docente a cada grupo desde «Nueva asignación». Si necesitas desactivar una autorización en uso, retira antes una de las dos asignaciones docentes.</div><div class="datawrap" style="margin-top:16px"><table class="data"><thead><tr><th>Grupos</th><th>Materia</th><th>Bloques semanales</th><th>Autorización</th><th>Acción</th></tr></thead><tbody id="conjuntas-body"></tbody></table></div></div><div class="card" id="apoyo-card"><h3>Docente de apoyo · Preescolar</h3><p>Asocia una docente de apoyo a un grupo que ya tenga titular. Esta asignación administrativa no habilita acceso al pase de lista ni duplica asistencias.</p><form id="form-apoyo"><div class="formgrid"><div class="field"><label for="apoyo-group">Grupo de Preescolar</label><select id="apoyo-group" required></select></div><div class="field"><label for="apoyo-teacher">Docente de apoyo</label><select id="apoyo-teacher" required></select></div></div><div class="buttonrow"><button class="btn" type="submit" id="btn-apoyo">Guardar apoyo</button></div></form><div class="datawrap" style="margin-top:18px"><table class="data"><thead><tr><th>Grupo</th><th>Docente de apoyo</th><th>Estado</th><th>Acción</th></tr></thead><tbody id="apoyos-body"></tbody></table></div></div></section>
 
 <section id="view-asistencia" class="view hide" aria-labelledby="la14-title">
-  <div class="subhead"><div><h2 id="la14-title">Pase de lista · Primaria y Secundaria</h2><p>Consulta y registro por Dirección y docentes autorizados.</p></div><span id="la231-mode" class="pill pending">MODO SEGURO · SIN GUARDADO</span></div>
-  <div id="la231-banner" class="la14-banner"><strong>Preproducción 2.3.3.</strong> Solo lectura hasta activar y verificar el guardado real desde el servidor. Ninguna prueba registra asistencias.</div>
+  <div class="subhead"><div><h2 id="la14-title">Pase de lista · Primaria y Secundaria</h2><p>Consulta y registro por Dirección y docentes autorizados.</p></div><span id="la231-mode" class="pill pending">ESTADO PENDIENTE DE VERIFICAR</span></div>
+  <div id="la231-banner" class="la14-banner"><strong>LABASTIDA 2.3.4.</strong> Selecciona una clase para que el servidor confirme si el guardado está habilitado. No guardes pases de prueba en la base real.</div>
   <div class="card">
     <div class="formgrid">
       <div class="field"><label for="la14-date">Fecha de clase</label><input type="date" id="la14-date" required autocomplete="off"></div>
@@ -356,7 +356,7 @@ const aviso20=document.getElementById('la20-piloto-notice');
 if(aviso20)aviso20.hidden=LA20_CAPTURA_PRODUCCION;
 const etiqueta20=document.querySelector('.header .tag');
 if(etiqueta20)etiqueta20.textContent=LA20_CAPTURA_PRODUCCION ?
-  'VERSIÓN 2.3.3 · FECHAS DE RETARDOS' : 'CANDIDATA 2.3.3 · SOLO CONSULTA';
+  'VERSIÓN 2.3.4 · CLASES POR MATERIA' : 'CANDIDATA 2.3.4 · SOLO CONSULTA';
 const introPuerta20=document.querySelector('#view-entradas>.la14-banner');
 if(introPuerta20){
   introPuerta20.textContent=LA20_CAPTURA_PRODUCCION ?
@@ -379,7 +379,14 @@ function opt(value,label){const o=document.createElement('option');o.value=value
 function setOptions(el,items,placeholder){el.replaceChildren(opt('',placeholder),...items.map(x=>opt(x.value,x.label)));}
 function td(value){const x=document.createElement('td');x.textContent=String(value??'');return x;}
 function row(cols){const r=document.createElement('tr');cols.forEach(x=>r.appendChild(td(x)));return r;}
-function pending(on,button,msg){state.pending=on;if(button){button.disabled=on;button.textContent=on?msg:button.dataset.label;} }
+function pending(on,button,msg){
+  state.pending=on;
+  if(button){
+    if(!button.dataset.label)button.dataset.label=button.textContent;
+    button.disabled=on;
+    button.textContent=on?msg:button.dataset.label;
+  }
+}
 async function api(action,payload={}){
   // Corte preventivo para esta candidata; NO sustituye las validaciones del servidor.
   const soloLecturas=new Set(['ping','login','logout','dashboard',
@@ -754,8 +761,14 @@ function la14DibujarPase(){
   const c=d.clase;
   $('la14-class-title').textContent=c.nivel+' '+c.grupo+' · '+c.materia;
   $('la231-materia-campo').classList.toggle('hide',c.nivel!=='Primaria');
-  $('la231-materia').value=c.nivel==='Primaria'?String(d.materiaGuardada||''):'';
-  $('la231-materia').disabled=Boolean(d.yaExistePase);
+  const materiaFija=c.nivel==='Primaria'&&c.materiaId==='LA234-ESPANOL';
+  $('la231-materia').value=c.nivel==='Primaria'
+    ?String(d.materiaGuardada|| (materiaFija?c.materia:'')):'';
+  $('la231-materia').disabled=Boolean(d.yaExistePase)||materiaFija;
+  const explicacion=$('la231-materia-campo').querySelector('p');
+  if(explicacion)explicacion.textContent=materiaFija
+    ?'Asignatura verificada contra el horario escolar: no puede modificarse en este pase.'
+    :'La indica quien imparte el módulo; Dirección debe verificarla con el horario aprobado.';
   $('la14-class-meta').replaceChildren(la14PonerChip(c.inicio+'–'+c.fin),la14PonerChip(c.docente),la14PonerChip(c.primeraHora?'Pase inicial':'Cambio de clase',c.primeraHora));
   $('la14-rule').textContent=c.primeraHora
     ?'Marca Presente o Ausente. Los retardos de ingreso provienen de ENTRADAS y no se modifican desde el pase docente.'
