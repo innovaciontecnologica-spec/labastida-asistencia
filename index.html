@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><meta name="labastida-revision" content="2026102803"><title>Labastida Asistencia 2.3.2 · Pases por módulo y semáforo</title>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><meta name="labastida-revision" content="2026102804"><title>Labastida Asistencia 2.3.3 · Pases por módulo y semáforo con fechas</title>
 <link rel="icon" href="assets/escudo.png"><style>
 :root{--azul:#102C53;--azul2:#1f4772;--rojo:#AE203A;--oro:#C9A65E;--fondo:#F2F5FA;--gris:#64748b;--borde:#DFE6F1;--blanco:#fff;--verde:#146B53}
 *{box-sizing:border-box}body{margin:0;background:var(--fondo);font:15px/1.5 system-ui,-apple-system,'Segoe UI',sans-serif;color:#18273B}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.55}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #C9A65E;outline-offset:2px}
@@ -197,6 +197,12 @@ body.lab2-authenticated #la20-piloto-notice{padding-left:calc(var(--labnav) + 20
 .la23-alumno{display:flex;align-items:flex-start;gap:10px;padding:10px 8px;border-top:1px solid #edf1f6}
 .la23-alumno strong{font-size:13px;color:#173858;display:block}
 .la23-alumno small{color:#586b83;font-size:11px;display:block;margin-top:3px}
+.la23-fechas{margin-top:7px;font-size:11px;color:#34516e}
+.la23-fechas summary{cursor:pointer;font-weight:700;color:#1c578d}
+.la23-fechas ul{padding-left:17px;margin:7px 0 0}
+.la23-fechas li{margin:4px 0;line-height:1.45}
+.la23-fechas .la23-hoy{font-weight:800;color:#926000}
+.la23-sin-fechas{color:#756b5a!important;font-style:italic}
 .la23-chip{flex-shrink:0;min-width:74px;border-radius:22px;font-size:11px;font-weight:800;text-align:center;padding:7px 9px}
 .la23-chip.verde{color:#14643f;background:#dff5e8;border:1px solid #a9dec0}
 .la23-chip.amarillo{color:#7d5600;background:#fff1c7;border:1px solid #ecd285}
@@ -269,7 +275,7 @@ body.lab2-authenticated #la20-piloto-notice{padding-left:calc(var(--labnav) + 20
 
 <section id="view-asistencia" class="view hide" aria-labelledby="la14-title">
   <div class="subhead"><div><h2 id="la14-title">Pase de lista · Primaria y Secundaria</h2><p>Consulta y registro por Dirección y docentes autorizados.</p></div><span id="la231-mode" class="pill pending">MODO SEGURO · SIN GUARDADO</span></div>
-  <div id="la231-banner" class="la14-banner"><strong>Preproducción 2.3.2.</strong> Solo lectura hasta activar y verificar el guardado real desde el servidor. Ninguna prueba registra asistencias.</div>
+  <div id="la231-banner" class="la14-banner"><strong>Preproducción 2.3.3.</strong> Solo lectura hasta activar y verificar el guardado real desde el servidor. Ninguna prueba registra asistencias.</div>
   <div class="card">
     <div class="formgrid">
       <div class="field"><label for="la14-date">Fecha de clase</label><input type="date" id="la14-date" required autocomplete="off"></div>
@@ -350,7 +356,7 @@ const aviso20=document.getElementById('la20-piloto-notice');
 if(aviso20)aviso20.hidden=LA20_CAPTURA_PRODUCCION;
 const etiqueta20=document.querySelector('.header .tag');
 if(etiqueta20)etiqueta20.textContent=LA20_CAPTURA_PRODUCCION ?
-  'VERSIÓN 2.3.2 · PASES POR MÓDULO' : 'CANDIDATA 2.3.2 · SOLO CONSULTA';
+  'VERSIÓN 2.3.3 · FECHAS DE RETARDOS' : 'CANDIDATA 2.3.3 · SOLO CONSULTA';
 const introPuerta20=document.querySelector('#view-entradas>.la14-banner');
 if(introPuerta20){
   introPuerta20.textContent=LA20_CAPTURA_PRODUCCION ?
@@ -1934,6 +1940,38 @@ function la23Dibujar_(datos){
       resumen.appendChild(la23Elemento_('small','',
         (Number(alumno.retardos)||0)+' retardo(s) · '+
         (Number(alumno.diferidos)||0)+' ingreso(s) diferido(s)'));
+      // Fechas concretas de incidencias computables, nunca del navegador.
+      const eventos=alumno.incidencias;
+      if(Array.isArray(eventos)&&eventos.length===total){
+        const detalle=la23Elemento_('details','la23-fechas');
+        const hoy=eventos.filter(e=>e&&String(e.fecha)===String(datos.fechaServidor)).length;
+        const ultima=String(eventos[0]&&eventos[0].fecha||'');
+        if(!/^\d{4}-\d{2}-\d{2}$/.test(ultima))
+          throw Error('Fecha de última incidencia inválida.');
+        const ultimaVisible=ultima.slice(8,10)+'/'+ultima.slice(5,7)+'/'+ultima.slice(0,4);
+        detalle.appendChild(la23Elemento_('summary','',
+          'Última: '+ultimaVisible+' · Ver fechas ('+eventos.length+')'+(hoy?' · HOY: '+hoy:'')));
+        const lista=la23Elemento_('ul');
+        for(const evento of eventos){
+          const fecha=String(evento&&evento.fecha||'');
+          if(!/^\d{4}-\d{2}-\d{2}$/.test(fecha))
+            throw Error('Fecha de incidencia inválida.');
+          const [ano,mes,dia]=fecha.split('-');
+          const tipo=String(evento.tipo||'');
+          if(!['Retardo de entrada','Ingreso diferido'].includes(tipo))
+            throw Error('Clasificación de incidencia inválida.');
+          const hora=String(evento.hora||'');
+          const horaVisible=/^\d{1,2}:\d{2}(?::\d{2})?$/.test(hora)?' · '+hora:'';
+          const esHoy=fecha===String(datos.fechaServidor);
+          lista.appendChild(la23Elemento_('li',esHoy?'la23-hoy':'',
+            dia+'/'+mes+'/'+ano+horaVisible+' · '+tipo+(esHoy?' · HOY':'')));
+        }
+        detalle.appendChild(lista);
+        resumen.appendChild(detalle);
+      }else{
+        resumen.appendChild(la23Elemento_('small','la23-sin-fechas',
+          'Fechas disponibles al actualizar el servidor del semáforo.'));
+      }
       fila.appendChild(la23Elemento_('span','la23-chip '+color,total+' de mes'));
       fila.appendChild(resumen);
       caja.appendChild(fila);
