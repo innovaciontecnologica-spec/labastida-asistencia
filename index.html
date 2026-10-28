@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><meta name="labastida-revision" content="2026102805"><title>Labastida Asistencia 2.3.4 · Pases por materia y semáforo con fechas</title>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><meta name="labastida-revision" content="2026102806"><title>Labastida Asistencia 2.3.5 · Pases por materia y semáforo con fechas</title>
 <link rel="icon" href="assets/escudo.png"><style>
 :root{--azul:#102C53;--azul2:#1f4772;--rojo:#AE203A;--oro:#C9A65E;--fondo:#F2F5FA;--gris:#64748b;--borde:#DFE6F1;--blanco:#fff;--verde:#146B53}
 *{box-sizing:border-box}body{margin:0;background:var(--fondo);font:15px/1.5 system-ui,-apple-system,'Segoe UI',sans-serif;color:#18273B}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.55}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #C9A65E;outline-offset:2px}
@@ -275,7 +275,7 @@ body.lab2-authenticated #la20-piloto-notice{padding-left:calc(var(--labnav) + 20
 
 <section id="view-asistencia" class="view hide" aria-labelledby="la14-title">
   <div class="subhead"><div><h2 id="la14-title">Pase de lista · Primaria y Secundaria</h2><p>Consulta y registro por Dirección y docentes autorizados.</p></div><span id="la231-mode" class="pill pending">ESTADO PENDIENTE DE VERIFICAR</span></div>
-  <div id="la231-banner" class="la14-banner"><strong>LABASTIDA 2.3.4.</strong> Selecciona una clase para que el servidor confirme si el guardado está habilitado. No guardes pases de prueba en la base real.</div>
+  <div id="la231-banner" class="la14-banner"><strong>LABASTIDA 2.3.5.</strong> Selecciona una clase para que el servidor confirme si el guardado está habilitado. No guardes pases de prueba en la base real.</div>
   <div class="card">
     <div class="formgrid">
       <div class="field"><label for="la14-date">Fecha de clase</label><input type="date" id="la14-date" required autocomplete="off"></div>
@@ -356,7 +356,7 @@ const aviso20=document.getElementById('la20-piloto-notice');
 if(aviso20)aviso20.hidden=LA20_CAPTURA_PRODUCCION;
 const etiqueta20=document.querySelector('.header .tag');
 if(etiqueta20)etiqueta20.textContent=LA20_CAPTURA_PRODUCCION ?
-  'VERSIÓN 2.3.4 · CLASES POR MATERIA' : 'CANDIDATA 2.3.4 · SOLO CONSULTA';
+  'VERSIÓN 2.3.5 · CUATRO DOCENTES POR MATERIA' : 'CANDIDATA 2.3.5 · SOLO CONSULTA';
 const introPuerta20=document.querySelector('#view-entradas>.la14-banner');
 if(introPuerta20){
   introPuerta20.textContent=LA20_CAPTURA_PRODUCCION ?
@@ -761,7 +761,7 @@ function la14DibujarPase(){
   const c=d.clase;
   $('la14-class-title').textContent=c.nivel+' '+c.grupo+' · '+c.materia;
   $('la231-materia-campo').classList.toggle('hide',c.nivel!=='Primaria');
-  const materiaFija=c.nivel==='Primaria'&&c.materiaId==='LA234-ESPANOL';
+  const materiaFija=c.nivel==='Primaria'&&Boolean(c.materiaId&&c.materia);
   $('la231-materia').value=c.nivel==='Primaria'
     ?String(d.materiaGuardada|| (materiaFija?c.materia:'')):'';
   $('la231-materia').disabled=Boolean(d.yaExistePase)||materiaFija;
