@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><meta name="labastida-revision" content="2026102802"><title>Labastida Asistencia 2.3.1 · Pases por módulo y semáforo</title>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><meta name="labastida-revision" content="2026102803"><title>Labastida Asistencia 2.3.2 · Pases por módulo y semáforo</title>
 <link rel="icon" href="assets/escudo.png"><style>
 :root{--azul:#102C53;--azul2:#1f4772;--rojo:#AE203A;--oro:#C9A65E;--fondo:#F2F5FA;--gris:#64748b;--borde:#DFE6F1;--blanco:#fff;--verde:#146B53}
 *{box-sizing:border-box}body{margin:0;background:var(--fondo);font:15px/1.5 system-ui,-apple-system,'Segoe UI',sans-serif;color:#18273B}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.55}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #C9A65E;outline-offset:2px}
@@ -251,13 +251,16 @@ body.lab2-authenticated #la20-piloto-notice{padding-left:calc(var(--labnav) + 20
 <div class="datawrap"><table class="data"><thead><tr><th>Docente</th><th>Usuario</th><th>Estado</th><th>Clave pendiente</th><th>Acción</th></tr></thead><tbody id="la15-users"><tr><td colspan="5">Consulta las cuentas para comenzar.</td></tr></tbody></table></div>
 </div>
 <div class="card hide" id="la231-admin-primaria"><h3>Primaria · Configuración de módulos y grupos</h3>
-<p>Los horarios de módulos son comunes de 1.º a 6.º. La configuración se hace una sola vez por Dirección General y no cambia las asignaciones titulares.</p>
+<p>Los horarios se verificaron contra el archivo semanal del colegio. Se distinguen 1.º–2.º, 3.º y 4.º–6.º; no se altera la titularidad ni se registran pases desde esta sección.</p>
 <div class="buttonrow"><button type="button" class="btn sec" id="la231-preparar">1. Preparar tablas de Primaria</button></div>
-<div class="field"><label for="la231-horario">2. Horario diario (una línea por módulo: HH:MM-HH:MM)</label>
-<textarea id="la231-horario" rows="6" spellcheck="false" placeholder="07:45-08:30&#10;08:35-09:20"></textarea>
-<p class="quiet">Se aplicará de lunes a viernes, solo la primera vez. No agregues horarios de ejemplo: usa los aprobados por el colegio.</p></div>
-<div class="buttonrow"><button type="button" class="btn sec" id="la231-configurar">Guardar horario común de módulos</button></div>
-<div class="formgrid"><div class="field"><label for="la231-autorizar-docente">3. Docente de Primaria</label><select id="la231-autorizar-docente"><option value="">Selecciona docente</option></select></div>
+<div class="status" role="note"><strong>Horario escolar de Primaria · verificado</strong>
+<div class="datawrap" style="margin-top:10px"><table class="data"><thead><tr><th>Grados</th><th>Receso</th><th>Pases de clase</th><th>Último bloque</th></tr></thead><tbody>
+<tr><td>1.º y 2.º</td><td>09:30–10:10</td><td>6 módulos por día</td><td>12:40–13:30 · salida 13:40</td></tr>
+<tr><td>3.º</td><td>09:30–10:10</td><td>7 módulos por día</td><td>13:30–14:20</td></tr>
+<tr><td>4.º a 6.º</td><td>10:10–11:00</td><td>7 módulos por día</td><td>13:30–14:20</td></tr>
+</tbody></table></div>
+<p class="quiet">De lunes a viernes. Los recesos y la salida de 1.º–2.º nunca generan un pase de clase. El horario común de la versión anterior está deshabilitado.</p></div>
+<div class="formgrid"><div class="field"><label for="la231-autorizar-docente">2. Docente de Primaria</label><select id="la231-autorizar-docente"><option value="">Selecciona docente</option></select></div>
 <div class="field"><label for="la231-autorizar-grupo">Grupos para los que puede pasar lista</label><select id="la231-autorizar-grupo"><option value="*">Todos los grupos de Primaria</option></select></div></div>
 <div class="buttonrow"><button type="button" class="btn sec" id="la231-autorizar">Autorizar grupo(s) para este docente</button></div>
 <p id="la231-admin-estado" class="quiet" role="status"></p></div>
@@ -266,7 +269,7 @@ body.lab2-authenticated #la20-piloto-notice{padding-left:calc(var(--labnav) + 20
 
 <section id="view-asistencia" class="view hide" aria-labelledby="la14-title">
   <div class="subhead"><div><h2 id="la14-title">Pase de lista · Primaria y Secundaria</h2><p>Consulta y registro por Dirección y docentes autorizados.</p></div><span id="la231-mode" class="pill pending">MODO SEGURO · SIN GUARDADO</span></div>
-  <div id="la231-banner" class="la14-banner"><strong>Preproducción 2.3.1.</strong> Solo lectura hasta activar y verificar el guardado real desde el servidor. Ninguna prueba registra asistencias.</div>
+  <div id="la231-banner" class="la14-banner"><strong>Preproducción 2.3.2.</strong> Solo lectura hasta activar y verificar el guardado real desde el servidor. Ninguna prueba registra asistencias.</div>
   <div class="card">
     <div class="formgrid">
       <div class="field"><label for="la14-date">Fecha de clase</label><input type="date" id="la14-date" required autocomplete="off"></div>
@@ -347,7 +350,7 @@ const aviso20=document.getElementById('la20-piloto-notice');
 if(aviso20)aviso20.hidden=LA20_CAPTURA_PRODUCCION;
 const etiqueta20=document.querySelector('.header .tag');
 if(etiqueta20)etiqueta20.textContent=LA20_CAPTURA_PRODUCCION ?
-  'VERSIÓN 2.3.1 · PASES POR MÓDULO' : 'CANDIDATA 2.3.1 · SOLO CONSULTA';
+  'VERSIÓN 2.3.2 · PASES POR MÓDULO' : 'CANDIDATA 2.3.2 · SOLO CONSULTA';
 const introPuerta20=document.querySelector('#view-entradas>.la14-banner');
 if(introPuerta20){
   introPuerta20.textContent=LA20_CAPTURA_PRODUCCION ?
@@ -469,18 +472,6 @@ async function la231AdministrarPrimaria_(action,payload,boton,mensajeConfirmacio
 }
 $('la231-preparar').addEventListener('click',()=>void la231AdministrarPrimaria_(
   'la231PrepararPrimaria',{},$('la231-preparar')));
-$('la231-configurar').addEventListener('click',()=>{
-  const lineas=$('la231-horario').value.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
-  const modulos=[];
-  for(const linea of lineas){
-    const m=/^([01]\d|2[0-3]):([0-5]\d)\s*[-–]\s*([01]\d|2[0-3]):([0-5]\d)$/.exec(linea);
-    if(!m){toast('Corrige horarios. Ejemplo: 07:45-08:30, una línea por módulo.',true);return;}
-    modulos.push({inicio:m[1]+':'+m[2],fin:m[3]+':'+m[4]});
-  }
-  if(!modulos.length){toast('Escribe los horarios reales antes de configurar.',true);return;}
-  void la231AdministrarPrimaria_('la231ConfigurarModulosPrimaria',{modulos},$('la231-configurar'),
-    '¿Confirmas '+modulos.length+' módulos con el MISMO horario de lunes a viernes? Esta operación no se puede repetir si ya existen datos.');
-});
 $('la231-autorizar').addEventListener('click',()=>{
   const docenteId=$('la231-autorizar-docente').value;
   const grupoId=$('la231-autorizar-grupo').value;
