@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><meta name="labastida-revision" content="2026102903"><title>Labastida Asistencia 2.3.8 · Pases por materia y semáforo con fechas</title>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><meta name="labastida-revision" content="2026102904"><title>Labastida Asistencia 2.3.9 · Pases por materia y semáforo con fechas</title>
 <link rel="icon" href="assets/escudo.png"><style>
 :root{--azul:#102C53;--azul2:#1f4772;--rojo:#AE203A;--oro:#C9A65E;--fondo:#F2F5FA;--gris:#64748b;--borde:#DFE6F1;--blanco:#fff;--verde:#146B53}
 *{box-sizing:border-box}body{margin:0;background:var(--fondo);font:15px/1.5 system-ui,-apple-system,'Segoe UI',sans-serif;color:#18273B}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.55}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #C9A65E;outline-offset:2px}
@@ -245,6 +245,27 @@ body.la237-master .btn.gold:not(:disabled):hover{filter:brightness(1.07);box-sha
 .la238-levels input{width:auto;min-height:0;accent-color:#a97832}
 .la238-levels label:has(input:checked){border-color:#b98a43;background:#fff0cc}
 .la238-levels label:has(input:disabled){opacity:.77;cursor:default}
+.la239-panel{border:1px solid #d0ad68;background:#fffaf0;border-radius:13px;
+  padding:15px;margin-top:14px;box-shadow:0 7px 24px #4c381914}
+.la239-head{display:flex;align-items:center;justify-content:space-between;gap:8px;
+  margin-bottom:12px;color:#352711}
+.la239-head .btn{font-size:12px;min-height:32px;padding:5px 9px}
+.la239-identidad{font-size:12px;color:#766348;margin-bottom:12px}
+.la239-identidad code{font-size:13px;color:#33230a;font-weight:800}
+.la239-resumen{display:grid;gap:6px;margin:8px 0;font-size:12px;color:#4b3d2b}
+.la239-perm{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.la239-perm span{background:#f5e4b9;border:1px solid #d9b971;color:#503813;
+  padding:6px 8px;border-radius:9px;font-size:11px;font-weight:700}
+.la239-note{font-size:11px;color:#856c42;margin-top:9px}
+.la239-panel textarea{min-height:85px;resize:vertical}
+.la239-change{border:1px solid #dbc392;background:#fffaf0;padding:14px;
+  border-radius:13px;margin-top:14px}
+.la239-change-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:9px}
+.la239-change-grid pre{white-space:pre-wrap;overflow-wrap:anywhere;color:#322819;
+  background:#fff;padding:11px;border:1px solid #e5d3ab;border-radius:10px;
+  font-size:11px;max-height:250px;overflow:auto}
+@media(max-width:690px){.la239-change-grid{grid-template-columns:1fr}}
+
 body.la237-master .kpi strong{color:#503c19}
 body.la237-master .data th{background:#faf5e8;color:#826738}
 .la237-hero{position:relative;overflow:hidden;border-radius:20px;margin-bottom:17px;padding:26px 29px;
@@ -361,14 +382,45 @@ body.la237-master .data th{background:#faf5e8;color:#826738}
       </div>
       <h3 style="margin-top:25px">Cuentas del sistema</h3>
       <div id="la237-lista-usuarios" class="la237-list"></div>
+<div id="la239-detalle" class="la239-panel hide" role="status" aria-live="polite">
+  <div class="la239-head"><strong>Permisos efectivos de la cuenta</strong>
+    <button class="btn sec" id="la239-detalle-cerrar" type="button">Cerrar</button></div>
+  <div id="la239-detalle-contenido"></div>
+</div>
+<div id="la239-editor" class="la239-panel hide">
+  <div class="la239-head"><strong>Editar cuenta de usuario</strong>
+    <button class="btn sec" id="la239-editor-cerrar" type="button">Cancelar</button></div>
+  <form id="la239-form-editar">
+    <input type="hidden" id="la239-cuenta-id">
+    <div class="la239-identidad">Cuenta: <code id="la239-cuenta-label"></code></div>
+    <div class="field"><label for="la239-cuenta-nombre">Nombre visible</label>
+      <input id="la239-cuenta-nombre" required minlength="5" maxlength="90" autocomplete="off"></div>
+    <div class="field" id="la239-perfil-bloque" style="margin-top:10px">
+      <label for="la239-cuenta-perfil">Perfil asignado</label>
+      <select id="la239-cuenta-perfil"></select>
+      <small class="la237-help">Reasignar el perfil cambiará los niveles y permisos del usuario e invalidará su sesión.</small>
+    </div>
+    <p id="la239-rol-protegido" class="la237-help hide">Cuenta institucional: únicamente se modifica el nombre visible. Su rol y autorizaciones se conservan.</p>
+    <div class="field" style="margin-top:10px"><label for="la239-cuenta-motivo">Justificación comprobable</label>
+      <textarea id="la239-cuenta-motivo" rows="2" required minlength="12" maxlength="400"
+        placeholder="Explica por qué se cambia el nombre o el perfil"></textarea></div>
+    <button class="btn gold" type="submit">Guardar cambios auditados</button>
+  </form>
+</div>
+
     </div>
   </div>
   <div class="la237-panel" style="margin-top:16px">
     <div class="subhead"><div><h3>Bitácora NEXQOR</h3><p>Quién hizo cada cambio, cuándo, qué se modificó y por qué. Las contraseñas no se guardan aquí.</p></div>
       <button class="btn sec" id="la237-refrescar" type="button">↻ Actualizar</button></div>
-    <div class="datawrap la237-audit"><table class="data"><thead><tr><th>Fecha</th><th>Usuario</th><th>Operación</th><th>Elemento</th><th>Motivo</th></tr></thead><tbody id="la237-bitacora"></tbody></table></div>
+    <div class="datawrap la237-audit"><table class="data"><thead><tr><th>Fecha</th><th>Usuario</th><th>Operación</th><th>Elemento</th><th>Motivo</th><th>Detalle</th></tr></thead><tbody id="la237-bitacora"></tbody></table></div>
   </div>
-  <div class="la14-banner" style="margin-top:16px">Las correcciones de asistencia y retardos se implementarán en una etapa separada, con validación del registro original, evidencia y conservación del historial. Esta consola nunca elimina registros escolares.</div>
+  <div id="la239-cambio-detalle" class="la239-change hide">
+  <div class="la239-head"><strong>Detalle de modificación auditada</strong>
+    <button class="btn sec" id="la239-cambio-cerrar" type="button">Cerrar</button></div>
+  <div id="la239-cambio-contenido"></div>
+</div>
+<div class="la14-banner" style="margin-top:16px">Las correcciones de asistencia y retardos se implementarán en una etapa separada, con validación del registro original, evidencia y conservación del historial. Esta consola nunca elimina registros escolares.</div>
 </section>
 
 <section id="view-docentes" class="view hide"><div class="subhead"><div><h2>Administración de docentes</h2><p>Cada dirección registra personal de su nivel. Dirección General puede autorizar a un docente existente para otro nivel sin duplicar su ficha. Los accesos individuales se administran exclusivamente desde Dirección General.</p></div></div><div class="card"><h3>Registrar un docente</h3><form id="form-teacher"><div class="formgrid"><div class="field"><label for="teacher-name">Nombre completo</label><input id="teacher-name" maxlength="110" required placeholder="Nombre y apellidos"></div><div class="field"><label for="teacher-level">Nivel</label><select id="teacher-level" required></select></div><div class="field"><label for="teacher-email">Correo institucional (opcional)</label><input type="email" id="teacher-email" placeholder="docente@colegio.edu.mx"></div></div><div class="buttonrow"><button class="btn" id="btn-teacher" type="submit">Guardar docente</button><span class="quiet">Se protege el registro frente a clics repetidos.</span></div></form></div><div class="card" id="la151-gestion"><h3>Gestión de personal · Edición y bajas (1.5.1)</h3>
@@ -412,7 +464,7 @@ body.la237-master .data th{background:#faf5e8;color:#826738}
 
 <section id="view-asistencia" class="view hide" aria-labelledby="la14-title">
   <div class="subhead"><div><h2 id="la14-title">Pase de lista · Primaria y Secundaria</h2><p>Consulta y registro por Dirección y docentes autorizados.</p></div><span id="la231-mode" class="pill pending">ESTADO PENDIENTE DE VERIFICAR</span></div>
-  <div id="la231-banner" class="la14-banner"><strong>LABASTIDA 2.3.8.</strong> Selecciona una clase para que el servidor confirme si el guardado está habilitado. No guardes pases de prueba en la base real.</div>
+  <div id="la231-banner" class="la14-banner"><strong>LABASTIDA 2.3.9.</strong> Selecciona una clase para que el servidor confirme si el guardado está habilitado. No guardes pases de prueba en la base real.</div>
   <div class="card">
     <div class="formgrid">
       <div class="field"><label for="la14-date">Fecha de clase</label><input type="date" id="la14-date" required autocomplete="off"></div>
@@ -493,7 +545,7 @@ const aviso20=document.getElementById('la20-piloto-notice');
 if(aviso20)aviso20.hidden=LA20_CAPTURA_PRODUCCION;
 const etiqueta20=document.querySelector('.header .tag');
 if(etiqueta20)etiqueta20.textContent=LA20_CAPTURA_PRODUCCION ?
-  'VERSIÓN 2.3.8 · PERFILES MULTINIVEL' : 'CANDIDATA 2.3.8 · SOLO CONSULTA';
+  'VERSIÓN 2.3.9 · GESTIÓN AVANZADA DE CUENTAS' : 'CANDIDATA 2.3.9 · SOLO CONSULTA';
 const introPuerta20=document.querySelector('#view-entradas>.la14-banner');
 if(introPuerta20){
   introPuerta20.textContent=LA20_CAPTURA_PRODUCCION ?
@@ -529,6 +581,7 @@ async function api(action,payload={}){
   const soloLecturas=new Set(['ping','login','logout','cambiarClave','dashboard',
     'la237EstadoAdmin','la237GuardarPerfil','la237CrearUsuario',
     'la237RestablecerClave','la237EstadoUsuario',
+    'la239DetalleUsuario','la239EditarUsuario',
     'la201Catalogo','la202EstadoHorario','la16Estado','la16Buscar',
     'la14Clases','la14VistaPase','la15Clases','la15VistaPase',
     'la15CuentasDocentes','la16Cuentas','la151Vacantes','la23Semaforo',
@@ -2179,7 +2232,7 @@ document.getElementById('la23-actualizar')?.addEventListener('click',
   ()=>void la23Cargar());
 
 
-/* LABASTIDA 2.3.8: interfaz de administración segura, sin tocar pases reales. */
+/* LABASTIDA 2.3.9: interfaz de administración segura, sin tocar pases reales. */
 const la237UI={catalogo:[],perfiles:[],cuentas:[],auditoria:[],ocupado:false};
 const LA237_TABS=Object.freeze({
   resumen:['resumen','reportes'],semaforo:['semaforo'],
@@ -2206,7 +2259,7 @@ function la237ActualizarIdentidad_(){
   if(master){
     document.querySelector('.header .tag').textContent='NEXQOR · SUPERADMINISTRADOR';
   }else{
-    document.querySelector('.header .tag').textContent='VERSIÓN 2.3.8 · PERFILES MULTINIVEL';
+    document.querySelector('.header .tag').textContent='VERSIÓN 2.3.9 · GESTIÓN AVANZADA DE CUENTAS';
   }
 }
 function la237AplicarMenu_(){
@@ -2310,6 +2363,8 @@ function la237Pintar_(){
     const botones=la237Elt_('div',undefined,'buttonrow');
     if(c.rol!=='superadmin'){
       botones.append(
+        la237Boton_('Ver permisos',()=>void la239VerPermisos_(c.usuario).catch(e=>toast(e.message,true))),
+        la237Boton_('Editar',()=>{try{la239EditarCuenta_(c.usuario);}catch(e){toast(e.message,true);}}),
         la237Boton_('Restablecer clave',async()=>{
           const motivo=prompt('Motivo comprobable del restablecimiento (mínimo 12 caracteres):');
           if(motivo===null)return;
@@ -2328,8 +2383,12 @@ function la237Pintar_(){
     linea.append(info,botones);return linea;
   }));
   $('la237-bitacora').replaceChildren(...(la237UI.auditoria.length?
-    la237UI.auditoria.map(a=>row([a.fecha,a.usuario,a.accion,a.entidad+' '+a.id,a.motivo])):
-    [row(['Sin operaciones NEXQOR registradas','','','',''])]));
+    la237UI.auditoria.map(a=>{
+      const r=row([a.fecha,a.usuario,a.accion,a.entidad+' '+a.id,a.motivo]);
+      const cell=document.createElement('td');
+      cell.append(la237Boton_('Ver cambio',()=>la239VerCambio_(a)));
+      r.append(cell);return r;
+    }):[row(['Sin operaciones NEXQOR registradas','','','','',''])]));
 }
 async function la237Cargar_(){
   if(!state.user?.superadmin)return;
@@ -2387,6 +2446,103 @@ $('la237-form-usuario').addEventListener('submit',async e=>{
     });
     $('la237-form-usuario').reset();
   }catch(err){toast(err.message,true);}
+});
+
+
+/* LABASTIDA 2.3.9 · Gestión avanzada: solo Superadministrador NEXQOR. */
+function la239OcultarEditor_(){
+  $('la239-editor').classList.add('hide');
+  $('la239-form-editar').reset();
+  $('la239-cuenta-id').value='';
+}
+function la239OcultarDetalle_(){
+  $('la239-detalle').classList.add('hide');
+  $('la239-detalle-contenido').replaceChildren();
+}
+function la239EditarCuenta_(usuario){
+  if(!state.user?.superadmin)throw Error('Función exclusiva de NEXQOR.');
+  const cuenta=la237UI.cuentas.find(c=>c.usuario===usuario);
+  if(!cuenta||cuenta.rol==='superadmin')throw Error('Cuenta protegida o inexistente.');
+  la239OcultarDetalle_();
+  $('la239-cuenta-id').value=cuenta.usuario;
+  $('la239-cuenta-label').textContent=cuenta.usuario+' · '+cuenta.rol;
+  $('la239-cuenta-nombre').value=cuenta.nombre;
+  $('la239-cuenta-motivo').value='';
+  const personalizado=cuenta.rol==='perfil';
+  $('la239-perfil-bloque').classList.toggle('hide',!personalizado);
+  $('la239-rol-protegido').classList.toggle('hide',personalizado);
+  const selector=$('la239-cuenta-perfil');
+  selector.replaceChildren(...la237UI.perfiles.map(p=>{
+    const o=document.createElement('option');
+    o.value=p.id;o.textContent=p.nombre+' · '+la238EtiquetaNiveles_(p)+
+      (p.activo?'':' · Suspendido');
+    o.disabled=!p.activo&&p.id!==cuenta.perfilId;
+    return o;
+  }));
+  selector.value=personalizado?cuenta.perfilId:'';
+  $('la239-editor').classList.remove('hide');
+  $('la239-editor').scrollIntoView({behavior:'smooth',block:'center'});
+}
+async function la239VerPermisos_(usuario){
+  if(!state.user?.superadmin)throw Error('Función exclusiva de NEXQOR.');
+  const respuesta=await api('la239DetalleUsuario',{usuario});
+  const cuenta=respuesta.cuenta;
+  const root=$('la239-detalle-contenido');
+  const resumen=la237Elt_('div',undefined,'la239-resumen');
+  resumen.append(
+    la237Elt_('strong',cuenta.nombre+' · '+cuenta.usuario),
+    la237Elt_('div','Rol: '+cuenta.rol+(cuenta.perfilNombre?' · '+cuenta.perfilNombre:'')),
+    la237Elt_('div','Estado efectivo: '+(cuenta.autorizacionVigente?'Autorizado':'Sin autorización vigente')),
+    la237Elt_('div','Niveles: '+((cuenta.niveles||[]).join(' + ')||'Sin niveles'))
+  );
+  // Los permisos se renderizan exclusivamente como texto, nunca como HTML.
+  const etiquetas=la237Elt_('div',undefined,'la239-perm');
+  (cuenta.permisos||[]).forEach(p=>etiquetas.append(la237Elt_('span',p.nombre)));
+  root.replaceChildren(resumen,etiquetas,la237Elt_('div',cuenta.descripcion,'la239-note'));
+  la239OcultarEditor_();
+  $('la239-detalle').classList.remove('hide');
+  $('la239-detalle').scrollIntoView({behavior:'smooth',block:'center'});
+}
+$('la239-editor-cerrar').addEventListener('click',la239OcultarEditor_);
+$('la239-detalle-cerrar').addEventListener('click',la239OcultarDetalle_);
+$('la239-form-editar').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const usuario=$('la239-cuenta-id').value;
+  const cuenta=la237UI.cuentas.find(c=>c.usuario===usuario);
+  if(!cuenta||cuenta.rol==='superadmin'){toast('Cuenta no modificable.',true);return;}
+  const nombre=$('la239-cuenta-nombre').value;
+  const perfilId=cuenta.rol==='perfil' ? $('la239-cuenta-perfil').value : '';
+  const motivo=$('la239-cuenta-motivo').value;
+  const cambiaPerfil=cuenta.rol==='perfil'&&perfilId!==cuenta.perfilId;
+  const descripcion=cambiaPerfil?'Cambiará el perfil y los niveles autorizados. ':'';
+  if(!confirm(descripcion+'¿Guardar el cambio e invalidar las sesiones anteriores de '+usuario+'?'))return;
+  try{
+    await la237Modificar_('la239EditarUsuario',{usuario,nombre,perfilId,motivo});
+    la239OcultarEditor_();
+  }catch(error){toast(error.message,true);}
+});
+
+function la239VerCambio_(evento){
+  if(!state.user?.superadmin)throw Error('Bitácora exclusiva de NEXQOR.');
+  const panel=$('la239-cambio-detalle');
+  const root=$('la239-cambio-contenido');
+  const titulo=la237Elt_('strong',evento.accion+' · '+evento.entidad+' '+evento.id);
+  const encabezado=la237Elt_('div',evento.fecha+' · '+evento.usuario+' · '+evento.motivo,'la239-note');
+  const rejilla=la237Elt_('div',undefined,'la239-change-grid');
+  for(const [etiqueta,valor] of [['Antes',evento.antes],['Después',evento.despues]]){
+    const caja=la237Elt_('div');
+    let texto=String(valor||'{}');
+    try{texto=JSON.stringify(JSON.parse(texto),null,2);}catch(_){/* Mostrar el resumen original. */}
+    caja.append(la237Elt_('strong',etiqueta),la237Elt_('pre',texto));
+    rejilla.append(caja);
+  }
+  root.replaceChildren(titulo,encabezado,rejilla);
+  panel.classList.remove('hide');
+  panel.scrollIntoView({behavior:'smooth',block:'center'});
+}
+$('la239-cambio-cerrar').addEventListener('click',()=>{
+  $('la239-cambio-detalle').classList.add('hide');
+  $('la239-cambio-contenido').replaceChildren();
 });
 
 </script>
