@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><meta name="labastida-revision" content="2026102902"><title>Labastida Asistencia 2.3.7 · Pases por materia y semáforo con fechas</title>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><meta name="labastida-revision" content="2026102903"><title>Labastida Asistencia 2.3.8 · Pases por materia y semáforo con fechas</title>
 <link rel="icon" href="assets/escudo.png"><style>
 :root{--azul:#102C53;--azul2:#1f4772;--rojo:#AE203A;--oro:#C9A65E;--fondo:#F2F5FA;--gris:#64748b;--borde:#DFE6F1;--blanco:#fff;--verde:#146B53}
 *{box-sizing:border-box}body{margin:0;background:var(--fondo);font:15px/1.5 system-ui,-apple-system,'Segoe UI',sans-serif;color:#18273B}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.55}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #C9A65E;outline-offset:2px}
@@ -240,6 +240,11 @@ body.la237-master .btn.gold:not(.sec):not(.danger){
   border:1px solid #d4ad67;box-shadow:0 5px 16px #9b743e42;
 }
 body.la237-master .btn.gold:not(:disabled):hover{filter:brightness(1.07);box-shadow:0 7px 22px #b38a4d60}
+.la238-levels{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.la238-levels label{display:flex;align-items:center;gap:8px;padding:10px 13px;border:1px solid #d9caac;border-radius:11px;background:#faf7ef;color:#4f412c;font-weight:700;cursor:pointer}
+.la238-levels input{width:auto;min-height:0;accent-color:#a97832}
+.la238-levels label:has(input:checked){border-color:#b98a43;background:#fff0cc}
+.la238-levels label:has(input:disabled){opacity:.77;cursor:default}
 body.la237-master .kpi strong{color:#503c19}
 body.la237-master .data th{background:#faf5e8;color:#826738}
 .la237-hero{position:relative;overflow:hidden;border-radius:20px;margin-bottom:17px;padding:26px 29px;
@@ -321,9 +326,14 @@ body.la237-master .data th{background:#faf5e8;color:#826738}
           <input id="la237-perfil-nombre" required maxlength="65" minlength="4" placeholder="Ej. Coordinación deportiva"></div>
         <div class="formgrid" style="margin-top:10px">
           <div class="field"><label for="la237-perfil-tipo">Tipo de alcance</label>
-            <select id="la237-perfil-tipo"><option value="direccion">Un nivel escolar</option><option value="general">Todos los niveles</option><option value="acceso">Control de acceso</option></select></div>
-          <div class="field"><label for="la237-perfil-nivel">Nivel</label>
-            <select id="la237-perfil-nivel"><option value="Primaria">Primaria</option><option value="Secundaria">Secundaria</option><option value="Preescolar">Preescolar</option><option value="Todos">Todos</option></select></div>
+            <select id="la237-perfil-tipo"><option value="direccion">Niveles personalizados</option><option value="general">Todos los niveles</option><option value="acceso">Control de acceso</option></select></div>
+          <div class="field"><label>Niveles escolares autorizados</label>
+            <input type="hidden" id="la237-perfil-nivel" value="Primaria">
+            <div id="la238-niveles" class="la238-levels">
+              <label><input type="checkbox" data-la238-nivel value="Preescolar"> Preescolar</label>
+              <label><input type="checkbox" data-la238-nivel value="Primaria" checked> Primaria</label>
+              <label><input type="checkbox" data-la238-nivel value="Secundaria"> Secundaria</label>
+            </div><small class="la237-help">Puedes elegir uno, dos o los tres niveles.</small></div>
         </div>
         <div id="la237-permisos" class="la237-permissions"></div>
         <label style="display:flex;align-items:center;gap:9px"><input type="checkbox" id="la237-perfil-activo" checked style="width:auto;min-height:0">Perfil activo</label>
@@ -402,7 +412,7 @@ body.la237-master .data th{background:#faf5e8;color:#826738}
 
 <section id="view-asistencia" class="view hide" aria-labelledby="la14-title">
   <div class="subhead"><div><h2 id="la14-title">Pase de lista · Primaria y Secundaria</h2><p>Consulta y registro por Dirección y docentes autorizados.</p></div><span id="la231-mode" class="pill pending">ESTADO PENDIENTE DE VERIFICAR</span></div>
-  <div id="la231-banner" class="la14-banner"><strong>LABASTIDA 2.3.7.</strong> Selecciona una clase para que el servidor confirme si el guardado está habilitado. No guardes pases de prueba en la base real.</div>
+  <div id="la231-banner" class="la14-banner"><strong>LABASTIDA 2.3.8.</strong> Selecciona una clase para que el servidor confirme si el guardado está habilitado. No guardes pases de prueba en la base real.</div>
   <div class="card">
     <div class="formgrid">
       <div class="field"><label for="la14-date">Fecha de clase</label><input type="date" id="la14-date" required autocomplete="off"></div>
@@ -483,7 +493,7 @@ const aviso20=document.getElementById('la20-piloto-notice');
 if(aviso20)aviso20.hidden=LA20_CAPTURA_PRODUCCION;
 const etiqueta20=document.querySelector('.header .tag');
 if(etiqueta20)etiqueta20.textContent=LA20_CAPTURA_PRODUCCION ?
-  'VERSIÓN 2.3.7 · ADMINISTRACIÓN POR PERFILES' : 'CANDIDATA 2.3.7 · SOLO CONSULTA';
+  'VERSIÓN 2.3.8 · PERFILES MULTINIVEL' : 'CANDIDATA 2.3.8 · SOLO CONSULTA';
 const introPuerta20=document.querySelector('#view-entradas>.la14-banner');
 if(introPuerta20){
   introPuerta20.textContent=LA20_CAPTURA_PRODUCCION ?
@@ -546,7 +556,7 @@ async function refresh(){
 function groupName(g){return g.provisional?`${g.nivel} ${g.grado}° (sección pendiente)`:`${g.nivel} ${g.grado}° ${g.seccion||''}`.trim();}
 function render(){const d=state.data;if(!d)return;
   $('username').textContent=state.user.superadmin?'✦ MASTER · NEXQOR':state.user.nombre+' · '+state.user.nivel;
-  $('scope-text').textContent=state.user.superadmin?'Control maestro y auditoría institucional':state.user.rol==='general'?'Supervisión de los tres niveles':'Ámbito autorizado: '+state.user.nivel;
+  $('scope-text').textContent=state.user.superadmin?'Control maestro y auditoría institucional':state.user.rol==='general'?'Supervisión de los tres niveles':'Ámbito autorizado: '+(state.user.niveles?.join(' + ')||state.user.nivel);
   for(const [key,value] of Object.entries({alumnos:d.totales.alumnos,grupos:d.totales.grupos,docentes:d.totales.docentesActivos,asignaciones:d.totales.asignacionesActivas}))$('k-'+key).textContent=String(value);
   const rows=d.grupos.map(g=>{const cu=d.asignaciones.filter(a=>a.grupoId===g.id&&a.estado==='Activa').length;return row([groupName(g),g.nivel,g.alumnos,g.modalidad,cu]);});
   $('groups-body').replaceChildren(...(rows.length?rows:[row(['Sin grupos','','','',''])]));
@@ -780,7 +790,7 @@ function la20MostrarIdentidadSesion_(){
 }
 $('form-login').addEventListener('submit',async e=>{e.preventDefault();if(state.pending)return;const button=$('btn-login');pending(true,button,'Conectando…');$('login-status').textContent='Verificando acceso…';try{const r=await api('login',{usuario:$('login-user').value.trim(),clave:$('login-pass').value});la23LimpiarSesion_();state.tab='resumen';state.token=r.token;state.user={usuario:r.usuario,rol:r.rol,nivel:r.nivel,nombre:r.nombre,
   superadmin:r.superadmin===true,perfilPersonalizado:r.perfilPersonalizado===true,
-  permisos:r.permisos||[],nombrePerfil:r.nombrePerfil||''};
+  permisos:r.permisos||[],niveles:r.niveles||[],nombrePerfil:r.nombrePerfil||''};
   la20MostrarIdentidadSesion_();la237ActualizarIdentidad_();la14ActualizarAcceso();$('login-pass').value='';if(r.debeCambiar)show('change-screen');else{la15ActualizarMenu();la237AplicarMenu_();show('app');
   const inicio=la237TabInicial_();tab(inicio);
   if(inicio==='resumen')await refresh();
@@ -802,7 +812,7 @@ $('save-url').addEventListener('click',()=>toast('La dirección del servidor ins
 
 // === LABASTIDA 1.4 - UI TÁCTIL: SOLO CONSULTA Y VALIDACIÓN, SIN ESCRITURAS ===
 const la14UI={clases:[],grupos:[],vista:null,seleccion:null,marcas:new Map(),filtro:'todos',fechaCargada:'',solicitud:0,validando:false};
-function la14PuedeConsultar(){return Boolean(state.user&&(state.user.rol==='docente'&&['Primaria','Secundaria'].includes(state.user.nivel)||state.user.rol==='general'||state.user.rol==='direccion'&&['Primaria','Secundaria'].includes(state.user.nivel)));}
+function la14PuedeConsultar(){return Boolean(state.user&&(state.user.rol==='docente'&&['Primaria','Secundaria'].includes(state.user.nivel)||state.user.rol==='general'||state.user.rol==='direccion'&&['Primaria','Secundaria'].some(n=>la238NivelUI_(n))));}
 function la14ActualizarAcceso(){
   $('tab-asistencia').classList.toggle('hide',!la14PuedeConsultar());
 }
@@ -1315,13 +1325,18 @@ function la16TextoBoton_(alumno,estado,pendiente){
   return estado.escrituraHabilitada?'Registrar incidencia':'Validar incidencia (sin guardar)';
 }
 const la16UI={estado:null,consulta:0,ocupado:false,busquedaTemporizador:null};
-function la16PuedeAcceder(){const u=state.user;return !!(u&&(u.rol==='general'||u.rol==='acceso'||u.rol==='direccion'&&['Primaria','Secundaria'].includes(u.nivel)));}
+function la16PuedeAcceder(){const u=state.user;return !!(u&&(u.rol==='general'||u.rol==='acceso'||u.rol==='direccion'&&['Primaria','Secundaria'].some(n=>la238NivelUI_(n))));}
 function la16Limpiar(){clearTimeout(la16UI.busquedaTemporizador);la16UI.consulta++;la16UI.estado=null;la16UI.ocupado=false;if(typeof la201UI!=='undefined'){la201UI.catalogos.clear();la201UI.cargas.clear();la201UI.confirmados.clear();la201UI.generacion++;la201UI.habilitado=true;}if(typeof la202UI!=='undefined'){la202UI.secuencia++;la202UI.ultimo=null;la202UI.nivel='';la202UI.bloqueoLocal=true;}$('la16-resultados').replaceChildren();$('la16-encontrados').textContent='';$('la16-hora').textContent='';la16OcultarClave();}
 function la16OcultarClave(){$('la16-cred-user').textContent='';$('la16-cred-pass').textContent='';$('la16-clave-temporal').classList.add('hide');}
 function la16ModoVista(){
   const rol=state.user?.rol,nivel=$('la16-nivel');
   $('la16-admin').classList.toggle('hide',rol!=='general');
-  if(rol==='direccion'){nivel.value=state.user.nivel;nivel.disabled=true;}else nivel.disabled=false;
+  if(rol==='direccion'){
+    const autorizados=['Primaria','Secundaria'].filter(n=>la238NivelUI_(n));
+    [...nivel.options].forEach(o=>{if(o.value)o.disabled=!autorizados.includes(o.value);});
+    if(!autorizados.includes(nivel.value))nivel.value=autorizados[0]||'';
+    nivel.disabled=autorizados.length<2;
+  }else nivel.disabled=false;
   $('tab-entradas').classList.toggle('hide',!la16PuedeAcceder());
 }
 function la16Nodo(tag,cls,txt){const n=document.createElement(tag);if(cls)n.className=cls;if(txt!==undefined)n.textContent=String(txt);return n;}
@@ -2164,7 +2179,7 @@ document.getElementById('la23-actualizar')?.addEventListener('click',
   ()=>void la23Cargar());
 
 
-/* LABASTIDA 2.3.7: interfaz de administración segura, sin tocar pases reales. */
+/* LABASTIDA 2.3.8: interfaz de administración segura, sin tocar pases reales. */
 const la237UI={catalogo:[],perfiles:[],cuentas:[],auditoria:[],ocupado:false};
 const LA237_TABS=Object.freeze({
   resumen:['resumen','reportes'],semaforo:['semaforo'],
@@ -2191,7 +2206,7 @@ function la237ActualizarIdentidad_(){
   if(master){
     document.querySelector('.header .tag').textContent='NEXQOR · SUPERADMINISTRADOR';
   }else{
-    document.querySelector('.header .tag').textContent='VERSIÓN 2.3.7 · ADMINISTRACIÓN POR PERFILES';
+    document.querySelector('.header .tag').textContent='VERSIÓN 2.3.8 · PERFILES MULTINIVEL';
   }
 }
 function la237AplicarMenu_(){
@@ -2262,7 +2277,7 @@ function la237PerfilEditar_(id){
   $('la237-perfil-id').value=p.id;
   $('la237-perfil-nombre').value=p.nombre;
   $('la237-perfil-tipo').value=p.rolBase;
-  $('la237-perfil-nivel').value=p.nivel;
+  la238MarcarNiveles_(Array.isArray(p.niveles)?p.niveles:la238NivelesLegacy_(p));
   $('la237-perfil-activo').checked=p.activo;
   $('la237-perfil-motivo').value='Revisión de permisos del perfil existente';
   document.querySelectorAll('[data-la237-permiso]').forEach(input=>input.checked=p.permisos.includes(input.value));
@@ -2273,18 +2288,18 @@ function la237PerfilLimpiar_(){
   $('la237-form-perfil').reset();
   $('la237-perfil-id').value='';
   $('la237-perfil-tipo').value='direccion';
-  $('la237-perfil-nivel').value='Primaria';
+  la238MarcarNiveles_(['Primaria']);
   la237ConfigurarNivel_();
 }
 function la237Pintar_(){
   const perfilesActivos=la237UI.perfiles.filter(p=>p.activo);
   setOptions($('la237-user-perfil'),perfilesActivos.map(p=>({
-    value:p.id,label:p.nombre+' · '+p.nivel
+    value:p.id,label:p.nombre+' · '+la238EtiquetaNiveles_(p)
   })),'Elige el perfil creado');
   $('la237-lista-perfiles').replaceChildren(...la237UI.perfiles.map(p=>{
     const linea=la237Elt_('div',undefined,'la237-line'),datos=la237Elt_('div');
     datos.append(la237Elt_('strong',p.nombre),la237Elt_('small',
-      p.nivel+' · '+p.permisos.length+' permisos · '+(p.activo?'Activo':'Suspendido')));
+      la238EtiquetaNiveles_(p)+' · '+p.permisos.length+' permisos · '+(p.activo?'Activo':'Suspendido')));
     linea.append(datos,la237Boton_('Editar',()=>la237PerfilEditar_(p.id)));
     return linea;
   }));
@@ -2328,9 +2343,23 @@ async function la237Cargar_(){
 }
 function la237ConfigurarNivel_(){
   const tipo=$('la237-perfil-tipo').value;
-  if(tipo==='general'||tipo==='acceso')$('la237-perfil-nivel').value='Todos';
-  else if($('la237-perfil-nivel').value==='Todos')$('la237-perfil-nivel').value='Primaria';
-  $('la237-perfil-nivel').disabled=tipo==='general'||tipo==='acceso';
+  if(tipo==='general')la238MarcarNiveles_(['Preescolar','Primaria','Secundaria']);
+  if(tipo==='acceso')la238MarcarNiveles_(['Primaria','Secundaria']);
+  document.querySelectorAll('[data-la238-nivel]').forEach(x=>x.disabled=tipo!=='direccion');
+  $('la237-perfil-nivel').value=tipo==='direccion'?'Multinivel':'Todos';
+}
+function la238NivelUI_(nivel){
+  const u=state.user;return !!u&&(u.perfilPersonalizado?(u.niveles||[]).includes(nivel):u.rol==='general'||u.nivel===nivel);
+}
+function la238MarcarNiveles_(niveles){
+  document.querySelectorAll('[data-la238-nivel]').forEach(x=>x.checked=niveles.includes(x.value));
+}
+function la238NivelesLegacy_(p){
+  if(p.nivel!=='Todos')return [p.nivel];
+  return p.rolBase==='acceso'?['Primaria','Secundaria']:['Preescolar','Primaria','Secundaria'];
+}
+function la238EtiquetaNiveles_(p){
+  return (Array.isArray(p.niveles)?p.niveles:la238NivelesLegacy_(p)).join(' + ');
 }
 $('la237-perfil-tipo').addEventListener('change',la237ConfigurarNivel_);
 $('la237-perfil-limpiar').addEventListener('click',la237PerfilLimpiar_);
@@ -2342,7 +2371,8 @@ $('la237-form-perfil').addEventListener('submit',async e=>{
   try{
     await la237Modificar_('la237GuardarPerfil',{
       id:$('la237-perfil-id').value,nombre:$('la237-perfil-nombre').value,
-      rolBase:$('la237-perfil-tipo').value,nivel:$('la237-perfil-nivel').value,
+      rolBase:$('la237-perfil-tipo').value,
+      niveles:[...document.querySelectorAll('[data-la238-nivel]:checked')].map(x=>x.value),
       permisos,activo:$('la237-perfil-activo').checked,motivo:$('la237-perfil-motivo').value
     });
     la237PerfilLimpiar_();
