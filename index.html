@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><meta name="labastida-revision" content="2026102807"><title>Labastida Asistencia 2.3.6 · Pases por materia y semáforo con fechas</title>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><meta name="labastida-revision" content="2026102901"><title>Labastida Asistencia 2.3.7 · Pases por materia y semáforo con fechas</title>
 <link rel="icon" href="assets/escudo.png"><style>
 :root{--azul:#102C53;--azul2:#1f4772;--rojo:#AE203A;--oro:#C9A65E;--fondo:#F2F5FA;--gris:#64748b;--borde:#DFE6F1;--blanco:#fff;--verde:#146B53}
 *{box-sizing:border-box}body{margin:0;background:var(--fondo);font:15px/1.5 system-ui,-apple-system,'Segoe UI',sans-serif;color:#18273B}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.55}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #C9A65E;outline-offset:2px}
@@ -210,11 +210,73 @@ body.lab2-authenticated #la20-piloto-notice{padding-left:calc(var(--labnav) + 20
 .la23-estado{border-radius:12px;background:#f5f8fc;color:#21415f;border:1px solid #e3e9f3;padding:12px;margin:12px 0}
 .la23-leyenda{display:flex;gap:9px;flex-wrap:wrap;margin:12px 0}
 .la23-vacio{font-size:13px;color:#657b91;padding:7px 0}
+
+/* NEXQOR MASTER | identidad exclusiva negro ónix / oro, nunca para direcciones. */
+body.la237-master{
+  --azul:#171717;--azul2:#383026;--rojo:#af8d49;--oro:#d8b46b;
+  --fondo:#f7f4ed;--borde:#e7dcc4;color:#24201b;
+  background:linear-gradient(145deg,#eae2d1 0,#f7f5ef 290px,#faf9f6 100%);
+}
+body.la237-master.lab2-authenticated #nav:not(.hide){
+  background:linear-gradient(159deg,#060606,#181818 55%,#252018);
+  border-right:1px solid #bd9459aa;box-shadow:8px 0 26px #05050529;
+}
+body.la237-master .lab2-sidebar-brand{border-bottom-color:#ac8b4f55!important}
+body.la237-master .lab2-sidebar-brand small{color:#f0d799}
+body.la237-master.lab2-authenticated #nav .navinner button[data-tab].active{
+  color:#19130a;background:linear-gradient(125deg,#b68a42,#f3dca0 55%,#b68b4d);
+  box-shadow:0 6px 26px #b58c4760;font-weight:850;
+}
+body.la237-master.lab2-authenticated #nav .navinner button[data-tab]:hover{color:#ffe4a8}
+body.la237-master.lab2-authenticated .header{background:linear-gradient(95deg,#121212,#211d17);border-bottom:1px solid #caa45d}
+body.la237-master.lab2-authenticated .header .brand h1{color:#f2e2c1}
+body.la237-master.lab2-authenticated .header .brand small{color:#b9ab90}
+body.la237-master.lab2-authenticated .header .tag{background:#2a241b;color:#e5c88c;border-color:#95743b}
+body.la237-master .card{border-color:#e5d8bb;box-shadow:0 12px 28px #40332414}
+body.la237-master .card h2,body.la237-master .card h3,body.la237-master .subhead h2{color:#2a241d}
+body.la237-master .btn:not(.sec):not(.danger){background:linear-gradient(115deg,#121212,#36302a);border:1px solid #c4a064}
+body.la237-master .btn.gold{color:#1a150a;background:linear-gradient(110deg,#b98942,#f2d99b,#ba8e4b)}
+body.la237-master .kpi strong{color:#503c19}
+body.la237-master .data th{background:#faf5e8;color:#826738}
+.la237-hero{position:relative;overflow:hidden;border-radius:20px;margin-bottom:17px;padding:26px 29px;
+  color:#f7e4bc;background:radial-gradient(circle at 95% 20%,#aa853345,transparent 40%),
+  linear-gradient(120deg,#080808,#27231c 80%);border:1px solid #bd9654;box-shadow:0 14px 35px #281e1244}
+.la237-hero::after{content:"N";position:absolute;right:26px;top:-35px;color:#d1af6820;
+  font:250px Georgia,serif;pointer-events:none}
+.la237-hero h2{color:#f8dfab!important;font-size:clamp(27px,3vw,39px);letter-spacing:.025em;margin:0 0 5px}
+.la237-hero p{color:#d6c6a4;margin:0;max-width:700px}
+.la237-hero .la237-kicker{color:#f9dc95;font-size:11px;letter-spacing:.22em;font-weight:900;margin-bottom:7px}
+.la237-pane{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:15px}
+.la237-panel{background:#fff;border:1px solid #e4d9c4;border-radius:17px;padding:20px;box-shadow:0 8px 22px #33200a0b}
+.la237-panel h3{margin:0 0 8px;font-size:18px;color:#2b2419}
+.la237-panel p{font-size:12px;color:#6b6355}
+.la237-permissions{display:grid;grid-template-columns:1fr 1fr;gap:8px 12px;margin:13px 0}
+.la237-permissions label{display:flex;align-items:flex-start;gap:9px;padding:11px;background:#faf7f0;
+  border:1px solid #e7dcc6;border-radius:10px;color:#493e2e;font-size:12px;cursor:pointer}
+.la237-permissions input{width:auto;min-height:0;margin:3px 0 0;accent-color:#aa7a32}
+.la237-credential{border:1px solid #b58a43;background:#fff7de;padding:15px;border-radius:13px;margin-top:14px}
+.la237-credential code{font-size:14px;display:block;word-break:break-word;background:#fff;padding:10px;
+  border:1px solid #ead4a8;border-radius:9px;margin:6px 0;color:#3f2d13}
+.la237-list{display:grid;gap:7px;margin-top:12px}
+.la237-line{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  border:1px solid #e7dccb;border-radius:11px;padding:11px;background:#fffdf9}
+.la237-line strong{font-size:13px;color:#332b1d;overflow-wrap:anywhere}
+.la237-line small{display:block;color:#7e725e;margin-top:2px}
+.la237-line .btn{padding:7px 10px;min-height:35px;font-size:12px;flex-shrink:0}
+.la237-audit{max-height:380px;overflow:auto}
+.la237-lock{display:flex;align-items:center;gap:14px;background:#171410;border:1px solid #bc9656;
+  border-radius:14px;padding:15px;color:#f3dfb4;margin-bottom:18px}
+.la237-lock label{color:#f5ddb0;white-space:nowrap}
+.la237-lock input{max-width:350px;color:#28221a}
+.la237-help{color:#7d6c50;font-size:12px}
+@media(max-width:1080px){.la237-pane{grid-template-columns:1fr}}
+@media(max-width:690px){.la237-permissions{grid-template-columns:1fr}.la237-hero{padding:21px}.la237-hero::after{display:none}.la237-lock{align-items:stretch;flex-direction:column}.la237-lock input{max-width:none}.la237-line{align-items:flex-start;flex-direction:column}}
+
 </style></head><body>
 <div id="la20-piloto-notice" role="status"><strong>LABASTIDA 2.3 · CANDIDATA DE INTEGRACIÓN (SOLO LECTURA).</strong> Esta copia permite consultas autorizadas, pero no registra ni modifica datos escolares. La aplicación principal continúa en <code>index.html</code>.</div>
 
 <header class="header"><img class="escudo" src="assets/escudo.png" alt="Escudo del Colegio Labastida"><div class="brand"><div class="eyebrow">Colegio Labastida · Francisco de Paula</div><h1>Labastida Asistencia</h1><small>Administración académica · Ciclo 2026–2027</small></div><span class="tag">CANDIDATA 2.3 · SOLO CONSULTA</span></header>
-<nav id="nav" class="hide"><div class="navinner"><button data-tab="resumen" class="active">Resumen</button><button data-tab="docentes">Docentes</button><button data-tab="asignaciones">Asignaciones</button><button id="tab-asistencia" data-tab="asistencia" class="hide">Pase de lista</button><button id="tab-entradas" data-tab="entradas" class="hide">Retardos de ingreso</button><button id="tab-semaforo" data-tab="semaforo">Semáforo de retardos</button><span class="grow"></span><span id="username" class="account"></span><button id="logout">Salir</button></div></nav>
+<nav id="nav" class="hide"><div class="navinner"><button data-tab="resumen" class="active">Resumen</button><button data-tab="docentes">Docentes</button><button data-tab="asignaciones">Asignaciones</button><button id="tab-asistencia" data-tab="asistencia" class="hide">Pase de lista</button><button id="tab-entradas" data-tab="entradas" class="hide">Retardos de ingreso</button><button id="tab-semaforo" data-tab="semaforo">Semáforo de retardos</button><button id="tab-nexqor" data-tab="nexqor" class="hide">✦ NEXQOR · Control maestro</button><span class="grow"></span><span id="username" class="account"></span><button id="logout">Salir</button></div></nav>
 <main>
 <section id="login-screen" class="card" style="max-width:510px;margin:34px auto"><h2>Acceso institucional</h2><p>Direcciones y docentes autorizados ingresan con una cuenta individual. Los docentes solo consultan sus clases y validan pases en modo de prueba.</p><form id="form-login"><div class="field"><label for="login-user">Usuario</label><input id="login-user" autocomplete="username" required placeholder="dir_primaria"></div><div class="field" style="margin-top:12px"><label for="login-pass">Contraseña</label><input id="login-pass" autocomplete="current-password" type="password" required placeholder="Contraseña personal"></div><div class="buttonrow"><button class="btn" id="btn-login" type="submit">Entrar al sistema</button><span id="login-status" class="quiet"></span></div></form><div class="status">Administración disponible únicamente para Direcciones. Los docentes solo verán sus clases asignadas. Ningún pase se guarda todavía.</div><details class="hide" style="margin-top:20px"><summary style="cursor:pointer;color:#6F7D91;font-size:12px">Configuración técnica</summary><div class="field" style="margin-top:12px"><label for="api-url">Dirección del Worker (terminada en /api)</label><input id="api-url" type="url" autocomplete="off" placeholder="https://labastida-asistencia-api....workers.dev/api"></div><button id="save-url" class="btn sec" style="margin-top:10px" type="button">Guardar dirección</button><div class="quiet" style="margin-top:7px">La dirección se conserva en este navegador. No introduzcas contraseñas ni secretos de Cloudflare aquí.</div></details></section>
 <section id="change-screen" class="card hide" style="max-width:510px;margin:34px auto"><h2>Establecer contraseña personal</h2><p>Por seguridad, cambia la clave temporal antes de comenzar a usar el panel.</p><form id="form-change"><div class="field"><label for="old-pass">Contraseña temporal actual</label><input id="old-pass" type="password" required></div><div class="field" style="margin-top:12px"><label for="new-pass">Nueva contraseña (15 caracteres mínimo)</label><input id="new-pass" type="password" minlength="15" maxlength="128" required></div><div class="field" style="margin-top:12px"><label for="confirm-pass">Confirma la nueva contraseña</label><input id="confirm-pass" type="password" minlength="15" maxlength="128" required></div><div class="buttonrow"><button class="btn" id="btn-change" type="submit">Guardar y volver a entrar</button></div></form></section>
@@ -234,6 +296,67 @@ body.lab2-authenticated #la20-piloto-notice{padding-left:calc(var(--labnav) + 20
     <div id="la23-grupos" class="la23-grupos" aria-live="polite"></div>
   </div>
 </section>
+<section id="view-nexqor" class="view hide">
+  <div class="la237-hero">
+    <div class="la237-kicker">NEXQOR · CONTROL MAESTRO</div>
+    <h2>Consola del Superadministrador</h2>
+    <p>Control privado de identidades, perfiles y autorizaciones. Cada acción queda vinculada a tu cuenta. Los datos históricos escolares continúan protegidos.</p>
+  </div>
+  <div class="la237-lock">
+    <label for="la237-confirm">Confirmación de identidad</label>
+    <input type="password" id="la237-confirm" autocomplete="current-password" placeholder="Tu contraseña de Superadministrador">
+    <span class="la237-help" style="color:#d0c09d">Se solicitará para cada modificación; nunca se almacena en el navegador.</span>
+  </div>
+  <div class="la237-pane">
+    <div class="la237-panel">
+      <h3>Crear o editar un perfil</h3>
+      <p>Escoge exactamente qué puede hacer el nuevo perfil. Todo permiso no seleccionado queda denegado por el servidor.</p>
+      <form id="la237-form-perfil">
+        <input type="hidden" id="la237-perfil-id">
+        <div class="field"><label for="la237-perfil-nombre">Nombre del perfil</label>
+          <input id="la237-perfil-nombre" required maxlength="65" minlength="4" placeholder="Ej. Coordinación deportiva"></div>
+        <div class="formgrid" style="margin-top:10px">
+          <div class="field"><label for="la237-perfil-tipo">Tipo de alcance</label>
+            <select id="la237-perfil-tipo"><option value="direccion">Un nivel escolar</option><option value="general">Todos los niveles</option><option value="acceso">Control de acceso</option></select></div>
+          <div class="field"><label for="la237-perfil-nivel">Nivel</label>
+            <select id="la237-perfil-nivel"><option value="Primaria">Primaria</option><option value="Secundaria">Secundaria</option><option value="Preescolar">Preescolar</option><option value="Todos">Todos</option></select></div>
+        </div>
+        <div id="la237-permisos" class="la237-permissions"></div>
+        <label style="display:flex;align-items:center;gap:9px"><input type="checkbox" id="la237-perfil-activo" checked style="width:auto;min-height:0">Perfil activo</label>
+        <div class="field" style="margin-top:12px"><label for="la237-perfil-motivo">Justificación</label><input id="la237-perfil-motivo" maxlength="400" placeholder="Por qué se otorgan estos permisos"></div>
+        <div class="buttonrow"><button class="btn gold" type="submit">Guardar perfil y permisos</button><button class="btn sec" id="la237-perfil-limpiar" type="button">Crear otro</button></div>
+      </form>
+      <div id="la237-lista-perfiles" class="la237-list"></div>
+    </div>
+    <div class="la237-panel">
+      <h3>Crear usuario de un perfil</h3>
+      <p>La cuenta nueva hereda exclusivamente los permisos del perfil escogido. Su primera clave será temporal.</p>
+      <form id="la237-form-usuario">
+        <div class="field"><label for="la237-user-id">Identificador de acceso</label><input id="la237-user-id" required minlength="4" maxlength="40" pattern="[a-z][a-z0-9_]{3,39}" placeholder="coordinacion_deporte"></div>
+        <div class="field" style="margin-top:10px"><label for="la237-user-name">Nombre visible</label><input id="la237-user-name" required minlength="5" maxlength="90" placeholder="Nombre y apellido"></div>
+        <div class="field" style="margin-top:10px"><label for="la237-user-perfil">Perfil asignado</label><select id="la237-user-perfil" required></select></div>
+        <div class="field" style="margin-top:10px"><label for="la237-user-motivo">Motivo del alta</label><input id="la237-user-motivo" maxlength="400" placeholder="Responsabilidad autorizada"></div>
+        <button class="btn gold" type="submit" style="margin-top:13px">Crear cuenta</button>
+      </form>
+      <div id="la237-credencial" class="la237-credential hide" role="status">
+        <strong>Credencial temporal (visible solo ahora)</strong>
+        <code id="la237-credencial-usuario"></code>
+        <code id="la237-credencial-clave"></code>
+        <small>Entrega esta información por un canal privado. Se exigirá una contraseña personal nueva.</small>
+        <button class="btn sec" id="la237-credencial-ocultar" style="margin-top:9px" type="button">Ocultar credencial</button>
+      </div>
+      <h3 style="margin-top:25px">Cuentas del sistema</h3>
+      <div id="la237-lista-usuarios" class="la237-list"></div>
+    </div>
+  </div>
+  <div class="la237-panel" style="margin-top:16px">
+    <div class="subhead"><div><h3>Bitácora NEXQOR</h3><p>Quién hizo cada cambio, cuándo, qué se modificó y por qué. Las contraseñas no se guardan aquí.</p></div>
+      <button class="btn sec" id="la237-refrescar" type="button">↻ Actualizar</button></div>
+    <div class="datawrap la237-audit"><table class="data"><thead><tr><th>Fecha</th><th>Usuario</th><th>Operación</th><th>Elemento</th><th>Motivo</th></tr></thead><tbody id="la237-bitacora"></tbody></table></div>
+  </div>
+  <div class="la14-banner" style="margin-top:16px">Las correcciones de asistencia y retardos se implementarán en una etapa separada, con validación del registro original, evidencia y conservación del historial. Esta consola nunca elimina registros escolares.</div>
+</section>
+
 <section id="view-docentes" class="view hide"><div class="subhead"><div><h2>Administración de docentes</h2><p>Cada dirección registra personal de su nivel. Dirección General puede autorizar a un docente existente para otro nivel sin duplicar su ficha. Los accesos individuales se administran exclusivamente desde Dirección General.</p></div></div><div class="card"><h3>Registrar un docente</h3><form id="form-teacher"><div class="formgrid"><div class="field"><label for="teacher-name">Nombre completo</label><input id="teacher-name" maxlength="110" required placeholder="Nombre y apellidos"></div><div class="field"><label for="teacher-level">Nivel</label><select id="teacher-level" required></select></div><div class="field"><label for="teacher-email">Correo institucional (opcional)</label><input type="email" id="teacher-email" placeholder="docente@colegio.edu.mx"></div></div><div class="buttonrow"><button class="btn" id="btn-teacher" type="submit">Guardar docente</button><span class="quiet">Se protege el registro frente a clics repetidos.</span></div></form></div><div class="card" id="la151-gestion"><h3>Gestión de personal · Edición y bajas (1.5.1)</h3>
 <p>Corrige nombres y correos sin crear fichas nuevas. Una baja revoca la cuenta docente, conserva el historial y deja las materias vacantes. Los cambios multinivel requieren Dirección General.</p>
 <form id="la151-edit-form"><div class="formgrid">
@@ -275,7 +398,7 @@ body.lab2-authenticated #la20-piloto-notice{padding-left:calc(var(--labnav) + 20
 
 <section id="view-asistencia" class="view hide" aria-labelledby="la14-title">
   <div class="subhead"><div><h2 id="la14-title">Pase de lista · Primaria y Secundaria</h2><p>Consulta y registro por Dirección y docentes autorizados.</p></div><span id="la231-mode" class="pill pending">ESTADO PENDIENTE DE VERIFICAR</span></div>
-  <div id="la231-banner" class="la14-banner"><strong>LABASTIDA 2.3.6.</strong> Selecciona una clase para que el servidor confirme si el guardado está habilitado. No guardes pases de prueba en la base real.</div>
+  <div id="la231-banner" class="la14-banner"><strong>LABASTIDA 2.3.7.</strong> Selecciona una clase para que el servidor confirme si el guardado está habilitado. No guardes pases de prueba en la base real.</div>
   <div class="card">
     <div class="formgrid">
       <div class="field"><label for="la14-date">Fecha de clase</label><input type="date" id="la14-date" required autocomplete="off"></div>
@@ -356,7 +479,7 @@ const aviso20=document.getElementById('la20-piloto-notice');
 if(aviso20)aviso20.hidden=LA20_CAPTURA_PRODUCCION;
 const etiqueta20=document.querySelector('.header .tag');
 if(etiqueta20)etiqueta20.textContent=LA20_CAPTURA_PRODUCCION ?
-  'VERSIÓN 2.3.6 · DOCENTES MULTINIVEL POR MATERIA' : 'CANDIDATA 2.3.6 · SOLO CONSULTA';
+  'VERSIÓN 2.3.7 · ADMINISTRACIÓN POR PERFILES' : 'CANDIDATA 2.3.7 · SOLO CONSULTA';
 const introPuerta20=document.querySelector('#view-entradas>.la14-banner');
 if(introPuerta20){
   introPuerta20.textContent=LA20_CAPTURA_PRODUCCION ?
@@ -374,7 +497,7 @@ function show(id){
   $(id).classList.remove('hide');
   if(id==='app')$('nav').classList.remove('hide');
 }
-function tab(name){if(state.user?.rol==='acceso'&&!['entradas','semaforo'].includes(name)){toast('Tu cuenta solo permite consultar y registrar incidencias de tardanza.',true);return;}if(name==='entradas'&&!la16PuedeAcceder()){toast('Sin autorización para las entradas.',true);return;}if(state.user?.rol==='docente'&&!['asistencia','semaforo'].includes(name)){toast('Tu cuenta solo permite pase de lista y semáforo de tus grupos.',true);return;}if(name==='asistencia'&&!la14PuedeConsultar()){toast('No tienes autorización para consultar el pase.',true);return;}state.tab=name;document.querySelectorAll('.view').forEach(x=>x.classList.add('hide'));$('view-'+name).classList.remove('hide');document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x.dataset.tab===name));if(name!=='docentes'&&typeof la15OcultarCredencial==='function')la15OcultarCredencial();if(name==='entradas'){la16ModoVista();void la16CargarEstado().then(()=>la201PrecargarPermitidos_()).catch(e=>toast('No se pudo precargar el catálogo: '+e.message,true));}if(name==='asistencia')void la14CargarClases();if(name==='semaforo')void la23Cargar();if(name==='docentes'&&state.user?.rol==='general')void la15CargarCuentas();if(name==='asignaciones')void la151CargarVacantes();}
+function tab(name){if(!la237TabAutorizada_(name)){toast('Tu perfil no tiene autorización para esta sección.',true);return;}if(state.user?.rol==='acceso'&&!['entradas','semaforo'].includes(name)){toast('Tu cuenta solo permite consultar y registrar incidencias de tardanza.',true);return;}if(name==='entradas'&&!la16PuedeAcceder()){toast('Sin autorización para las entradas.',true);return;}if(state.user?.rol==='docente'&&!['asistencia','semaforo'].includes(name)){toast('Tu cuenta solo permite pase de lista y semáforo de tus grupos.',true);return;}if(name==='asistencia'&&!la14PuedeConsultar()){toast('No tienes autorización para consultar el pase.',true);return;}state.tab=name;document.querySelectorAll('.view').forEach(x=>x.classList.add('hide'));$('view-'+name).classList.remove('hide');document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x.dataset.tab===name));if(name!=='docentes'&&typeof la15OcultarCredencial==='function')la15OcultarCredencial();if(name==='entradas'){la16ModoVista();void la16CargarEstado().then(()=>la201PrecargarPermitidos_()).catch(e=>toast('No se pudo precargar el catálogo: '+e.message,true));}if(name==='asistencia')void la14CargarClases();if(name==='semaforo')void la23Cargar();if(name==='docentes'&&state.user?.rol==='general')void la15CargarCuentas();if(name==='asignaciones')void la151CargarVacantes();if(name==='nexqor')void la237Cargar_().catch(e=>toast(e.message,true));}
 function opt(value,label){const o=document.createElement('option');o.value=value;o.textContent=label;return o;}
 function setOptions(el,items,placeholder){el.replaceChildren(opt('',placeholder),...items.map(x=>opt(x.value,x.label)));}
 function td(value){const x=document.createElement('td');x.textContent=String(value??'');return x;}
@@ -389,7 +512,9 @@ function pending(on,button,msg){
 }
 async function api(action,payload={}){
   // Corte preventivo para esta candidata; NO sustituye las validaciones del servidor.
-  const soloLecturas=new Set(['ping','login','logout','dashboard',
+  const soloLecturas=new Set(['ping','login','logout','cambiarClave','dashboard',
+    'la237EstadoAdmin','la237GuardarPerfil','la237CrearUsuario',
+    'la237RestablecerClave','la237EstadoUsuario',
     'la201Catalogo','la202EstadoHorario','la16Estado','la16Buscar',
     'la14Clases','la14VistaPase','la15Clases','la15VistaPase',
     'la15CuentasDocentes','la16Cuentas','la151Vacantes','la23Semaforo',
@@ -416,8 +541,8 @@ async function refresh(){
 }
 function groupName(g){return g.provisional?`${g.nivel} ${g.grado}° (sección pendiente)`:`${g.nivel} ${g.grado}° ${g.seccion||''}`.trim();}
 function render(){const d=state.data;if(!d)return;
-  $('username').textContent=state.user.nombre+' · '+state.user.nivel;
-  $('scope-text').textContent=state.user.rol==='general'?'Supervisión de los tres niveles':'Ámbito autorizado: '+state.user.nivel;
+  $('username').textContent=state.user.superadmin?'✦ MASTER · NEXQOR':state.user.nombre+' · '+state.user.nivel;
+  $('scope-text').textContent=state.user.superadmin?'Control maestro y auditoría institucional':state.user.rol==='general'?'Supervisión de los tres niveles':'Ámbito autorizado: '+state.user.nivel;
   for(const [key,value] of Object.entries({alumnos:d.totales.alumnos,grupos:d.totales.grupos,docentes:d.totales.docentesActivos,asignaciones:d.totales.asignacionesActivas}))$('k-'+key).textContent=String(value);
   const rows=d.grupos.map(g=>{const cu=d.asignaciones.filter(a=>a.grupoId===g.id&&a.estado==='Activa').length;return row([groupName(g),g.nivel,g.alumnos,g.modalidad,cu]);});
   $('groups-body').replaceChildren(...(rows.length?rows:[row(['Sin grupos','','','',''])]));
@@ -649,7 +774,13 @@ function la20MostrarIdentidadSesion_(){
       (u.rol==='acceso'?'Personal de entrada':u.rol==='docente'?'Docente':String(u.nivel||'')):
     '';
 }
-$('form-login').addEventListener('submit',async e=>{e.preventDefault();if(state.pending)return;const button=$('btn-login');pending(true,button,'Conectando…');$('login-status').textContent='Verificando acceso…';try{const r=await api('login',{usuario:$('login-user').value.trim(),clave:$('login-pass').value});la23LimpiarSesion_();state.tab='resumen';state.token=r.token;state.user={usuario:r.usuario,rol:r.rol,nivel:r.nivel,nombre:r.nombre};la20MostrarIdentidadSesion_();la14ActualizarAcceso();$('login-pass').value='';if(r.debeCambiar)show('change-screen');else{la15ActualizarMenu();show('app');if(r.rol==='docente'){tab('asistencia');}else if(r.rol==='acceso'){tab('entradas');}else{tab('resumen');await refresh();}}}catch(err){toast(err.message,true);}finally{$('login-status').textContent='';pending(false,button);}});
+$('form-login').addEventListener('submit',async e=>{e.preventDefault();if(state.pending)return;const button=$('btn-login');pending(true,button,'Conectando…');$('login-status').textContent='Verificando acceso…';try{const r=await api('login',{usuario:$('login-user').value.trim(),clave:$('login-pass').value});la23LimpiarSesion_();state.tab='resumen';state.token=r.token;state.user={usuario:r.usuario,rol:r.rol,nivel:r.nivel,nombre:r.nombre,
+  superadmin:r.superadmin===true,perfilPersonalizado:r.perfilPersonalizado===true,
+  permisos:r.permisos||[],nombrePerfil:r.nombrePerfil||''};
+  la20MostrarIdentidadSesion_();la237ActualizarIdentidad_();la14ActualizarAcceso();$('login-pass').value='';if(r.debeCambiar)show('change-screen');else{la15ActualizarMenu();la237AplicarMenu_();show('app');
+  const inicio=la237TabInicial_();tab(inicio);
+  if(inicio==='resumen')await refresh();
+  else if(r.superadmin===true)void refresh();}}catch(err){toast(err.message,true);}finally{$('login-status').textContent='';pending(false,button);}});
 $('form-change').addEventListener('submit',async e=>{e.preventDefault();if(state.pending)return;if($('new-pass').value!==$('confirm-pass').value){toast('Las contraseñas nuevas no coinciden.',true);return;}const b=$('btn-change');pending(true,b,'Guardando…');try{const r=await api('cambiarClave',{actual:$('old-pass').value,nueva:$('new-pass').value});toast(r.mensaje);state.token=null;state.user=null;state.data=null;state.tab='resumen';['old-pass','new-pass','confirm-pass'].forEach(x=>$(x).value='');show('login-screen');}catch(err){toast(err.message,true);}finally{pending(false,b);}});
 $('form-multinivel').addEventListener('submit',e=>sendForm(e,'vincularDocenteNivel',$('btn-multinivel'),{docenteId:$('multi-teacher').value,nivel:$('multi-level').value},null));
 $('multi-teacher').addEventListener('change',()=>updateMultinivelChoices());
@@ -660,7 +791,7 @@ $('apoyo-group').addEventListener('change',updateApoyoChoices);
 $('assign-group').addEventListener('change',updateAssignChoices);
 $('refresh').addEventListener('click',refresh);
 document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>tab(b.dataset.tab)));
-$('logout').addEventListener('click',async()=>{la14Limpiar();la16Limpiar();la23LimpiarSesion_();state.tab='resumen';const token=state.token;state.token=null;state.data=null;state.user=null;la20MostrarIdentidadSesion_();show('login-screen');if(token){try{await api('logout',{token});}catch(_){}}});
+$('logout').addEventListener('click',async()=>{la14Limpiar();la16Limpiar();la23LimpiarSesion_();state.tab='resumen';const token=state.token;state.token=null;state.data=null;state.user=null;la20MostrarIdentidadSesion_();show('login-screen');la237LimpiarCredencial_();la237ActualizarIdentidad_();if(token){try{await api('logout',{token});}catch(_){}}});
 $('api-url').value=state.api;
 $('save-url').addEventListener('click',()=>toast('La dirección del servidor institucional está fijada por seguridad.',true));
 ['btn-login','btn-change','btn-teacher','btn-assign','btn-apoyo','btn-multinivel'].forEach(id=>$(id).dataset.label=$(id).textContent);
@@ -930,6 +1061,7 @@ function la15ActualizarMenu(){
   });
   $('la15-admin').classList.toggle('hide',state.user?.rol!=='general');if(state.user?.rol==='acceso')document.querySelectorAll('[data-tab]').forEach(el=>el.classList.toggle('hide',!['entradas','semaforo'].includes(el.dataset.tab)));$('tab-entradas').classList.toggle('hide',!la16PuedeAcceder());$('tab-semaforo').classList.remove('hide');
   if(esDocente){$('username').textContent=state.user.nombre+' · Docente';$('scope-text').textContent='Tus clases autorizadas · '+state.user.nivel;}
+  la237AplicarMenu_();
 }
 function la15OcultarCredencial(){
   la15UI.credencial=null;$('la15-cred-user').textContent='';$('la15-cred-pass').textContent='';
@@ -2026,6 +2158,202 @@ async function la23Cargar(){
 
 document.getElementById('la23-actualizar')?.addEventListener('click',
   ()=>void la23Cargar());
+
+
+/* LABASTIDA 2.3.7: interfaz de administración segura, sin tocar pases reales. */
+const la237UI={catalogo:[],perfiles:[],cuentas:[],auditoria:[],ocupado:false};
+const LA237_TABS=Object.freeze({
+  resumen:['resumen','reportes'],semaforo:['semaforo'],
+  asistencia:['pases','validar','guardar_pases'],
+  entradas:['entradas','registrar_entradas']
+});
+function la237TabAutorizada_(nombre){
+  const u=state.user;
+  if(!u)return false;
+  if(nombre==='nexqor')return u.superadmin===true;
+  if(!u.perfilPersonalizado)return true;
+  if(['docentes','asignaciones'].includes(nombre))return false;
+  return (LA237_TABS[nombre]||[]).some(p=>(u.permisos||[]).includes(p));
+}
+function la237TabInicial_(){
+  if(state.user?.superadmin)return 'nexqor';
+  for(const tab of ['resumen','semaforo','asistencia','entradas'])
+    if(la237TabAutorizada_(tab))return tab;
+  return 'resumen';
+}
+function la237ActualizarIdentidad_(){
+  const master=state.user?.superadmin===true;
+  document.body.classList.toggle('la237-master',master);
+  if(master){
+    document.querySelector('.header .tag').textContent='NEXQOR · SUPERADMINISTRADOR';
+  }else{
+    document.querySelector('.header .tag').textContent='VERSIÓN 2.3.7 · ADMINISTRACIÓN POR PERFILES';
+  }
+}
+function la237AplicarMenu_(){
+  document.querySelectorAll('[data-tab]').forEach(b=>{
+    if(b.dataset.tab==='nexqor')b.classList.toggle('hide',!state.user?.superadmin);
+    else if(state.user?.perfilPersonalizado)b.classList.toggle('hide',!la237TabAutorizada_(b.dataset.tab));
+  });
+  if(state.user?.perfilPersonalizado){
+    $('la15-admin')?.classList.add('hide');
+  }
+  if(state.user?.superadmin){
+    $('username').textContent='✦ MASTER · NEXQOR';
+    $('scope-text').textContent='Control maestro y auditoría institucional';
+  }
+}
+function la237LimpiarCredencial_(){
+  $('la237-credencial-usuario').textContent='';
+  $('la237-credencial-clave').textContent='';
+  $('la237-credencial').classList.add('hide');
+}
+function la237MostrarCredencial_(r){
+  $('la237-credencial-usuario').textContent=r.usuario;
+  $('la237-credencial-clave').textContent=r.claveTemporal;
+  $('la237-credencial').classList.remove('hide');
+}
+function la237Confirmacion_(){
+  const clave=$('la237-confirm').value;
+  if(!clave)throw Error('Confirma tu contraseña de Superadministrador en la barra negra.');
+  return clave;
+}
+async function la237Modificar_(accion,datos){
+  if(la237UI.ocupado)throw Error('Espera a que termine la operación anterior.');
+  la237UI.ocupado=true;
+  try{
+    const claveConfirmacion=la237Confirmacion_();
+    const res=await api(accion,{...datos,claveConfirmacion});
+    if(res.claveTemporal)la237MostrarCredencial_(res);
+    toast(res.mensaje||'Cambio registrado y auditado.');
+    await la237Cargar_();
+    return res;
+  }finally{
+    $('la237-confirm').value='';
+    la237UI.ocupado=false;
+  }
+}
+function la237Elt_(etiqueta,contenido,clase){
+  const x=document.createElement(etiqueta);
+  if(contenido!==undefined)x.textContent=String(contenido);
+  if(clase)x.className=clase;
+  return x;
+}
+function la237Boton_(texto,callback,estilo='sec'){
+  const b=la237Elt_('button',texto,'btn '+estilo);
+  b.type='button';b.addEventListener('click',callback);return b;
+}
+function la237RellenarPermisos_(){
+  const raiz=$('la237-permisos');
+  raiz.replaceChildren(...la237UI.catalogo.map(p=>{
+    const item=la237Elt_('label');
+    const box=document.createElement('input');
+    box.type='checkbox';box.value=p.id;box.dataset.la237Permiso=p.id;
+    item.append(box,la237Elt_('span',p.nombre));return item;
+  }));
+}
+function la237PerfilEditar_(id){
+  const p=la237UI.perfiles.find(x=>x.id===id);
+  if(!p)return;
+  $('la237-perfil-id').value=p.id;
+  $('la237-perfil-nombre').value=p.nombre;
+  $('la237-perfil-tipo').value=p.rolBase;
+  $('la237-perfil-nivel').value=p.nivel;
+  $('la237-perfil-activo').checked=p.activo;
+  $('la237-perfil-motivo').value='Revisión de permisos del perfil existente';
+  document.querySelectorAll('[data-la237-permiso]').forEach(input=>input.checked=p.permisos.includes(input.value));
+  la237ConfigurarNivel_();
+  $('la237-form-perfil').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function la237PerfilLimpiar_(){
+  $('la237-form-perfil').reset();
+  $('la237-perfil-id').value='';
+  $('la237-perfil-tipo').value='direccion';
+  $('la237-perfil-nivel').value='Primaria';
+  la237ConfigurarNivel_();
+}
+function la237Pintar_(){
+  const perfilesActivos=la237UI.perfiles.filter(p=>p.activo);
+  setOptions($('la237-user-perfil'),perfilesActivos.map(p=>({
+    value:p.id,label:p.nombre+' · '+p.nivel
+  })),'Elige el perfil creado');
+  $('la237-lista-perfiles').replaceChildren(...la237UI.perfiles.map(p=>{
+    const linea=la237Elt_('div',undefined,'la237-line'),datos=la237Elt_('div');
+    datos.append(la237Elt_('strong',p.nombre),la237Elt_('small',
+      p.nivel+' · '+p.permisos.length+' permisos · '+(p.activo?'Activo':'Suspendido')));
+    linea.append(datos,la237Boton_('Editar',()=>la237PerfilEditar_(p.id)));
+    return linea;
+  }));
+  $('la237-lista-usuarios').replaceChildren(...la237UI.cuentas.map(c=>{
+    const linea=la237Elt_('div',undefined,'la237-line'),info=la237Elt_('div');
+    info.append(la237Elt_('strong',c.nombre),la237Elt_('small',
+      c.usuario+' · '+(c.perfilId||c.rol)+' · '+(c.activo?'Activo':'Suspendido')));
+    const botones=la237Elt_('div',undefined,'buttonrow');
+    if(c.rol!=='superadmin'){
+      botones.append(
+        la237Boton_('Restablecer clave',async()=>{
+          const motivo=prompt('Motivo comprobable del restablecimiento (mínimo 12 caracteres):');
+          if(motivo===null)return;
+          if(!confirm('¿Restablecer la clave de '+c.usuario+'? Se invalidarán sus sesiones.'))return;
+          try{await la237Modificar_('la237RestablecerClave',{usuario:c.usuario,motivo});}
+          catch(e){toast(e.message,true);}
+        }),
+        la237Boton_(c.activo?'Suspender':'Reactivar',async()=>{
+          const motivo=prompt('Motivo de esta modificación de acceso (mínimo 12 caracteres):');
+          if(motivo===null)return;
+          if(!confirm('¿'+(c.activo?'Suspender':'Reactivar')+' a '+c.usuario+'?'))return;
+          try{await la237Modificar_('la237EstadoUsuario',{usuario:c.usuario,activo:!c.activo,motivo});}
+          catch(e){toast(e.message,true);}
+        },c.activo?'danger':'sec'));
+    }
+    linea.append(info,botones);return linea;
+  }));
+  $('la237-bitacora').replaceChildren(...(la237UI.auditoria.length?
+    la237UI.auditoria.map(a=>row([a.fecha,a.usuario,a.accion,a.entidad+' '+a.id,a.motivo])):
+    [row(['Sin operaciones NEXQOR registradas','','','',''])]));
+}
+async function la237Cargar_(){
+  if(!state.user?.superadmin)return;
+  const res=await api('la237EstadoAdmin');
+  la237UI.catalogo=res.permisos||[];
+  la237UI.perfiles=res.perfiles||[];
+  la237UI.cuentas=res.cuentas||[];
+  la237UI.auditoria=res.auditoria||[];
+  la237RellenarPermisos_();
+  la237Pintar_();
+}
+function la237ConfigurarNivel_(){
+  const tipo=$('la237-perfil-tipo').value;
+  if(tipo==='general'||tipo==='acceso')$('la237-perfil-nivel').value='Todos';
+  else if($('la237-perfil-nivel').value==='Todos')$('la237-perfil-nivel').value='Primaria';
+  $('la237-perfil-nivel').disabled=tipo==='general'||tipo==='acceso';
+}
+$('la237-perfil-tipo').addEventListener('change',la237ConfigurarNivel_);
+$('la237-perfil-limpiar').addEventListener('click',la237PerfilLimpiar_);
+$('la237-credencial-ocultar').addEventListener('click',la237LimpiarCredencial_);
+$('la237-refrescar').addEventListener('click',()=>void la237Cargar_().catch(e=>toast(e.message,true)));
+$('la237-form-perfil').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const permisos=[...document.querySelectorAll('[data-la237-permiso]:checked')].map(x=>x.value);
+  try{
+    await la237Modificar_('la237GuardarPerfil',{
+      id:$('la237-perfil-id').value,nombre:$('la237-perfil-nombre').value,
+      rolBase:$('la237-perfil-tipo').value,nivel:$('la237-perfil-nivel').value,
+      permisos,activo:$('la237-perfil-activo').checked,motivo:$('la237-perfil-motivo').value
+    });
+    la237PerfilLimpiar_();
+  }catch(err){toast(err.message,true);}
+});
+$('la237-form-usuario').addEventListener('submit',async e=>{
+  e.preventDefault();
+  try{
+    await la237Modificar_('la237CrearUsuario',{
+      usuario:$('la237-user-id').value,nombre:$('la237-user-name').value,
+      perfilId:$('la237-user-perfil').value,motivo:$('la237-user-motivo').value
+    });
+    $('la237-form-usuario').reset();
+  }catch(err){toast(err.message,true);}
+});
 
 </script>
 </body></html>
