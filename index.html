@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><meta name="labastida-revision" content="2026102901"><title>Labastida Asistencia 2.3.7 · Pases por materia y semáforo con fechas</title>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><meta name="labastida-revision" content="2026102902"><title>Labastida Asistencia 2.3.7 · Pases por materia y semáforo con fechas</title>
 <link rel="icon" href="assets/escudo.png"><style>
 :root{--azul:#102C53;--azul2:#1f4772;--rojo:#AE203A;--oro:#C9A65E;--fondo:#F2F5FA;--gris:#64748b;--borde:#DFE6F1;--blanco:#fff;--verde:#146B53}
 *{box-sizing:border-box}body{margin:0;background:var(--fondo);font:15px/1.5 system-ui,-apple-system,'Segoe UI',sans-serif;color:#18273B}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.55}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #C9A65E;outline-offset:2px}
@@ -235,7 +235,11 @@ body.la237-master.lab2-authenticated .header .tag{background:#2a241b;color:#e5c8
 body.la237-master .card{border-color:#e5d8bb;box-shadow:0 12px 28px #40332414}
 body.la237-master .card h2,body.la237-master .card h3,body.la237-master .subhead h2{color:#2a241d}
 body.la237-master .btn:not(.sec):not(.danger){background:linear-gradient(115deg,#121212,#36302a);border:1px solid #c4a064}
-body.la237-master .btn.gold{color:#1a150a;background:linear-gradient(110deg,#b98942,#f2d99b,#ba8e4b)}
+body.la237-master .btn.gold:not(.sec):not(.danger){
+  color:#201607;background:linear-gradient(110deg,#b98942,#f2d99b 55%,#ba8e4b);
+  border:1px solid #d4ad67;box-shadow:0 5px 16px #9b743e42;
+}
+body.la237-master .btn.gold:not(:disabled):hover{filter:brightness(1.07);box-shadow:0 7px 22px #b38a4d60}
 body.la237-master .kpi strong{color:#503c19}
 body.la237-master .data th{background:#faf5e8;color:#826738}
 .la237-hero{position:relative;overflow:hidden;border-radius:20px;margin-bottom:17px;padding:26px 29px;
