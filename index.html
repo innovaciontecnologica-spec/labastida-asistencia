@@ -2249,6 +2249,11 @@ function la237TabAutorizada_(nombre){
 }
 function la237TabInicial_(){
   if(state.user?.superadmin)return 'nexqor';
+  // El personal de puerta comienza en su vista operativa, no en administracion.
+  // Conserva la comprobacion de permisos y el control de acceso existentes.
+  if(state.user?.rol==='acceso' &&
+     la16PuedeAcceder() &&
+     la237TabAutorizada_('entradas'))return 'entradas';
   for(const tab of ['resumen','semaforo','asistencia','entradas'])
     if(la237TabAutorizada_(tab))return tab;
   return 'resumen';
