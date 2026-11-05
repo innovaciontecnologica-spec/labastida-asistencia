@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><meta name="labastida-revision" content="2026102904"><title>Labastida Asistencia 2.3.9 · Pases por materia y semáforo con fechas</title>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><meta name="labastida-revision" content="20261104-ACCESS-DIRECTO"><title>Labastida Asistencia 2.3.9 · Acceso directo por perfil</title>
 <link rel="icon" href="assets/escudo.png"><style>
 :root{--azul:#102C53;--azul2:#1f4772;--rojo:#AE203A;--oro:#C9A65E;--fondo:#F2F5FA;--gris:#64748b;--borde:#DFE6F1;--blanco:#fff;--verde:#146B53}
 *{box-sizing:border-box}body{margin:0;background:var(--fondo);font:15px/1.5 system-ui,-apple-system,'Segoe UI',sans-serif;color:#18273B}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.55}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #C9A65E;outline-offset:2px}
@@ -545,7 +545,7 @@ const aviso20=document.getElementById('la20-piloto-notice');
 if(aviso20)aviso20.hidden=LA20_CAPTURA_PRODUCCION;
 const etiqueta20=document.querySelector('.header .tag');
 if(etiqueta20)etiqueta20.textContent=LA20_CAPTURA_PRODUCCION ?
-  'VERSIÓN 2.3.9 · GESTIÓN AVANZADA DE CUENTAS' : 'CANDIDATA 2.3.9 · SOLO CONSULTA';
+  'VERSIÓN 2.3.9 · ACCESO DIRECTO POR PERFIL' : 'CANDIDATA 2.3.9 · SOLO CONSULTA';
 const introPuerta20=document.querySelector('#view-entradas>.la14-banner');
 if(introPuerta20){
   introPuerta20.textContent=LA20_CAPTURA_PRODUCCION ?
@@ -563,7 +563,39 @@ function show(id){
   $(id).classList.remove('hide');
   if(id==='app')$('nav').classList.remove('hide');
 }
-function tab(name){if(!la237TabAutorizada_(name)){toast('Tu perfil no tiene autorización para esta sección.',true);return;}if(state.user?.rol==='acceso'&&!['entradas','semaforo'].includes(name)){toast('Tu cuenta solo permite consultar y registrar incidencias de tardanza.',true);return;}if(name==='entradas'&&!la16PuedeAcceder()){toast('Sin autorización para las entradas.',true);return;}if(state.user?.rol==='docente'&&!['asistencia','semaforo'].includes(name)){toast('Tu cuenta solo permite pase de lista y semáforo de tus grupos.',true);return;}if(name==='asistencia'&&!la14PuedeConsultar()){toast('No tienes autorización para consultar el pase.',true);return;}state.tab=name;document.querySelectorAll('.view').forEach(x=>x.classList.add('hide'));$('view-'+name).classList.remove('hide');document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x.dataset.tab===name));if(name!=='docentes'&&typeof la15OcultarCredencial==='function')la15OcultarCredencial();if(name==='entradas'){la16ModoVista();void la16CargarEstado().then(()=>la201PrecargarPermitidos_()).catch(e=>toast('No se pudo precargar el catálogo: '+e.message,true));}if(name==='asistencia')void la14CargarClases();if(name==='semaforo')void la23Cargar();if(name==='docentes'&&state.user?.rol==='general')void la15CargarCuentas();if(name==='asignaciones')void la151CargarVacantes();if(name==='nexqor')void la237Cargar_().catch(e=>toast(e.message,true));}
+// B.05: una misma barrera para la navegación inicial y los clics manuales.
+// Este filtro solo controla vistas; la autorización definitiva permanece en el servidor.
+function la20TabPermitida_(name){
+  const u=state.user;
+  if(!u||!la237TabAutorizada_(name)||!$('view-'+name))return false;
+  if(u.rol==='acceso'&&!['entradas','semaforo'].includes(name))return false;
+  if(u.rol==='docente'&&!['asistencia','semaforo'].includes(name))return false;
+  if(name==='entradas'&&!la16PuedeAcceder())return false;
+  if(name==='asistencia'&&!la14PuedeConsultar())return false;
+  return true;
+}
+function tab(name){
+  if(!la20TabPermitida_(name)){
+    toast('Tu cuenta no tiene autorización para esta sección.',true);
+    return false;
+  }
+  state.tab=name;
+  document.querySelectorAll('.view').forEach(x=>x.classList.add('hide'));
+  $('view-'+name).classList.remove('hide');
+  document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x.dataset.tab===name));
+  if(name!=='docentes'&&typeof la15OcultarCredencial==='function')la15OcultarCredencial();
+  if(name==='entradas'){
+    la16ModoVista();
+    void la16CargarEstado().then(()=>la201PrecargarPermitidos_())
+      .catch(e=>toast('No se pudo precargar el catálogo: '+e.message,true));
+  }
+  if(name==='asistencia')void la14CargarClases();
+  if(name==='semaforo')void la23Cargar();
+  if(name==='docentes'&&state.user?.rol==='general')void la15CargarCuentas();
+  if(name==='asignaciones')void la151CargarVacantes();
+  if(name==='nexqor')void la237Cargar_().catch(e=>toast(e.message,true));
+  return true;
+}
 function opt(value,label){const o=document.createElement('option');o.value=value;o.textContent=label;return o;}
 function setOptions(el,items,placeholder){el.replaceChildren(opt('',placeholder),...items.map(x=>opt(x.value,x.label)));}
 function td(value){const x=document.createElement('td');x.textContent=String(value??'');return x;}
@@ -841,13 +873,44 @@ function la20MostrarIdentidadSesion_(){
       (u.rol==='acceso'?'Personal de entrada':u.rol==='docente'?'Docente':String(u.nivel||'')):
     '';
 }
-$('form-login').addEventListener('submit',async e=>{e.preventDefault();if(state.pending)return;const button=$('btn-login');pending(true,button,'Conectando…');$('login-status').textContent='Verificando acceso…';try{const r=await api('login',{usuario:$('login-user').value.trim(),clave:$('login-pass').value});la23LimpiarSesion_();state.tab='resumen';state.token=r.token;state.user={usuario:r.usuario,rol:r.rol,nivel:r.nivel,nombre:r.nombre,
-  superadmin:r.superadmin===true,perfilPersonalizado:r.perfilPersonalizado===true,
-  permisos:r.permisos||[],niveles:r.niveles||[],nombrePerfil:r.nombrePerfil||''};
-  la20MostrarIdentidadSesion_();la237ActualizarIdentidad_();la14ActualizarAcceso();$('login-pass').value='';if(r.debeCambiar)show('change-screen');else{la15ActualizarMenu();la237AplicarMenu_();show('app');
-  const inicio=la237TabInicial_();tab(inicio);
-  if(inicio==='resumen')await refresh();
-  else if(r.superadmin===true)void refresh();}}catch(err){toast(err.message,true);}finally{$('login-status').textContent='';pending(false,button);}});
+$('form-login').addEventListener('submit',async e=>{
+  e.preventDefault();
+  if(state.pending)return;
+  const button=$('btn-login');
+  pending(true,button,'Conectando…');
+  $('login-status').textContent='Verificando acceso…';
+  try{
+    const r=await api('login',{usuario:$('login-user').value.trim(),clave:$('login-pass').value});
+    la23LimpiarSesion_();
+    state.token=r.token;
+    state.data=null;
+    state.user={usuario:r.usuario,rol:r.rol,nivel:r.nivel,nombre:r.nombre,
+      superadmin:r.superadmin===true,perfilPersonalizado:r.perfilPersonalizado===true,
+      permisos:r.permisos||[],niveles:r.niveles||[],nombrePerfil:r.nombrePerfil||''};
+    la20MostrarIdentidadSesion_();
+    la237ActualizarIdentidad_();
+    la14ActualizarAcceso();
+    $('login-pass').value='';
+    if(r.debeCambiar){
+      show('change-screen');
+    }else{
+      la15ActualizarMenu();
+      la237AplicarMenu_();
+      const inicio=la237TabInicial_();
+      // Nunca mostrar el panel administrativo por defecto antes de decidir la vista.
+      document.querySelectorAll('.view').forEach(v=>v.classList.add('hide'));
+      if(!inicio||!tab(inicio)){
+        state.token=null;state.user=null;state.data=null;state.tab='resumen';
+        show('login-screen');
+        throw Error('La cuenta no tiene ninguna pantalla autorizada. Consulta a Dirección.');
+      }
+      show('app');
+      if(inicio==='resumen')await refresh();
+      else if(r.superadmin===true)void refresh();
+    }
+  }catch(err){toast(err.message,true);}
+  finally{$('login-status').textContent='';pending(false,button);}
+});
 $('form-change').addEventListener('submit',async e=>{e.preventDefault();if(state.pending)return;if($('new-pass').value!==$('confirm-pass').value){toast('Las contraseñas nuevas no coinciden.',true);return;}const b=$('btn-change');pending(true,b,'Guardando…');try{const r=await api('cambiarClave',{actual:$('old-pass').value,nueva:$('new-pass').value});toast(r.mensaje);state.token=null;state.user=null;state.data=null;state.tab='resumen';['old-pass','new-pass','confirm-pass'].forEach(x=>$(x).value='');show('login-screen');}catch(err){toast(err.message,true);}finally{pending(false,b);}});
 $('form-multinivel').addEventListener('submit',e=>sendForm(e,'vincularDocenteNivel',$('btn-multinivel'),{docenteId:$('multi-teacher').value,nivel:$('multi-level').value},null));
 $('multi-teacher').addEventListener('change',()=>updateMultinivelChoices());
@@ -2248,10 +2311,14 @@ function la237TabAutorizada_(nombre){
   return (LA237_TABS[nombre]||[]).some(p=>(u.permisos||[]).includes(p));
 }
 function la237TabInicial_(){
-  if(state.user?.superadmin)return 'nexqor';
-  for(const tab of ['resumen','semaforo','asistencia','entradas'])
-    if(la237TabAutorizada_(tab))return tab;
-  return 'resumen';
+  const u=state.user;
+  if(!u)return null;
+  // Priorizar la función real de la cuenta, no el resumen visible por defecto.
+  const orden=u.superadmin===true?['nexqor']:
+    u.rol==='acceso'?['entradas','semaforo']:
+    u.rol==='docente'?['asistencia','semaforo']:
+    ['resumen','asistencia','entradas','semaforo'];
+  return orden.find(nombre=>la20TabPermitida_(nombre))||null;
 }
 function la237ActualizarIdentidad_(){
   const master=state.user?.superadmin===true;
@@ -2259,7 +2326,7 @@ function la237ActualizarIdentidad_(){
   if(master){
     document.querySelector('.header .tag').textContent='NEXQOR · SUPERADMINISTRADOR';
   }else{
-    document.querySelector('.header .tag').textContent='VERSIÓN 2.3.9 · GESTIÓN AVANZADA DE CUENTAS';
+    document.querySelector('.header .tag').textContent='VERSIÓN 2.3.9 · ACCESO DIRECTO POR PERFIL';
   }
 }
 function la237AplicarMenu_(){

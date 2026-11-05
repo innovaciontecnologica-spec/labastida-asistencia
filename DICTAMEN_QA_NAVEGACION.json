@@ -1,0 +1,180 @@
+{
+  "tipo": "LABASTIDA_239_INICIO_SESION_QA_LOCAL",
+  "metodo": "NAVEGADOR_CHROMIUM_CON_RESPUESTAS_FICTICIAS_INTERCEPTADAS",
+  "pruebas": {
+    "total": 9,
+    "aprobadas": 9,
+    "fallidas": 0
+  },
+  "resultados": [
+    {
+      "test": "Inicio demo.puerta",
+      "aprobado": true,
+      "observado": {
+        "visibleApp": true,
+        "visibleLogin": false,
+        "tab": "entradas",
+        "visibleViews": [
+          "view-entradas"
+        ],
+        "activeTabs": [
+          "entradas"
+        ]
+      },
+      "erroresJS": [],
+      "apiLlamadas": [
+        "login",
+        "la201Catalogo",
+        "la201Catalogo"
+      ]
+    },
+    {
+      "test": "Acceso no abre Administración ni por llamada directa",
+      "aprobado": true,
+      "observado": "tab queda en entradas"
+    },
+    {
+      "test": "Inicio demo.docente",
+      "aprobado": true,
+      "observado": {
+        "visibleApp": true,
+        "visibleLogin": false,
+        "tab": "asistencia",
+        "visibleViews": [
+          "view-asistencia"
+        ],
+        "activeTabs": [
+          "asistencia"
+        ]
+      },
+      "erroresJS": [],
+      "apiLlamadas": [
+        "login",
+        "la231Clases"
+      ]
+    },
+    {
+      "test": "Inicio demo.direccion",
+      "aprobado": true,
+      "observado": {
+        "visibleApp": true,
+        "visibleLogin": false,
+        "tab": "resumen",
+        "visibleViews": [
+          "view-resumen"
+        ],
+        "activeTabs": [
+          "resumen"
+        ]
+      },
+      "erroresJS": [],
+      "apiLlamadas": [
+        "login",
+        "dashboard"
+      ]
+    },
+    {
+      "test": "Inicio demo.master",
+      "aprobado": true,
+      "observado": {
+        "visibleApp": true,
+        "visibleLogin": false,
+        "tab": "nexqor",
+        "visibleViews": [
+          "view-nexqor"
+        ],
+        "activeTabs": [
+          "nexqor"
+        ]
+      },
+      "erroresJS": [],
+      "apiLlamadas": [
+        "login",
+        "la237EstadoAdmin",
+        "dashboard"
+      ]
+    },
+    {
+      "test": "Inicio demo.acceso_personalizado",
+      "aprobado": true,
+      "observado": {
+        "visibleApp": true,
+        "visibleLogin": false,
+        "tab": "entradas",
+        "visibleViews": [
+          "view-entradas"
+        ],
+        "activeTabs": [
+          "entradas"
+        ]
+      },
+      "erroresJS": [],
+      "apiLlamadas": [
+        "login",
+        "la201Catalogo",
+        "la201Catalogo"
+      ]
+    },
+    {
+      "test": "Inicio demo.semaforo_solo",
+      "aprobado": true,
+      "observado": {
+        "visibleApp": true,
+        "visibleLogin": false,
+        "tab": "semaforo",
+        "visibleViews": [
+          "view-semaforo"
+        ],
+        "activeTabs": [
+          "semaforo"
+        ]
+      },
+      "erroresJS": [],
+      "apiLlamadas": [
+        "login",
+        "la23Semaforo"
+      ]
+    },
+    {
+      "test": "Inicio demo.perfil_bloqueado",
+      "aprobado": true,
+      "observado": {
+        "visibleApp": false,
+        "visibleLogin": true,
+        "tab": "resumen",
+        "visibleViews": [],
+        "activeTabs": [
+          "resumen"
+        ]
+      },
+      "erroresJS": [],
+      "apiLlamadas": [
+        "login"
+      ]
+    },
+    {
+      "test": "Inicio demo.direccion_entradas",
+      "aprobado": true,
+      "observado": {
+        "visibleApp": true,
+        "visibleLogin": false,
+        "tab": "entradas",
+        "visibleViews": [
+          "view-entradas"
+        ],
+        "activeTabs": [
+          "entradas"
+        ]
+      },
+      "erroresJS": [],
+      "apiLlamadas": [
+        "login",
+        "la201Catalogo"
+      ]
+    }
+  ],
+  "datosPersonalesReales": false,
+  "credencialesReales": false,
+  "despliegueRealVerificado": false,
+  "servidorRealConsultado": false
+}
