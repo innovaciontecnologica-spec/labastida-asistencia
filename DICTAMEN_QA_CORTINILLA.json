@@ -1,0 +1,33 @@
+{
+  "tipo": "LABASTIDA_ASISTENCIA_239_CORTINILLA_QA",
+  "version": "2.3.9-INTRO-ACCESO-DIRECTO",
+  "metodo": "CHROMIUM_HEADLESS_CON_RESPUESTAS_FICTICIAS",
+  "escenarios": {
+    "introVisible": true,
+    "imagenSeCarga": true,
+    "introSeOculta": true,
+    "cuentaAccesoIniciaEnRetardos": true,
+    "docenteIniciaEnPase": true,
+    "docenteConservaTodosMisGrupos": true,
+    "direccionPrimariaIniciaEnResumen": true,
+    "direccionConservaSupervision": true,
+    "nexqorIniciaEnConsola": true,
+    "accesoNoVeSupervision": true,
+    "docenteNoVeSupervision": true,
+    "sinErroresJavascript": true,
+    "splashAdaptableEscritorioTableta": true,
+    "movimientoReducido": true
+  },
+  "escenariosAprobados": 14,
+  "escenariosFallidos": 0,
+  "revisionesSintaxisJavascript": 4,
+  "cambiosBackend": false,
+  "escriturasProduccion": 0,
+  "publicada": false,
+  "limites": [
+    "Pruebas solo con usuarios y API ficticia",
+    "No se probó ni modificó el backend de producción",
+    "GitHub Pages necesita actualización manual",
+    "La cortinilla no es un control de seguridad"
+  ]
+}
