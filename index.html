@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><meta name="labastida-revision" content="20261104-ACCESS-DIRECTO"><title>Labastida Asistencia 2.3.9 · Acceso directo por perfil</title>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><meta name="labastida-revision" content="20261104-SUPERVISION-LECTURA"><title>Labastida Asistencia 2.3.9 · Pases y supervisión</title>
 <link rel="icon" href="assets/escudo.png"><style>
 :root{--azul:#102C53;--azul2:#1f4772;--rojo:#AE203A;--oro:#C9A65E;--fondo:#F2F5FA;--gris:#64748b;--borde:#DFE6F1;--blanco:#fff;--verde:#146B53}
 *{box-sizing:border-box}body{margin:0;background:var(--fondo);font:15px/1.5 system-ui,-apple-system,'Segoe UI',sans-serif;color:#18273B}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.55}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #C9A65E;outline-offset:2px}
@@ -302,13 +302,37 @@ body.la237-master .data th{background:#faf5e8;color:#826738}
 @media(max-width:1080px){.la237-pane{grid-template-columns:1fr}}
 @media(max-width:690px){.la237-permissions{grid-template-columns:1fr}.la237-hero{padding:21px}.la237-hero::after{display:none}.la237-lock{align-items:stretch;flex-direction:column}.la237-lock input{max-width:none}.la237-line{align-items:flex-start;flex-direction:column}}
 
+
+/* B.05 · Panel de supervisión: solo consultas a rutas autorizadas */
+.la30-explain{background:#fff8e8;border:1px solid #eed8a8;border-radius:13px;padding:15px 18px;color:#644f27;line-height:1.6;margin-bottom:17px;font-size:13px}
+.la30-toolbar{margin-bottom:16px}.la30-toolbar .formgrid{align-items:end}
+.la30-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;margin-bottom:9px}
+.la30-kpi{background:#fff;border:1px solid #dce7f2;border-radius:13px;padding:17px 15px;box-shadow:0 4px 15px #102c5310}
+.la30-kpi strong{font-size:29px;line-height:1.1;color:#14375b;display:block}.la30-kpi span{font-size:11px;color:#596f85;display:block;margin-top:8px}
+.la30-disclaimer{font-size:12px;color:#64778c;margin:4px 0 16px}.la30-layout{display:grid;grid-template-columns:minmax(240px,310px) minmax(0,1fr);gap:15px;align-items:start}
+.la30-group-list{display:grid;gap:9px;max-height:620px;overflow:auto}
+.la30-group{width:100%;background:#f9fbfe;border:1px solid #dbe6f2;color:#183b60;border-radius:11px;padding:13px;text-align:left;min-height:67px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.la30-group strong{display:block;font-size:13px}.la30-group small{display:block;font-size:11px;color:#687d91;margin-top:3px}.la30-group.active{border:2px solid #b28d50;background:#fff7e8;padding:12px}
+.la30-group em{font-size:11px;font-style:normal;color:#4b6a85;background:#eaf1f9;border-radius:30px;padding:6px 8px;white-space:nowrap}
+.la30-empty{background:#f6f9fc;border:1px dashed #d4e2ef;border-radius:10px;padding:16px;font-size:13px;color:#71849a}
+.la30-group-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin:16px 0}
+.la30-group-kpis>div{background:#f2f6fb;border-radius:9px;padding:10px;text-align:center}
+.la30-group-kpis strong{display:block;color:#15395b;font-size:20px}.la30-group-kpis span{font-size:10px;color:#5c7087}
+.la30-table{min-width:590px}.la30-table .btn{font-size:11px;padding:8px 11px;min-height:35px}
+.la30-pill{border-radius:20px;padding:5px 8px;font-size:11px;font-weight:750;display:inline-block;white-space:nowrap}
+.la30-pill.ok{background:#e2f5e9;color:#14603e}.la30-pill.pending{background:#fff2d4;color:#876010}.la30-pill.review{background:#ffe6e8;color:#9b2638}.la30-pill.fail{background:#eef1f5;color:#637085}
+.la30-detalle{margin-top:22px;border-top:1px solid #e3ebf3;padding-top:19px}.la30-detalle .data{min-width:530px}.la30-detalle h3{margin-bottom:6px}
+.la30-nota{border-left:3px solid #bd944b;background:#f9fbff;padding:13px 17px;font-size:12px;color:#5b6b7e;border-radius:9px}
+@media(max-width:1030px){.la30-layout{grid-template-columns:1fr}.la30-group-list{grid-template-columns:repeat(2,minmax(0,1fr));max-height:310px}}
+@media(max-width:750px){.la30-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.la30-group-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.la30-group-list{grid-template-columns:1fr;max-height:300px}.la30-kpi strong{font-size:25px}}
+
 </style></head><body>
 <div id="la20-piloto-notice" role="status"><strong>LABASTIDA 2.3 · CANDIDATA DE INTEGRACIÓN (SOLO LECTURA).</strong> Esta copia permite consultas autorizadas, pero no registra ni modifica datos escolares. La aplicación principal continúa en <code>index.html</code>.</div>
 
 <header class="header"><img class="escudo" src="assets/escudo.png" alt="Escudo del Colegio Labastida"><div class="brand"><div class="eyebrow">Colegio Labastida · Francisco de Paula</div><h1>Labastida Asistencia</h1><small>Administración académica · Ciclo 2026–2027</small></div><span class="tag">CANDIDATA 2.3 · SOLO CONSULTA</span></header>
-<nav id="nav" class="hide"><div class="navinner"><button data-tab="resumen" class="active">Resumen</button><button data-tab="docentes">Docentes</button><button data-tab="asignaciones">Asignaciones</button><button id="tab-asistencia" data-tab="asistencia" class="hide">Pase de lista</button><button id="tab-entradas" data-tab="entradas" class="hide">Retardos de ingreso</button><button id="tab-semaforo" data-tab="semaforo">Semáforo de retardos</button><button id="tab-nexqor" data-tab="nexqor" class="hide">✦ NEXQOR · Control maestro</button><span class="grow"></span><span id="username" class="account"></span><button id="logout">Salir</button></div></nav>
+<nav id="nav" class="hide"><div class="navinner"><button data-tab="resumen" class="active">Resumen</button><button data-tab="docentes">Docentes</button><button data-tab="asignaciones">Asignaciones</button><button id="tab-asistencia" data-tab="asistencia" class="hide">Pase de lista</button><button id="tab-supervision" data-tab="supervision" class="hide">Supervisión de asistencias</button><button id="tab-entradas" data-tab="entradas" class="hide">Retardos de ingreso</button><button id="tab-semaforo" data-tab="semaforo">Semáforo de retardos</button><button id="tab-nexqor" data-tab="nexqor" class="hide">✦ NEXQOR · Control maestro</button><span class="grow"></span><span id="username" class="account"></span><button id="logout">Salir</button></div></nav>
 <main>
-<section id="login-screen" class="card" style="max-width:510px;margin:34px auto"><h2>Acceso institucional</h2><p>Direcciones y docentes autorizados ingresan con una cuenta individual. Los docentes solo consultan sus clases y validan pases en modo de prueba.</p><form id="form-login"><div class="field"><label for="login-user">Usuario</label><input id="login-user" autocomplete="username" required placeholder="dir_primaria"></div><div class="field" style="margin-top:12px"><label for="login-pass">Contraseña</label><input id="login-pass" autocomplete="current-password" type="password" required placeholder="Contraseña personal"></div><div class="buttonrow"><button class="btn" id="btn-login" type="submit">Entrar al sistema</button><span id="login-status" class="quiet"></span></div></form><div class="status">Administración disponible únicamente para Direcciones. Los docentes solo verán sus clases asignadas. Ningún pase se guarda todavía.</div><details class="hide" style="margin-top:20px"><summary style="cursor:pointer;color:#6F7D91;font-size:12px">Configuración técnica</summary><div class="field" style="margin-top:12px"><label for="api-url">Dirección del Worker (terminada en /api)</label><input id="api-url" type="url" autocomplete="off" placeholder="https://labastida-asistencia-api....workers.dev/api"></div><button id="save-url" class="btn sec" style="margin-top:10px" type="button">Guardar dirección</button><div class="quiet" style="margin-top:7px">La dirección se conserva en este navegador. No introduzcas contraseñas ni secretos de Cloudflare aquí.</div></details></section>
+<section id="login-screen" class="card" style="max-width:510px;margin:34px auto"><h2>Acceso institucional</h2><p>Direcciones y docentes autorizados ingresan con una cuenta individual. Los docentes consultan sus clases y registran pases únicamente cuando el servidor los autoriza.</p><form id="form-login"><div class="field"><label for="login-user">Usuario</label><input id="login-user" autocomplete="username" required placeholder="dir_primaria"></div><div class="field" style="margin-top:12px"><label for="login-pass">Contraseña</label><input id="login-pass" autocomplete="current-password" type="password" required placeholder="Contraseña personal"></div><div class="buttonrow"><button class="btn" id="btn-login" type="submit">Entrar al sistema</button><span id="login-status" class="quiet"></span></div></form><div class="status">Administración disponible únicamente para Direcciones. Los docentes solo verán sus clases asignadas. El guardado depende de la autorización del servidor, la fecha y la existencia de un pase previo.</div><details class="hide" style="margin-top:20px"><summary style="cursor:pointer;color:#6F7D91;font-size:12px">Configuración técnica</summary><div class="field" style="margin-top:12px"><label for="api-url">Dirección del Worker (terminada en /api)</label><input id="api-url" type="url" autocomplete="off" placeholder="https://labastida-asistencia-api....workers.dev/api"></div><button id="save-url" class="btn sec" style="margin-top:10px" type="button">Guardar dirección</button><div class="quiet" style="margin-top:7px">La dirección se conserva en este navegador. No introduzcas contraseñas ni secretos de Cloudflare aquí.</div></details></section>
 <section id="change-screen" class="card hide" style="max-width:510px;margin:34px auto"><h2>Establecer contraseña personal</h2><p>Por seguridad, cambia la clave temporal antes de comenzar a usar el panel.</p><form id="form-change"><div class="field"><label for="old-pass">Contraseña temporal actual</label><input id="old-pass" type="password" required></div><div class="field" style="margin-top:12px"><label for="new-pass">Nueva contraseña (15 caracteres mínimo)</label><input id="new-pass" type="password" minlength="15" maxlength="128" required></div><div class="field" style="margin-top:12px"><label for="confirm-pass">Confirma la nueva contraseña</label><input id="confirm-pass" type="password" minlength="15" maxlength="128" required></div><div class="buttonrow"><button class="btn" id="btn-change" type="submit">Guardar y volver a entrar</button></div></form></section>
 <div id="app" class="hide">
 <section id="view-resumen" class="view"><div class="subhead"><div><h2>Panel de administración</h2><p id="scope-text">Resumen de matrícula y asignaciones.</p></div><button class="btn sec" id="refresh">↻ Actualizar</button></div><div class="grid"><div class="kpi"><strong id="k-alumnos">—</strong><span>Alumnos en grupos</span></div><div class="kpi"><strong id="k-grupos">—</strong><span>Grupos</span></div><div class="kpi"><strong id="k-docentes">—</strong><span>Docentes activos</span></div><div class="kpi"><strong id="k-asignaciones">—</strong><span>Asignaciones activas</span></div></div><div class="card" style="margin-top:20px"><h3>Grupos y carga académica</h3><p>En Preescolar y Primaria se asigna un titular por grupo; en Secundaria se asigna por materia y grupo según el horario aprobado.</p><div class="datawrap"><table class="data"><thead><tr><th>Grupo</th><th>Nivel</th><th>Alumnos</th><th>Modalidad</th><th>Docentes asignados</th></tr></thead><tbody id="groups-body"></tbody></table></div></div></section>
@@ -504,6 +528,20 @@ body.la237-master .data th{background:#faf5e8;color:#826738}
   </div>
 </section>
 
+<section id="view-supervision" class="view hide" aria-labelledby="la30-titulo">
+ <div class="subhead"><div><h2 id="la30-titulo">Supervisión de asistencias</h2><p>Dirección Primaria, Secundaria, General y NEXQOR · Consulta autorizada por el servidor.</p></div><span class="pill pending">SOLO LECTURA</span></div>
+ <div class="la30-explain">Los pases se registran por el docente. Aquí puedes consultar los bloques programados y verificar, por grupo, cuáles están confirmados y cuáles aún no tienen pase. <strong>Sin pase registrado NO significa alumno ausente.</strong></div>
+ <div class="card la30-toolbar"><div class="formgrid"><div class="field"><label for="la30-fecha">Fecha de la jornada</label><input type="date" id="la30-fecha"></div><div class="field"><label for="la30-nivel">Nivel permitido</label><select id="la30-nivel"><option value="">Primero consulta la jornada</option></select></div></div><div class="buttonrow"><button id="la30-cargar" class="btn" type="button">Consultar jornada</button><span class="quiet" id="la30-estado" role="status" aria-live="polite">Selecciona la fecha y pulsa Consultar jornada.</span></div></div>
+ <div class="la30-kpis" aria-label="Indicadores de supervisión"><div class="la30-kpi"><strong id="la30-grupos">—</strong><span>Grupos con clases programadas</span></div><div class="la30-kpi"><strong id="la30-bloques">—</strong><span>Bloques programados del nivel</span></div><div class="la30-kpi"><strong id="la30-confirmados">—</strong><span>Pases confirmados en grupos revisados</span></div><div class="la30-kpi"><strong id="la30-pendientes">—</strong><span>Bloques sin pase en grupos revisados</span></div></div>
+ <p class="la30-disclaimer" id="la30-alcance">Los indicadores de confirmación y ausencia se calculan únicamente para los grupos que consultes. No se atribuyen faltas a bloques sin registrar.</p>
+ <div class="la30-layout"><div class="card"><h3>Grupos autorizados</h3><p class="quiet">Selecciona un grupo para comprobar sus pases y detalles.</p><div id="la30-grupos-lista" class="la30-group-list" aria-live="polite"><div class="la30-empty">Consulta la jornada para ver los grupos disponibles.</div></div></div>
+ <div class="card"><h3 id="la30-grupo-titulo">Pases del grupo</h3><p id="la30-grupo-estado" class="quiet" role="status">Selecciona un grupo del listado.</p>
+ <div id="la30-conteos" class="la30-group-kpis hide"></div>
+ <div class="datawrap"><table class="data la30-table"><thead><tr><th>Bloque / Materia</th><th>Docente</th><th>Registro</th><th>Marcas</th><th>Consulta</th></tr></thead><tbody id="la30-pases-tabla"><tr><td colspan="5">Sin consulta.</td></tr></tbody></table></div>
+ <div id="la30-detalle" class="la30-detalle hide"><h3 id="la30-detalle-titulo">Detalle de pase</h3><div id="la30-detalle-info" class="quiet"></div><div class="datawrap"><table class="data"><thead><tr><th>Alumno</th><th>Asistencia</th><th>Ingreso por puerta</th></tr></thead><tbody id="la30-detalle-filas"></tbody></table></div></div>
+ </div></div>
+ <div class="la30-nota">Esta vista no contiene controles de guardado, modificación, eliminación ni descarga de datos personales. Toda consulta usa las rutas existentes <code>la231Clases</code> y <code>la231Vista</code> con la sesión autorizada. Los permisos definitivos se verifican en el servidor.</div>
+</section>
 <section id="view-entradas" class="view hide"><div class="la14-banner"><strong>Vista piloto (solo lectura):</strong> catálogo acelerado y reloj vivo conectados al servidor real. El registro de retardos y cualquier modificación administrativa están deshabilitados en esta página.</div>
   <div class="subhead"><div><h2>Registro rápido de retardos</h2><p>Primaria y Secundaria · Solo incidencias después de las 7:40 · Hora oficial del servidor</p></div></div>
   <div class="la16-readonly" id="la16-banner">Modo prueba: solo se validan retardos e ingresos diferidos. Los alumnos puntuales pasan directamente, sin registro en puerta.</div>
@@ -545,7 +583,7 @@ const aviso20=document.getElementById('la20-piloto-notice');
 if(aviso20)aviso20.hidden=LA20_CAPTURA_PRODUCCION;
 const etiqueta20=document.querySelector('.header .tag');
 if(etiqueta20)etiqueta20.textContent=LA20_CAPTURA_PRODUCCION ?
-  'VERSIÓN 2.3.9 · ACCESO DIRECTO POR PERFIL' : 'CANDIDATA 2.3.9 · SOLO CONSULTA';
+  'VERSIÓN 2.3.9 · PASES Y SUPERVISIÓN' : 'CANDIDATA 2.3.9 · SOLO CONSULTA';
 const introPuerta20=document.querySelector('#view-entradas>.la14-banner');
 if(introPuerta20){
   introPuerta20.textContent=LA20_CAPTURA_PRODUCCION ?
@@ -572,6 +610,7 @@ function la20TabPermitida_(name){
   if(u.rol==='docente'&&!['asistencia','semaforo'].includes(name))return false;
   if(name==='entradas'&&!la16PuedeAcceder())return false;
   if(name==='asistencia'&&!la14PuedeConsultar())return false;
+  if(name==='supervision'&&!la30PuedeSupervisar_())return false;
   return true;
 }
 function tab(name){
@@ -590,6 +629,7 @@ function tab(name){
       .catch(e=>toast('No se pudo precargar el catálogo: '+e.message,true));
   }
   if(name==='asistencia')void la14CargarClases();
+  if(name==='supervision')void la30CargarJornada_();
   if(name==='semaforo')void la23Cargar();
   if(name==='docentes'&&state.user?.rol==='general')void la15CargarCuentas();
   if(name==='asignaciones')void la151CargarVacantes();
@@ -896,6 +936,7 @@ $('form-login').addEventListener('submit',async e=>{
     }else{
       la15ActualizarMenu();
       la237AplicarMenu_();
+      la30ActualizarMenu_();
       const inicio=la237TabInicial_();
       // Nunca mostrar el panel administrativo por defecto antes de decidir la vista.
       document.querySelectorAll('.view').forEach(v=>v.classList.add('hide'));
@@ -921,7 +962,7 @@ $('apoyo-group').addEventListener('change',updateApoyoChoices);
 $('assign-group').addEventListener('change',updateAssignChoices);
 $('refresh').addEventListener('click',refresh);
 document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>tab(b.dataset.tab)));
-$('logout').addEventListener('click',async()=>{la14Limpiar();la16Limpiar();la23LimpiarSesion_();state.tab='resumen';const token=state.token;state.token=null;state.data=null;state.user=null;la20MostrarIdentidadSesion_();show('login-screen');la237LimpiarCredencial_();la237ActualizarIdentidad_();if(token){try{await api('logout',{token});}catch(_){}}});
+$('logout').addEventListener('click',async()=>{la30Limpiar_();la14Limpiar();la16Limpiar();la23LimpiarSesion_();state.tab='resumen';const token=state.token;state.token=null;state.data=null;state.user=null;la20MostrarIdentidadSesion_();show('login-screen');la237LimpiarCredencial_();la237ActualizarIdentidad_();if(token){try{await api('logout',{token});}catch(_){}}});
 $('api-url').value=state.api;
 $('save-url').addEventListener('click',()=>toast('La dirección del servidor institucional está fijada por seguridad.',true));
 ['btn-login','btn-change','btn-teacher','btn-assign','btn-apoyo','btn-multinivel'].forEach(id=>$(id).dataset.label=$(id).textContent);
@@ -968,23 +1009,39 @@ async function la14CargarClases(){
     const elegido=$('la14-group').value;
     const gruposConClases=new Set(d.clases.map(c=>String(c.nivel)+'|'+String(c.grupoId)));
     const opciones=d.grupos.filter(g=>gruposConClases.has(String(g.nivel)+'|'+String(g.id)));
-    $('la14-group').replaceChildren(...opciones.map(g=>{
-      const op=la14Elem('option','',String(g.nivel)+' · '+String(g.grado)+'º '+String(g.seccion));op.value=g.nivel+'|'+g.id;return op;
-    }));
-    if(elegido&&opciones.some(g=>g.nivel+'|'+g.id===elegido))$('la14-group').value=elegido;
+    const esDocente=state.user?.rol==='docente';
+    const grupoSelect=$('la14-group');
+    grupoSelect.replaceChildren(...(esDocente?[opt('__MIS_GRUPOS__','Todos mis grupos · '+opciones.length+' grupo(s) / '+d.clases.length+' clases')]:[]),
+      ...opciones.map(g=>{
+        const op=la14Elem('option','',String(g.nivel)+' · '+String(g.grado)+'º '+String(g.seccion));
+        op.value=g.nivel+'|'+g.id;return op;
+      }));
+    // Solo utiliza las clases filtradas por el backend. No habilita nuevos grupos.
+    if(esDocente){
+      grupoSelect.value=elegido&&[...grupoSelect.options].some(o=>o.value===elegido)?elegido:'__MIS_GRUPOS__';
+      $('la14-day').textContent=d.dia+' · '+d.clases.length+' clases autorizadas en '+opciones.length+' grupo(s)';
+    }else if(elegido&&opciones.some(g=>g.nivel+'|'+g.id===elegido))grupoSelect.value=elegido;
     la14DibujarClases();
     la14VistaVacia(d.clases.length?'Selecciona una clase para consultar el pase.':'No hay clases programadas para esta fecha.');
   }catch(e){if(seq===la14UI.solicitud){la14Message('No se pudieron cargar las clases.');la14VistaVacia('No se logró consultar el horario. Revisa tu sesión y la implementación de Apps Script.');la14Error(e);}}
   finally{if(seq===la14UI.solicitud)$('la14-refresh').disabled=false;}
 }
 function la14DibujarClases(){
-  const filtro=$('la14-group').value,clases=la14UI.clases.filter(c=>c.nivel+'|'+c.grupoId===filtro);
-  if(!clases.length){la14Message('Sin clases para el grupo y fecha seleccionados.');return;}
+  const filtro=$('la14-group').value;
+  const todosPropios=filtro==='__MIS_GRUPOS__'&&state.user?.rol==='docente';
+  // Siempre sobre la lista YA autorizada por la ruta la231Clases del servidor.
+  const clases=la14UI.clases.filter(c=>todosPropios||c.nivel+'|'+c.grupoId===filtro)
+    .slice().sort((a,b)=>String(a.inicio||'').localeCompare(String(b.inicio||''))||
+      String(a.fin||'').localeCompare(String(b.fin||''))||
+      String(a.grupo||a.grupoId||'').localeCompare(String(b.grupo||b.grupoId||''),'es'));
+  if(!clases.length){la14Message('Sin clases autorizadas para el grupo y fecha seleccionados.');return;}
   const frag=document.createDocumentFragment();
   clases.forEach(c=>{
     const b=la14Elem('button','la14-class');b.type='button';
     b.dataset.horarioId=c.horarioId;b.setAttribute('aria-pressed',String(la14UI.seleccion===c.horarioId));
-    b.append(la14Elem('strong','',c.inicio+'–'+c.fin+' · '+(c.nivel==='Primaria'?'Módulo '+c.modulo+' · '+c.grupo:c.materia)));
+    b.append(la14Elem('strong','',c.inicio+'–'+c.fin+' · '+
+      (c.nivel==='Primaria'?'Módulo '+c.modulo+' · '+c.grupo:
+        (todosPropios?c.grupo+' · ':'')+c.materia)));
     b.append(la14Elem('small','',c.docente+' · '+(c.primeraHora?'Primer módulo':'Módulo posterior')));
     b.addEventListener('click',()=>void la14AbrirClase(c));frag.append(b);
   });
@@ -1000,7 +1057,7 @@ async function la14AbrirClase(c){
     if(seq!==la14UI.solicitud||!la14PuedeConsultar())return;
     if(!d.condiciones||typeof d.condiciones.guardarHabilitado!=='boolean'||!Array.isArray(d.alumnos))
       throw Error('El servidor no confirmó los permisos para el pase.');
-    if(d.condiciones.guardarHabilitado&&!LA20_CAPTURA_PRODUCCION){
+    if(d.condiciones.guardarHabilitado&&(!LA20_CAPTURA_PRODUCCION||state.user?.rol!=='docente')){
       d.condiciones.guardarHabilitado=false;d.soloLectura=true;
     }
     if(d.condiciones.guardarHabilitado&&d.soloLectura!==false)
@@ -2125,7 +2182,7 @@ $('la16-crear-cuenta').dataset.label=$('la16-crear-cuenta').textContent;
   nav.querySelectorAll('button[data-tab]').forEach(b=>{
     const tab=b.dataset.tab;
     if(tab==='resumen')b.textContent='Inicio';
-    if(tab==='asistencia')b.textContent='Asistencias · Prueba';
+    if(tab==='asistencia')b.textContent='Pase de lista';
     if(tab==='entradas')b.textContent='Retardos de ingreso';
     if(navIcons[tab]){
       const icon=document.createElement('span');icon.className='lab2-nav-icon';
@@ -2300,7 +2357,7 @@ const la237UI={catalogo:[],perfiles:[],cuentas:[],auditoria:[],ocupado:false};
 const LA237_TABS=Object.freeze({
   resumen:['resumen','reportes'],semaforo:['semaforo'],
   asistencia:['pases','validar','guardar_pases'],
-  entradas:['entradas','registrar_entradas']
+  entradas:['entradas','registrar_entradas'],supervision:['pases']
 });
 function la237TabAutorizada_(nombre){
   const u=state.user;
@@ -2326,7 +2383,7 @@ function la237ActualizarIdentidad_(){
   if(master){
     document.querySelector('.header .tag').textContent='NEXQOR · SUPERADMINISTRADOR';
   }else{
-    document.querySelector('.header .tag').textContent='VERSIÓN 2.3.9 · ACCESO DIRECTO POR PERFIL';
+    document.querySelector('.header .tag').textContent='VERSIÓN 2.3.9 · PASES Y SUPERVISIÓN';
   }
 }
 function la237AplicarMenu_(){
@@ -2612,5 +2669,199 @@ $('la239-cambio-cerrar').addEventListener('click',()=>{
   $('la239-cambio-contenido').replaceChildren();
 });
 
+</script>
+<script>
+/* LABASTIDA 2.3.9 · Supervisión de asistencias · Solo lectura.
+   Usa únicamente las rutas ya publicadas y autorizadas por Apps Script.
+   Nunca envía acciones de guardado ni persiste el alumnado en el navegador. */
+'use strict';
+const la30UI={fecha:'',agenda:[],grupos:[],nivel:'',grupoId:'',vistas:new Map(),secuencia:0,ocupado:false};
+function la30PuedeSupervisar_(){
+  const u=state.user;
+  if(!u||!['general','direccion'].includes(u.rol))return false;
+  if(u.perfilPersonalizado&&!(u.permisos||[]).includes('pases'))return false;
+  return true;
+}
+function la30ActualizarMenu_(){
+  const b=$('tab-supervision');
+  if(b)b.classList.toggle('hide',!la30PuedeSupervisar_());
+}
+function la30DiaLocal_(){
+  const partes=new Intl.DateTimeFormat('en-GB',{timeZone:'America/Mexico_City',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
+  const v=t=>partes.find(p=>p.type===t)?.value||'';
+  return `${v('year')}-${v('month')}-${v('day')}`;
+}
+function la30Limpiar_(){
+  la30UI.secuencia++;la30UI.fecha='';la30UI.agenda=[];la30UI.grupos=[];la30UI.nivel='';la30UI.grupoId='';la30UI.vistas.clear();la30UI.ocupado=false;
+  $('la30-grupos-lista').replaceChildren();$('la30-pases-tabla').replaceChildren();$('la30-detalle-filas').replaceChildren();$('la30-detalle').classList.add('hide');
+  $('la30-estado').textContent='Selecciona una fecha y consulta la jornada.';
+  for(const id of ['la30-grupos','la30-bloques','la30-confirmados','la30-pendientes'])$(id).textContent='—';
+  $('la30-conteos').classList.add('hide');$('la30-nivel').replaceChildren(opt('','Primero consulta la jornada'));
+}
+function la30Activa_(seq,token){return seq===la30UI.secuencia&&state.token===token&&state.tab==='supervision'&&la30PuedeSupervisar_();}
+function la30Normalizar_(s){return String(s??'').trim();}
+function la30ClaveClase_(c){return String(c.horarioId||'');}
+function la30ClaseGrupo_(c){return String(c.nivel)+'|'+String(c.grupoId??c.id);}
+function la30Fecha_(valor){return /^\d{4}-\d{2}-\d{2}$/.test(valor);}
+function la30Clasificar_(vista){
+  if(!vista||!vista.success||!vista.clase)throw Error('Respuesta de pase incompleta.');
+  const total=Number(vista.totalAlumnos);
+  const registrados=Array.isArray(vista.registrosGuardados)?vista.registrosGuardados:[];
+  if(!vista.yaExistePase)return {tipo:'SIN_PASE',total:Number.isFinite(total)?total:0,p:0,a:0,r:0,puerta:0};
+  if(Number(vista.pasesExistentes)!==1||String(vista.estadoPase||'').toUpperCase()!=='CONFIRMADO'||!Number.isInteger(total)||total<1||registrados.length!==total)
+    return {tipo:'REVISAR',total:Number.isFinite(total)?total:0,p:0,a:0,r:0,puerta:0};
+  const mapa=new Map();
+  for(const m of registrados){
+    if(!m||!m.alumnoId||!['P','A','R'].includes(m.estado)||mapa.has(String(m.alumnoId)))return {tipo:'REVISAR',total,p:0,a:0,r:0,puerta:0};
+    mapa.set(String(m.alumnoId),m.estado);
+  }
+  const alumnos=Array.isArray(vista.alumnos)?vista.alumnos:[];
+  if(alumnos.length!==total||alumnos.some(a=>!mapa.has(String(a.alumnoId))))return {tipo:'REVISAR',total,p:0,a:0,r:0,puerta:0};
+  const a=registrados.filter(m=>m.estado==='A').length;
+  const r=registrados.filter(m=>m.estado==='R').length;
+  const puerta=alumnos.filter(a=>/retardo|diferido/i.test(String(a.entrada?.clasificacion||''))).length;
+  return {tipo:'CONFIRMADO',total,p:total-a,a,r,puerta};
+}
+function la30ResumenVisitas_(){
+  let confirmados=0,sinPase=0,revisar=0,consultados=0;
+  const nivel=la30UI.nivel;
+  for(const c of la30UI.agenda.filter(x=>x.nivel===nivel)){
+    const v=la30UI.vistas.get(la30ClaveClase_(c));if(!v)continue;
+    consultados++;
+    try{const r=la30Clasificar_(v);if(r.tipo==='CONFIRMADO')confirmados++;else if(r.tipo==='SIN_PASE')sinPase++;else revisar++;}catch(_){revisar++;}
+  }
+  $('la30-confirmados').textContent=String(confirmados);
+  $('la30-pendientes').textContent=String(sinPase);
+  $('la30-alcance').textContent=`Nivel ${nivel||'—'}: ${consultados} bloque(s) consultados de ${la30UI.agenda.filter(x=>x.nivel===nivel).length}. ${revisar} requieren revisión. Las ausencias y los retardos solo se muestran en pases confirmados; no se infieren de los pases pendientes.`;
+}
+function la30PintarGrupos_(){
+  const nivel=la30UI.nivel;
+  const grupos=la30UI.grupos.filter(g=>g.nivel===nivel&&la30UI.agenda.some(c=>la30ClaseGrupo_(c)===la30ClaseGrupo_(g)));
+  const lista=$('la30-grupos-lista');lista.replaceChildren();
+  for(const g of grupos){
+    const clases=la30UI.agenda.filter(c=>la30ClaseGrupo_(c)===la30ClaseGrupo_(g));
+    const b=document.createElement('button');b.type='button';b.className='la30-group';b.classList.toggle('active',la30UI.grupoId===String(g.id));
+    const encabezado=document.createElement('span');const fuerte=document.createElement('strong');fuerte.textContent=`${nivel} ${g.grado}.º ${g.seccion||''}`;const pequeno=document.createElement('small');
+    pequeno.textContent=`${clases.length} bloques · ${clases.filter(c=>la30UI.vistas.has(la30ClaveClase_(c))).length} revisados`;encabezado.append(fuerte,pequeno);
+    const marca=document.createElement('em');marca.textContent=clases.every(c=>la30UI.vistas.has(la30ClaveClase_(c)))?'Consultado':'Por revisar';b.append(encabezado,marca);
+    b.addEventListener('click',()=>void la30ConsultarGrupo_(g));lista.append(b);
+  }
+  if(!grupos.length){const z=document.createElement('p');z.className='la30-empty';z.textContent='Sin grupos programados para el nivel y fecha consultados.';lista.append(z);}
+  $('la30-grupos').textContent=String(grupos.length);
+  $('la30-bloques').textContent=String(la30UI.agenda.filter(c=>c.nivel===nivel).length);
+  la30ResumenVisitas_();
+}
+function la30PrepararNivel_(){
+  const niveles=[...new Set(la30UI.agenda.map(c=>String(c.nivel)))].filter(n=>['Primaria','Secundaria'].includes(n));
+  const elegido=$('la30-nivel').value;
+  const sel=$('la30-nivel');sel.replaceChildren(...niveles.map(n=>opt(n,n)));
+  la30UI.nivel=niveles.includes(elegido)?elegido:niveles[0]||'';sel.value=la30UI.nivel;
+  la30UI.grupoId='';$('la30-grupo-titulo').textContent='Pases del grupo';$('la30-grupo-estado').textContent='Selecciona un grupo del listado.';
+  $('la30-pases-tabla').replaceChildren(row(['Selecciona un grupo','','','','']));$('la30-detalle').classList.add('hide');$('la30-conteos').classList.add('hide');
+  la30PintarGrupos_();
+}
+async function la30CargarJornada_(){
+  if(!la30PuedeSupervisar_()||la30UI.ocupado)return;
+  const fecha=$('la30-fecha').value;
+  if(!la30Fecha_(fecha)){$('la30-estado').textContent='Selecciona una fecha válida.';return;}
+  const seq=++la30UI.secuencia,token=state.token;
+  const boton=$('la30-cargar');boton.disabled=true;la30UI.ocupado=true;
+  $('la30-estado').textContent='Consultando grupos y bloques autorizados…';
+  $('la30-detalle').classList.add('hide');
+  try{
+    const d=await api('la231Clases',{fecha});
+    if(!la30Activa_(seq,token))return;
+    if(!Array.isArray(d.clases)||!Array.isArray(d.grupos))throw Error('El servidor no devolvió clases y grupos autorizados.');
+    const claves=new Set();
+    for(const c of d.clases){
+      if(!c.horarioId||!c.grupoId||!['Primaria','Secundaria'].includes(c.nivel)||claves.has(la30ClaveClase_(c)))throw Error('Se detectó una clase duplicada o no reconocida en el catálogo.');
+      claves.add(la30ClaveClase_(c));
+    }
+    la30UI.fecha=fecha;la30UI.agenda=d.clases;la30UI.grupos=d.grupos.map(g=>({...g,nivel:g.nivel||d.clases.find(c=>String(c.grupoId)===String(g.id))?.nivel||''}));la30UI.vistas.clear();
+    la30PrepararNivel_();$('la30-estado').textContent=`Jornada ${fecha}: ${d.clases.length} bloques programados autorizados. Selecciona un grupo para revisar pases.`;
+  }catch(e){if(la30Activa_(seq,token)){$('la30-estado').textContent='Error de consulta: '+e.message;toast('Supervisión: '+e.message,true);}}
+  finally{la30UI.ocupado=false;boton.disabled=false;}
+}
+function la30PintarTablaGrupo_(grupo,errores=new Map()){
+  const gid=String(grupo.id),nivel=String(grupo.nivel);
+  const clases=la30UI.agenda.filter(c=>c.nivel===nivel&&String(c.grupoId)===gid);
+  const tabla=$('la30-pases-tabla');tabla.replaceChildren();
+  let confirmados=0,sinPase=0,revisiones=0,ausencias=0,retardos=0,puerta=0;
+  for(const c of clases){
+    const tr=document.createElement('tr');
+    const bloque=document.createElement('td');bloque.textContent=`${c.inicio||''}–${c.fin||''} · ${c.materia||('Módulo '+(c.modulo||''))}`;
+    const docente=document.createElement('td');docente.textContent=c.docente||'Docente que registre';
+    const estado=document.createElement('td'),conteos=document.createElement('td'),accion=document.createElement('td');
+    const v=la30UI.vistas.get(la30ClaveClase_(c));
+    let tipo='NO_CONSULTADO',r=null;
+    if(errores.has(la30ClaveClase_(c)))tipo='ERROR';
+    else if(v){try{r=la30Clasificar_(v);tipo=r.tipo;}catch(_){tipo='REVISAR';}}
+    const chip=document.createElement('span');chip.className='la30-pill '+(tipo==='CONFIRMADO'?'ok':tipo==='SIN_PASE'?'pending':tipo==='REVISAR'?'review':'fail');
+    chip.textContent={CONFIRMADO:'Confirmado',SIN_PASE:'Sin pase',REVISAR:'Revisión',ERROR:'Error consulta',NO_CONSULTADO:'No consultado'}[tipo];estado.append(chip);
+    if(tipo==='CONFIRMADO'){confirmados++;ausencias+=r.a;retardos+=r.r;puerta+=r.puerta;conteos.textContent=`${r.p} asist. · ${r.a} faltas · ${r.r} ret. clase`;}
+    else if(tipo==='SIN_PASE'){sinPase++;conteos.textContent='No equivale a ausencias';}
+    else{if(tipo==='REVISAR'||tipo==='ERROR')revisiones++;conteos.textContent='Sin totales válidos';}
+    if(v){const boton=document.createElement('button');boton.className='btn sec';boton.type='button';boton.textContent='Ver detalle';boton.addEventListener('click',()=>la30VerDetalle_(c));accion.append(boton);}else accion.textContent='—';
+    tr.append(bloque,docente,estado,conteos,accion);tabla.append(tr);
+  }
+  const raiz=$('la30-conteos');raiz.replaceChildren();
+  for(const [valor,etiqueta] of [[confirmados,'Confirmados'],[sinPase,'Sin pase'],[ausencias,'Marcas de ausencia'],[retardos,'Retardos de clase']]){
+    const div=document.createElement('div'),n=document.createElement('strong'),s=document.createElement('span');n.textContent=String(valor);s.textContent=etiqueta;div.append(n,s);raiz.append(div);
+  }
+  raiz.classList.remove('hide');
+  $('la30-grupo-estado').textContent=`${clases.length} bloques revisados · ${confirmados} confirmados · ${revisiones} en revisión · ${puerta} retardos de puerta observados en los bloques confirmados. Las marcas pueden repetirse entre clases; no son alumnos únicos.`;
+  la30PintarGrupos_();
+}
+async function la30ConsultarGrupo_(g){
+  if(!la30PuedeSupervisar_()||la30UI.ocupado||!la30UI.fecha)return;
+  la30UI.grupoId=String(g.id);la30UI.nivel=String(g.nivel);$('la30-nivel').value=la30UI.nivel;
+  const seq=++la30UI.secuencia,token=state.token;
+  const clases=la30UI.agenda.filter(c=>c.nivel===g.nivel&&String(c.grupoId)===String(g.id));
+  $('la30-grupo-titulo').textContent=`${g.nivel} ${g.grado}º ${g.seccion||''} · Pases`;
+  $('la30-grupo-estado').textContent=`Comprobando ${clases.length} bloques directamente con el servidor…`;
+  $('la30-detalle').classList.add('hide');
+  $('la30-pases-tabla').replaceChildren(row(['Consultando pases…','','','','']));
+  // Límite conservador de dos solicitudes simultáneas por grupo.
+  la30UI.ocupado=true;const errores=new Map();
+  try{
+    for(let i=0;i<clases.length;i+=2){
+      if(!la30Activa_(seq,token))return;
+      await Promise.all(clases.slice(i,i+2).map(async c=>{
+        const clave=la30ClaveClase_(c);if(la30UI.vistas.has(clave))return;
+        try{
+          const d=await api('la231Vista',{fecha:la30UI.fecha,horarioId:clave});
+          if(!la30Activa_(seq,token))return;
+          if(!d||!d.clase||String(d.clase.horarioId)!==clave||d.fecha!==la30UI.fecha)throw Error('Respuesta de pase no corresponde a la consulta.');
+          la30UI.vistas.set(clave,d);
+        }catch(e){errores.set(clave,e.message);}
+      }));
+      if(la30Activa_(seq,token))$('la30-grupo-estado').textContent=`Revisando ${Math.min(i+2,clases.length)} de ${clases.length} bloques…`;
+    }
+    if(la30Activa_(seq,token))la30PintarTablaGrupo_(g,errores);
+  }finally{la30UI.ocupado=false;}
+}
+function la30VerDetalle_(c){
+  const v=la30UI.vistas.get(la30ClaveClase_(c));if(!v)return;
+  const clas=la30Clasificar_(v);
+  const root=$('la30-detalle'),tabla=$('la30-detalle-filas');tabla.replaceChildren();
+  $('la30-detalle-titulo').textContent=`Detalle: ${c.grupo||c.grupoId} · ${c.materia||''}`;
+  if(clas.tipo!=='CONFIRMADO'){
+    $('la30-detalle-info').textContent=clas.tipo==='SIN_PASE'?'Este bloque aún no tiene pase: no se atribuyen faltas.':'El registro requiere revisión; no se muestran totales de asistencia.';
+    root.classList.remove('hide');root.scrollIntoView({behavior:'smooth',block:'nearest'});return;
+  }
+  $('la30-detalle-info').textContent=`Pase confirmado: ${clas.p} asistieron, ${clas.a} ausentes, ${clas.r} retardos entre clases, ${clas.puerta} registros de tardanza de puerta. El mismo alumno puede estar presente y haber llegado tarde.`;
+  const marcas=new Map(v.registrosGuardados.map(m=>[String(m.alumnoId),m]));
+  for(const alumno of v.alumnos){
+    const m=marcas.get(String(alumno.alumnoId));const tr=document.createElement('tr');
+    const estado=m?.estado==='A'?'Ausente':m?.estado==='R'?'Presente con retardo entre clases':'Presente';
+    const puerta=alumno.entrada?.registrada?`${alumno.entrada.clasificacion||'Incidencia'} · ${alumno.entrada.hora||''}`:'Sin registro de tardanza en puerta';
+    tr.append(td(alumno.nombre),td(estado+(m?.estado==='R'&&m.motivoRetardo?' · '+m.motivoRetardo:'')),td(puerta));tabla.append(tr);
+  }
+  root.classList.remove('hide');root.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+$('la30-fecha').value=la30DiaLocal_();
+$('la30-cargar').addEventListener('click',()=>void la30CargarJornada_());
+$('la30-fecha').addEventListener('change',()=>{la30UI.vistas.clear();la30UI.agenda=[];la30UI.grupos=[];la30UI.grupoId='';la30UI.secuencia++;$('la30-estado').textContent='Fecha cambiada; consulta nuevamente la jornada.';});
+$('la30-nivel').addEventListener('change',()=>{if(!la30PuedeSupervisar_())return;la30UI.nivel=$('la30-nivel').value;la30UI.grupoId='';$('la30-detalle').classList.add('hide');$('la30-conteos').classList.add('hide');$('la30-grupo-titulo').textContent='Pases del grupo';$('la30-grupo-estado').textContent='Selecciona un grupo.';$('la30-pases-tabla').replaceChildren(row(['Selecciona un grupo','','','','']));la30PintarGrupos_();});
 </script>
 </body></html>

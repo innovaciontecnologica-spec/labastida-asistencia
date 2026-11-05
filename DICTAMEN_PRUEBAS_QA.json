@@ -1,0 +1,154 @@
+{
+  "tipo": "LABASTIDA_ASISTENCIA_239_SUPERVISION_Y_TODOS_MIS_GRUPOS_QA",
+  "fecha": "2026-11-04",
+  "versionInterfaz": "2.3.9-pases-supervision-grupos-autorizados",
+  "metodo": "Chromium local con API de prueba en memoria, sin credenciales ni alumnos reales",
+  "escenariosAprobados": 10,
+  "escenariosFallidos": 0,
+  "areasVerificadas": {
+    "accesoPuertaDirecto": true,
+    "docenteInicioEnPases": true,
+    "docenteTodosMisGruposOrdenados": true,
+    "docenteFiltroGrupoIndividual": true,
+    "docenteRegresoATodos": true,
+    "supervisionDirecciones": true,
+    "supervisionGeneral": true,
+    "supervisionNEXQOR": true,
+    "ocultamientoAccesoDocentes": true,
+    "perfilSinPasesNoConsulta": true,
+    "supervisionSinGuardar": true,
+    "direccionSinGuardarDesdeUI": true,
+    "tabletDocente": true,
+    "tabletDireccion": true
+  },
+  "limites": [
+    "No hubo consultas ni escritura en servidor Apps Script/Cloudflare real",
+    "El panel requiere la231Clases y la231Vista disponibles y autorizadas por el backend",
+    "Los datos de asistencia son por bloque consultado; no es consolidado único por alumno/día",
+    "No se ha publicado el nuevo index.html en GitHub Pages"
+  ],
+  "escriturasProduccion": 0,
+  "filasAlumnosReales": 0,
+  "codigoCompletoSha256": "2b4035d1d45cc43890d4b86088b9cc96bfc18247c85e25f98c12979f308c3f92",
+  "escenarios": [
+    {
+      "perfil": "dir_primaria",
+      "tablet": false,
+      "pruebas": [
+        "inicio:resumen",
+        "menu:visible",
+        "grupos:2",
+        "detalle-confirmado",
+        "supervision-solo-consulta",
+        "direccion-sin-guardar"
+      ],
+      "erroresJS": []
+    },
+    {
+      "perfil": "dir_secundaria",
+      "tablet": false,
+      "pruebas": [
+        "inicio:resumen",
+        "menu:visible",
+        "grupos:1",
+        "supervision-solo-consulta"
+      ],
+      "erroresJS": []
+    },
+    {
+      "perfil": "dir_general",
+      "tablet": false,
+      "pruebas": [
+        "inicio:resumen",
+        "menu:visible",
+        "grupos:2",
+        "detalle-confirmado",
+        "supervision-solo-consulta"
+      ],
+      "erroresJS": []
+    },
+    {
+      "perfil": "nexqor_master",
+      "tablet": false,
+      "pruebas": [
+        "inicio:nexqor",
+        "menu:visible",
+        "grupos:2",
+        "detalle-confirmado",
+        "supervision-solo-consulta"
+      ],
+      "erroresJS": []
+    },
+    {
+      "perfil": "acc_puerta_02",
+      "tablet": false,
+      "pruebas": [
+        "inicio:entradas",
+        "menu:oculto",
+        "bloqueo-supervision"
+      ],
+      "erroresJS": []
+    },
+    {
+      "perfil": "doc_prueba",
+      "tablet": false,
+      "pruebas": [
+        "inicio:asistencia",
+        "menu:oculto",
+        "todos-mis-grupos-3-clases",
+        "filtro-un-grupo",
+        "vuelta-a-todos",
+        "bloqueo-supervision"
+      ],
+      "erroresJS": []
+    },
+    {
+      "perfil": "dir_custom",
+      "tablet": false,
+      "pruebas": [
+        "inicio:asistencia",
+        "menu:visible",
+        "grupos:2",
+        "detalle-confirmado",
+        "supervision-solo-consulta"
+      ],
+      "erroresJS": []
+    },
+    {
+      "perfil": "dir_sin_pases",
+      "tablet": false,
+      "pruebas": [
+        "inicio:resumen",
+        "menu:oculto",
+        "bloqueo-supervision"
+      ],
+      "erroresJS": []
+    },
+    {
+      "perfil": "doc_prueba",
+      "tablet": true,
+      "pruebas": [
+        "inicio:asistencia",
+        "menu:oculto",
+        "todos-mis-grupos-3-clases",
+        "filtro-un-grupo",
+        "vuelta-a-todos",
+        "bloqueo-supervision"
+      ],
+      "erroresJS": []
+    },
+    {
+      "perfil": "dir_primaria",
+      "tablet": true,
+      "pruebas": [
+        "inicio:resumen",
+        "menu:visible",
+        "grupos:2",
+        "detalle-confirmado",
+        "supervision-solo-consulta",
+        "direccion-sin-guardar"
+      ],
+      "erroresJS": []
+    }
+  ]
+}
