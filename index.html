@@ -2859,6 +2859,37 @@ async function la30CargarJornada_(){
   }catch(e){if(la30Activa_(seq,token)){$('la30-estado').textContent='Error de consulta: '+e.message;toast('Supervisión: '+e.message,true);}}
   finally{la30UI.ocupado=false;boton.disabled=false;}
 }
+function nxq39RotulosSupervision_(c){
+  const base={
+    materia:String(c.materia||('Módulo '+(c.modulo||''))),
+    docente:String(c.docente||'Docente que registre')
+  };
+  if(c.nivel!=='Primaria')return base;
+  const a=c.nxqAcademico;
+  if(!a||a.fuente!=='LA240_BLOQUES'||
+     String(a.horarioId)!==String(c.horarioId))return base;
+  const alertas=Array.isArray(a.alertas)?a.alertas:[];
+  if(alertas.length)return {
+    ...base,docente:'Horario académico: requiere revisión'
+  };
+  const materia=a.materia
+    ?String(a.materia)+(a.vigenciaAcreditada===true
+      ?'':' · horario referencial')
+    :base.materia;
+  let docente=a.docenteProgramado
+    ?'Programado: '+String(a.docenteProgramado)
+    :'Docente programado por verificar';
+  const vista=la30UI.vistas.get(la30ClaveClase_(c));
+  if(vista&&vista.success&&vista.clase&&
+     String(vista.clase.horarioId)===String(c.horarioId)&&
+     a.estado==='CONFIRMADO'&&a.docenteRegistrante){
+    try{
+      if(la30Clasificar_(vista).tipo==='CONFIRMADO')
+        docente+=' · Registró: '+String(a.docenteRegistrante);
+    }catch(_){}
+  }
+  return {materia,docente};
+}
 function la30PintarTablaGrupo_(grupo,errores=new Map()){
   const gid=String(grupo.id),nivel=String(grupo.nivel);
   const clases=la30UI.agenda.filter(c=>c.nivel===nivel&&String(c.grupoId)===gid);
@@ -2866,8 +2897,9 @@ function la30PintarTablaGrupo_(grupo,errores=new Map()){
   let confirmados=0,sinPase=0,revisiones=0,ausencias=0,retardos=0,puerta=0;
   for(const c of clases){
     const tr=document.createElement('tr');
-    const bloque=document.createElement('td');bloque.textContent=`${c.inicio||''}–${c.fin||''} · ${c.materia||('Módulo '+(c.modulo||''))}`;
-    const docente=document.createElement('td');docente.textContent=c.docente||'Docente que registre';
+    const rotulos=nxq39RotulosSupervision_(c);
+    const bloque=document.createElement('td');bloque.textContent=`${c.inicio||''}–${c.fin||''} · ${rotulos.materia}`;
+    const docente=document.createElement('td');docente.textContent=rotulos.docente;
     const estado=document.createElement('td'),conteos=document.createElement('td'),accion=document.createElement('td');
     const v=la30UI.vistas.get(la30ClaveClase_(c));
     let tipo='NO_CONSULTADO',r=null;
