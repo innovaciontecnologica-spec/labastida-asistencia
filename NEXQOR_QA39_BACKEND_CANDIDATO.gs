@@ -11,16 +11,23 @@
  */
 
 function nxq39AcademicoDireccion_(ss, sesion, fecha, dia, clases) {
-  if (!sesion ||
-      !['general', 'direccion'].includes(sesion.rol)) {
-    return clases;
-  }
+  // Respetar el ambito de nivel de la sesion original.
+  // No concede permisos: la231Clases_ debe autorizar
+  // la sesion antes de llamar a este enriquecimiento.
+  const autorizado = !!sesion && (
+    sesion.rol === 'general' ||
+    (
+      sesion.rol === 'direccion' &&
+      (
+        sesion.perfilPersonalizado
+          ? Array.isArray(sesion.niveles) &&
+            sesion.niveles.includes('Primaria')
+          : sesion.nivel === 'Primaria'
+      )
+    )
+  );
 
-  if (sesion.perfilPersonalizado &&
-      (!Array.isArray(sesion.permisos) ||
-       !sesion.permisos.includes('pases'))) {
-    return clases;
-  }
+  if (!autorizado) return clases;
 
   if (!clases.some(c => c && c.nivel === 'Primaria')) {
     return clases;
