@@ -1,0 +1,43 @@
+/* Gestión de alumnos 2.4.2: estilos aislados, sin fuentes o servicios externos. */
+.la242{--la242-accent:var(--oro,#c9a65e);min-width:0}
+.la242 [hidden]{display:none!important}
+.la242 .la242-head{align-items:flex-start;margin-bottom:10px}
+.la242 .la242-head h2{font-size:clamp(25px,3vw,34px);letter-spacing:-.035em;margin:3px 0;color:var(--azul,#102c53)}
+.la242-eyebrow{font-size:10px;letter-spacing:.14em;font-weight:800;color:#92713e}
+.la242 .status{margin:0 0 18px;font-size:13px;line-height:1.65}
+.la242-message{padding:14px 17px;margin:14px 0;border:1px solid #bfd8d0;background:#eef8f4;color:#165742;border-radius:12px;overflow-wrap:anywhere}
+.la242-error{border-color:#e2c1b6;background:#fff5ef;color:#7b351d}
+.la242 .la242-pending{border:2px solid #b47927;background:#fffaf0}
+.la242-pending code{display:inline-block;max-width:100%;overflow-wrap:anywhere;padding:5px 8px;background:#fff;border-radius:5px;color:#663c0b;font-size:12px}
+.la242-modes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;border:0;padding:0;margin:24px 0 18px}
+.la242-modes legend{font-size:14px;color:var(--azul,#102c53);font-weight:750;margin-bottom:10px}
+.la242-mode{display:flex;align-items:center;gap:12px;min-height:62px;padding:16px;border:1px solid var(--borde,#dfe6f1);border-radius:13px;background:white;cursor:pointer;box-shadow:0 3px 14px #17344d07}
+.la242-mode:has(input:checked){border-color:#aa8145;background:#f9f4eb;box-shadow:inset 0 0 0 1px #aa8145}
+.la242 input[type=radio],.la242 input[type=checkbox]{width:19px;min-width:19px;height:19px;padding:0;margin:1px 0;accent-color:var(--azul,#102c53)}
+.la242-check{display:flex;align-items:flex-start;gap:11px;font-weight:500;line-height:1.6;margin:18px 0;color:#344b62}
+.la242-check span{flex:1}
+.la242-destination{border:0;padding:0;margin:20px 0 8px;min-width:0}
+.la242-destination legend{font-size:14px;font-weight:750;color:var(--azul,#102c53);margin-bottom:10px}
+.la242-select-grid{display:grid;grid-template-columns:1fr .75fr 1.35fr;gap:13px}
+.la242 .field{min-width:0}
+.la242 input:disabled,.la242 select:disabled,.la242 textarea:disabled{background:#f2f4f7;color:#63758a}
+.la242 input:focus-visible,.la242 select:focus-visible,.la242 textarea:focus-visible,.la242 button:focus-visible{outline:3px solid #b58d49;outline-offset:3px}
+.la242 .btn{min-height:45px}
+.la242 .btn:disabled{opacity:.55;cursor:not-allowed}
+.la242-search-form .formgrid{grid-template-columns:1.4fr 1fr 1.2fr}
+.la242-table caption{text-align:left;font-size:13px;font-weight:700;padding:13px 0;color:var(--azul,#102c53)}
+.la242-table td{overflow-wrap:anywhere}
+.la242-pagination{justify-content:flex-end}
+.la242-selected{border-left:3px solid var(--la242-accent);border-radius:5px;background:#f7f9fc;padding:13px 15px;margin-top:18px;color:var(--azul,#102c53)}
+.la242 .la242-selected p{margin:4px 0 0;font-size:13px}
+.la242 .la242-preview{border-top:4px solid var(--la242-accent);scroll-margin-top:110px}
+.la242-summary{display:grid;grid-template-columns:minmax(130px,.8fr) minmax(0,2fr);margin:18px 0 12px;gap:0}
+.la242-summary dt,.la242-summary dd{padding:11px 9px;border-bottom:1px solid #e8edf3;margin:0;overflow-wrap:anywhere;line-height:1.55}
+.la242-summary dt{font-weight:650;font-size:12px;color:#617287;background:#fafbfd}
+.la242-summary dd{color:#203a54;font-size:14px}
+.la242-warnings{padding:0 0 0 23px;color:#805812;line-height:1.6;font-size:13px}
+.la242-warnings:empty{display:none}
+.la242-footnote{line-height:1.7;padding:0 4px;margin:18px 0}
+@media(max-width:1000px){.la242-search-form .formgrid{grid-template-columns:1fr 1fr}.la242-search-form .field:first-child{grid-column:1/-1}}
+@media(max-width:650px){.la242 .la242-head{flex-direction:column;align-items:stretch}.la242-modes,.la242-select-grid,.la242-search-form .formgrid{grid-template-columns:1fr}.la242-search-form .field:first-child{grid-column:auto}.la242 .buttonrow>.btn{flex:1;min-width:160px}.la242-summary{grid-template-columns:1fr}.la242-summary dt{border-bottom:0;padding-bottom:3px}.la242-summary dd{padding-top:3px}.la242 .la242-preview{scroll-margin-top:85px}}
+@media(prefers-reduced-motion:reduce){.la242 *{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
