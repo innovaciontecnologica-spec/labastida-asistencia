@@ -2474,8 +2474,8 @@ function la237TabInicial_(){
   const orden=u.superadmin===true?['nexqor']:
     u.rol==='acceso'?['entradas','semaforo']:
     u.rol==='docente'?['asistencia','semaforo']:
-    ['resumen','asistencia','entradas','semaforo'];
-  return orden.find(nombre=>la20TabPermitida_(nombre))||null;
+['resumen','asistencia','entradas','semaforo','alumnos'];  
+   return orden.find(nombre=>la20TabPermitida_(nombre))||null;
 }
 function la237ActualizarIdentidad_(){
   const master=state.user?.superadmin===true;
