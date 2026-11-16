@@ -7,7 +7,11 @@
   const VERSION = '2.4.2-gestion-alumnos';
   const STORAGE_PREFIX = 'labastida242.pendiente.v1:';
   const PAYLOAD_FIELDS = ['operacion', 'fecha', 'nombre', 'matricula', 'grupoId', 'alumnoId', 'motivo', 'confirmarHomonimos'];
-  const canManage = user => Boolean(user && user.rol === 'general' && user.perfilPersonalizado !== true);
+  const canManage = user => Boolean(user && (
+    (user.rol === 'general' && user.perfilPersonalizado !== true) ||
+    (user.rol === 'direccion' && user.perfilPersonalizado === true && Array.isArray(user.permisos) &&
+      user.permisos.includes('gestion_alumnos') && Array.isArray(user.niveles) && user.niveles.length > 0)
+  ));
   const validRequestId = value => typeof value === 'string' && /^[A-Za-z0-9_-]{12,120}$/.test(value);
   function normalizeGrade(value) {
     const normalized=String(value??'').trim().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toUpperCase().replace(/[.°ºª\s_-]/g,'');
@@ -145,7 +149,7 @@
     host.classList.add('la242');
     const refreshButton = button('la242-refresh', 'Actualizar catálogo');
     const title = node('div', { class: 'subhead la242-head' },
-      node('div', {}, node('div', { class: 'la242-eyebrow', text: 'DIRECCIÓN GENERAL · CONTROL DE MATRÍCULA' }),
+      node('div', {}, node('div', { class: 'la242-eyebrow', text: 'DIRECCIÓN AUTORIZADA · CONTROL DE MATRÍCULA' }),
         node('h2', { text: 'Gestión de alumnos' }), node('p', { text: 'Altas y cambios de salón del ciclo vigente, con revisión y registro de cada movimiento.' })), refreshButton);
     const service = node('div', { id: 'la242-service', class: 'status', role: 'status', text: 'Consulta el estado del módulo para comenzar.' });
     const message = node('div', { id: 'la242-message', class: 'la242-message', 'aria-live': 'polite', hidden: true });
